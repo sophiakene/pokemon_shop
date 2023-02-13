@@ -1,0 +1,15 @@
+Bulbasaur: grass, poison
+Charmander: fire
+Squirtle: water
+Pikachu: electric
+Nidoqueen: poison, ground
+Slowpoke: water, psychic
+Psyduck: water
+Mewtwo: psychic
+Diglett: ground
+Voltorb: electric, grass
+Onix: rock, ground
+Meowth: normal
+Scyther: bug, flying
+Ditto: normal
+Dragonite: dragon, flying
