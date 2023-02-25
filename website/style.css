@@ -1,0 +1,8 @@
+.logOrSign{
+    float: left;
+    width: 30%;
+    background-color: gray;
+    border: 30px solid black;
+    border-color: white;
+    align-items: center;
+}
