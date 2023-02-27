@@ -1,0 +1,15 @@
+Bulbasaur: grass, poison; 0.7m
+Charmander: fire; 0.6m
+Squirtle: water; 0.5m
+Pikachu: electric; 0.4m
+Nidoqueen: poison, ground; 1.3m
+Slowpoke: water, psychic; 1.2m
+Psyduck: water; 0.8m
+Mewtwo: psychic; 2.0m
+Diglett: ground; 0.2m
+Voltorb: electric, grass; 0.5m
+Onix: rock, ground; 8.8m
+Meowth: normal; 4.2m
+Scyther: bug, flying; 1.5m
+Ditto: normal; 0.3m
+Dragonite: dragon, flying; 2.2m
