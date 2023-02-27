@@ -10,9 +10,9 @@
 .footer-flexContainer {
     display: flex; /* Make flex layout context */
     justify-content: space-between; /* Distribution of space w.r.t. elements */
+    background-color: rgb(55, 55, 55);
     font-size:14pt;
     color:white;
-    background-color: rgb(55, 55, 55);
 }
 
 /* To overwrite the mail address color turning purple */

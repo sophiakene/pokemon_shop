@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="/website/javaScript/buildStandardElements.js"></script>
 </head>
 
 <body>
@@ -25,12 +26,9 @@
             </div>
         </div>
     </div>
-    
-    <footer>
-        <div class="footer-flexContainer">
-            <a class="footer-flexItem" href="mailto:poke@shop.com">poke@shop.com</a>
-            <div>Poké Valley 42, Los Angeles</div>
-        </div>
-    </footer>
+
+    <script>
+        document.body.onload = makeFooter()
+    </script>
 </body>
 </html>
