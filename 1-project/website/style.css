@@ -15,15 +15,20 @@ html, body {
     display: flex; 
     flex-direction: column;
     justify-content: space-between;
-    /*align-items: center; */
+    align-items: center;
 }
 
 .grayContainer {
     display: flex;
     flex-direction: column;
     background-color: rgb(191, 191, 191);
-    height: 90%; /*200pt; /* should be changed to be adaptive */
-    width: 90%;
+   /* height: 90%; /* /*200pt; /* should be changed to be adaptive */
+    /*width: 90%; */
+}
+
+#checkoutButton {
+    /*width: 90%; */
+    font-size: 20pt;
 }
 
 .personalInfo {
@@ -32,11 +37,6 @@ html, body {
     font-weight: 400;
     font-size: 20pt;
     line-height: 48px;
-}
-
-#checkoutButton {
-    width: 100%;
-    font-size: 20pt;
 }
 
 /*** To be used across multiple pages ***/
