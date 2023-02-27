@@ -7,6 +7,47 @@
     align-items: center;
 }
 
+html, body {
+    height: 99%; /* Use full page for elements*/
+}
+
+.alignBox {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    /*align-items: center; */
+}
+
+.grayContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(191, 191, 191);
+    height: 90%; /*200pt; /* should be changed to be adaptive */
+    width: 90%;
+}
+
+.personalInfo {
+    margin-left: 5px;
+    text-align: left;
+    font-weight: 400;
+    font-size: 20pt;
+    line-height: 48px;
+}
+
+#checkoutButton {
+    width: 100%;
+    font-size: 20pt;
+}
+
+/*** To be used across multiple pages ***/
+
+.redButton {
+    background-color: rgb(233, 74, 74);
+    color: white;
+    text-align: center;
+    border-color: black;
+}
+
 .footer-flexContainer {
     display: flex; /* Make flex layout context */
     justify-content: space-between; /* Distribution of space w.r.t. elements */
