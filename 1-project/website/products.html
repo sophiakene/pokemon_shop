@@ -8,6 +8,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" href="./style.css"> -->
+  <script src="./data/pokemon.js"></script>
+
+  <!-- <script src="./javaScript/buildStandardElements.js"></script> -->
+
     <title>Products</title>
   
     <script>
@@ -17,6 +22,7 @@
 
     
 
+    <!-- navbar html starts here-->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">PokéShop</a>
@@ -39,24 +45,17 @@
                     </li>
                 </ul>
             </div>
-            <!-- <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="shopping_cart.html">Shopping Cart</a>
-                    </li>
-                </ul>
-            </div> -->
         </div>
     </nav>
+    <!-- navbar html ends here-->
 
+    
     <!-- h-100 takes the full height of the body-->
     <div class="container-fluid h-100">
         <!-- h-100 takes the full height
                 of the container-->
         <div class="row h-100">
+            <!-- sidebar html begins here -->
             <div class="col-3" id="green">
                 <div class="container">
                     <div class="row justify-content-start">
@@ -142,135 +141,22 @@
                             </div>
                         </div>
                     </div> 
-
-
-                    
-
-
-               
                 </div>
         </div> 
-        
-            <div class="col-9" style="padding: 0;">
+        <!-- sidebar html ends here -->
 
-                <h2>Pokémon</h2>
-                
-                <div class="card mb-3" style="max-width: 1000px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-3">
-                        <img src="../poke-images/bulbasaur.jpg" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-6">
-                        <div class="card-body">
-                          <h5 class="card-title">Bulbasaur</h5>
-                          <p class="card-text">Your new best friend. A basic grass pokemon who will follow you through thick and thin.</p>
-                          <p class="card-text">Price: 10000kr.</p>
-                        </div>
-                      </div>
-                      <div class="col-md-3 mt-auto">
-                        <div class="card-body">
-                          <a href="#" class="btn btn-danger">Add to shopping cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                
+        <!-- listing of available pokemon starts here -->
+        <div class="col-9" style="padding: 0;" id="card_box">
 
-                  <div class="card mb-3" style="max-width: 1000px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-3">
-                        <img src="../poke-images/charmander.avif" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-6">
-                        <div class="card-body">
-                          <h5 class="card-title">Charmander</h5>
-                          <p class="card-text">Your new best friend!</p>
-                          <p class="card-text">Price: 10000kr.</p>
-                        </div>
-                      </div>
-                      <div class="col-md-3 mt-auto">
-                        <div class="card-body">
-                          <a href="#" class="btn btn-primary">Add to shopping cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                <!-- add mx-auto to center -->
-                  <div class="card mb-3" style="max-width: 1000px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-3">
-                        <img src="../poke-images/diglett.avif" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-6">
-                        <div class="card-body">
-                          <h5 class="card-title">Diglett</h5>
-                          <p class="card-text">Your new best friend!</p>
-                          <p class="card-text">Price: 10000kr.</p>
-                        </div>
-                      </div>
-                      <div class="col-md-3 mt-auto">
-                        <div class="card-body">
-                          <a href="#" class="btn btn-primary">Add to shopping cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="../poke-images/dragonite.avif" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">Dragonite</h5>
-                          <p class="card-text">Your new best friend!</p>
-                          <a href="#" class="btn btn-primary">Add to shopping cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="../poke-images/nidoqueen.avif" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">Dragonite</h5>
-                          <p class="card-text">Your new best friend!</p>
-                          <a href="#" class="btn btn-primary">Add to shopping cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="../poke-images/psyduck.avif" class="card-img" alt="...">
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">Dragonite</h5>
-                          <p class="card-text">Your new best friend!</p>
-                          <a href="#" class="btn btn-primary">Add to shopping cart</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
+            <h2>Pokémon</h2>
 
+            <!---->
+            <script>
+            pokemon_all.forEach(item => createCard(item, 'card_box'))
+            </script>
 
-
-
-
-
-
-            </div>
-
+        </div>
+        </div>
 
     <!-- <div class="wrapper">
         <nav id="sidebar">
@@ -339,10 +225,10 @@
         </div>
       </div> -->
 
+      <!-- <script>
+        document.body.onload = makeFooter()
+      </script> -->
     
   </body>
-  <script>
-    
-  </script>
 
 </html>
