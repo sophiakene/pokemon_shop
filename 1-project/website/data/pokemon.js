@@ -11,8 +11,9 @@ const pokemon_all = [
 pokemon_cart = []
 
 
-//in the products page, each pokemon is listed as a card created by this function.
-//takes an element id and a single pokemon object as input and appends the html before the element ends. See example of how to call it in product.html
+// In the products page, each pokemon is listed as a card created by this function.
+// Takes an element id and a single pokemon object as input and appends the html before the element ends. 
+// See example of how to call it in product.html
 function createCard(pokemon, elm_id) {
 
     // I was too lazy to change format of the Bulbasaur image
@@ -21,12 +22,11 @@ function createCard(pokemon, elm_id) {
       img_path = "../poke-images/" + pokemon.name.toLowerCase() + ".jpg";
     }
     else {
-
       img_path = "../poke-images/" + pokemon.name.toLowerCase() + ".avif";
     }
     console.log(pokemon)
 
-    //row no-gutters make it so the card becomes horizontal instead of vertical
+    // Row no-gutters make it so the card becomes horizontal instead of vertical
     document.getElementById(elm_id).insertAdjacentHTML("beforeend",
       `
       <div class="card mb-3" style="max-width: 1000px;">
@@ -51,18 +51,17 @@ function createCard(pokemon, elm_id) {
       `)
   }
   
-  function addToShoppingCart(x) {
+  function addToShoppingCart(pokemonName) {
     console.log("inside addToShoppingCart:")
-    console.log("the pokemon added is", x)
+    console.log("the pokemon added is", pokemonName)
 
     cart = JSON.parse(localStorage.getItem("cart") || "[]")
 
-    const isName = (element) => element.name == x
+    const isName = (element) => element.name == pokemonName
     let index = cart.findIndex(isName)
     
     if (index < 0) {
-
-      cart.push({"name":x, "amount":1})
+      cart.push({"name": pokemonName, "amount":1})
       localStorage.setItem("cart", JSON.stringify(cart) )
     }
     else {
@@ -71,7 +70,6 @@ function createCard(pokemon, elm_id) {
     }
 
     console.log(cart)  
-   
   }
 
 
