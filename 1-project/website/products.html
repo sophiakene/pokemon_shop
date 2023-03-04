@@ -60,7 +60,7 @@
                 <div class="container">
                     <div class="row justify-content-start">
                         <div class="col-5">
-                            <h4>Filter by</h4>
+                            <h4>Browse</h4>
                         </div>
                     </div>       
                     <div class="row justify-content-center">
@@ -71,7 +71,20 @@
                     
                     <div class="row justify-content-end">
                         <div class="col-10">
-                            <div class="form-check">
+                            <div class="typebuttons">
+                                <div class="typebuttons btn-group-vertical" >
+                                    <button type="button" id="grass" class="btn btn-success" value="grass" onclick="">Grass</button>
+
+                                    <button type="button" id="fire" class="btn btn-danger">Fire</button>
+
+                                    <button type="button" id="water" class="btn btn-primary">Water</button>
+
+                                    <button type="button" id="rock" class="btn btn-secondary">Rock</button>
+
+                                    <button type="button" id="normal" class="btn" style="background-color:#a8a77a!important; color: #fff">Normal</button>
+                                </div>
+                            </div>
+                            <!-- <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="grass">
                                 <label class="form-check-label" for="flexCheckDefault">
                                 Grass
@@ -83,7 +96,7 @@
                                 <label class="form-check-label" for="flexCheckDefault">
                                 Fire
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
                     </div> 
 
@@ -153,6 +166,7 @@
             <!---->
             <script>
             pokemon_all.forEach(item => createCard(item, 'card_box'))
+            browse()
             </script>
 
         </div>
