@@ -5,106 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="code.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="./js/login_functions.js"></script>
+    <script src="./js/buildStandardElements.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body onload="makeFooter()">
   <header>
     <p>---placeholder for header/navbar---</p>
   </header>
 
-  
   
   <div class="container-fluid">
     <div class="row h-100">
   <div class="col-md-2 login-form"></div>
 
   <div class="col-md-4 login-form">
+    <h2>Already registered?</h2>
   <form>
     <div class="form-group">
-      <input type="text" class="form-control" name="username" placeholder="Username">
+      <input type="text" class="form-control" name="username" placeholder="Username" id="oldUsername">
     </div>
     <div class="form-group">
       <input type="text" class="form-control" name="password" placeholder="Password">
     </div>
     <div class="form-group">
-      <button type="button" class="btn btn-primary btn-lg btn-block">Sign In</button>
-      <div class="google_signup">
-          <a href="#"><i class="lni lni-google"></i> <span>Sign in with Google</span></a>
-      </div>
-    </div>
-    <div class="form-group other_auth_links">
-        <a class="" href="https://procraft.studio">Forgot Password?</a>
-        <a class="" href="https://procraft.studio">Register</a>
+      <button type="button" class="btn btn-primary btn-lg btn-block" onclick="storeOldName()">Log In</button>
     </div>
   </form>
 </div>
 
 <div class="col-md-4 login-form">
+  <h2>New here?</h2>
   <form>
     <div class="form-group">
-      <input type="text" class="form-control" name="username" placeholder="Username">
+      <input type="text" class="form-control" name="username" placeholder="New Username" id="newUsername">
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" name="password" placeholder="Password">
+      <input type="text" class="form-control" name="password" placeholder="New Password">
     </div>
-    <div class="form-group">
-      <button type="button" class="btn btn-primary btn-lg btn-block">Sign In</button>
-      <div class="google_signup">
-          <a href="#"><i class="lni lni-google"></i> <span>Sign in with Google</span></a>
+      <div class="form-group">
+        <input type="text" class="form-control" name="password" placeholder="Repeat Password">
       </div>
-    </div>
-    <div class="form-group other_auth_links">
-        <a class="" href="https://procraft.studio">Forgot Password?</a>
-        <a class="" href="https://procraft.studio">Register</a>
+      <div class="form-group">
+      <button type="button" class="btn btn-primary btn-lg btn-block" onclick="storeNewName()">Sign Up</button>
     </div>
   </form>
 </div>
-<div class="col-md-2 login-form"></div>
-</div>
 </div>
 
-
-
-    <div class="logOrSign">
-    <form id="login">
-        <div class="form-group">
-          <label for="loginMail">Email address</label>
-          <input type="email" class="form-control" id="loginMail" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="loginPassword">Password</label>
-          <input type="password" class="form-control" id="loginPassword" placeholder="Password">
-        </div>
-        <p> </p>
-        <button type="submit" class="btn btn-primary">Log in</button>
-        <p> </p>
-      </form>
-    </div>
-
-    <div class="logOrSign">
-    <form id="signUp">
-        <div class="form-group">
-          <label for="newMail">Email address</label>
-          <input type="email" class="form-control" id="newMail" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="newPassword">Password</label>
-          <input type="password" class="form-control" id="newPassword" placeholder="Password">
-        </div>
-
-        <div class="form-group">
-          <label for="passwordControl">Password</label>
-          <input type="password" class="form-control" id="passwordControl" placeholder="Repeat password">
-          <p id="spaceForError"></p>
-        </div>
-        <button onclick=checkPassword() type="submit" class="btn btn-primary">Sign up</button>
-      </form>
-    </div>
 </body>
 </html>
