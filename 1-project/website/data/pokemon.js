@@ -1,11 +1,28 @@
+const pokeTypes = {
+	grass: "grass",
+	poison: "poison",
+	fire: "fire",
+	water: "water",
+	electric: "electric",
+	ground: "Ground",
+	psychic: "psychic",
+	rock: "rock",
+	bug: "bug",
+	flying: "flying",
+	dragon: "dragon"
+}
+
+
 const pokemonAll = [
-    { name: "Bulbasaur", type: ["Grass", "Poison"], size: 0.7, price: 40000, info: "Your new best friend. A basic grass pokemon who will follow you through thick and thin" },
-    { name: "Charmander", type: ["Fire"], size: 0.6, price: 10000, info: "Your new best friend. A basic fire pokemon who will follow you through thick and thin" },
-    { name: "Squirtle", type: ["Water"], size: 0.5, price: 10000 },
-    { name: "Pikachu", type: ["Electric"], size: 0.4, price: 10000 },
-    { name: "Nidoqueen", type: ["Poison", "Ground"], size: 1.3, price: 20000 },
-    // need to add the rest   
+    { name: "Bulbasaur", type: [pokeTypes.grass, pokeTypes.poison], size: 0.7, price: 40000, info: "Your new best friend. A basic grass pokemon who will follow you through thick and thin" },
+    { name: "Charmander", type: [pokeTypes.fire], size: 0.6, price: 10000, info: "Your new best friend. A basic fire pokemon who will follow you through thick and thin" },
+    { name: "Squirtle", type: [pokeTypes.water], size: 0.5, price: 10000 },
+    { name: "Pikachu", type: [pokeTypes.electric], size: 0.4, price: 10000 },
+    { name: "Nidoqueen", type: [pokeTypes.poison, pokeTypes.ground], size: 1.3, price: 20000 },
+    // need to add the rest and come up with more "info"
 ]
+
+
 
 
 const pokeColours = {
