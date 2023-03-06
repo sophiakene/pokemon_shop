@@ -4,7 +4,7 @@ const pokeTypes = {
 	fire: "fire",
 	water: "water",
 	electric: "electric",
-	ground: "Ground",
+	ground: "ground",
 	psychic: "psychic",
 	rock: "rock",
 	bug: "bug",

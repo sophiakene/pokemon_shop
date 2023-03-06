@@ -43,9 +43,12 @@ function createCard(pokemon, elmId) {
 
   // listening for each type button click and filtering accordingly
   function browse(){
-    const btns = document.querySelectorAll(".typebuttons button");
-    console.log("number of buttons found: ", btns.length)
-    for (i of btns) {
+    const typeButtons = document.querySelectorAll(".type-buttons button");
+    const sizeButtons = document.querySelectorAll(".size-buttons button");
+    console.log("number of typebuttons found: ", typeButtons.length)
+    console.log("number of sizebuttons found: ", sizeButtons.length)
+
+    for (i of typeButtons) {
         i.addEventListener('click', function() {
             let pokemonFiltered = pokemonAll.filter(pokemon => pokemon.type.includes(this.value))
             document.getElementById("cards").innerHTML = ""
@@ -53,7 +56,22 @@ function createCard(pokemon, elmId) {
             displayCards(pokemonFiltered, 'cards')
 
         })
-        }}
+    }
+    for (i of sizeButtons) {
+      i.addEventListener('click', function() {
+          let pokemonFiltered = pokemonAll.filter(pokemon => pokemon.type.includes(this.value))
+          document.getElementById("cards").innerHTML = ""
+          console.log(pokemonFiltered)
+          displayCards(pokemonFiltered, 'cards')
+
+      })
+  }}
+
+  function getSize(pokemon){
+    switch (pokemon.size) {
+      case 
+    }
+  }
   
   function addToShoppingCart(pokemonName) {
     console.log("inside addToShoppingCart:")
@@ -73,3 +91,5 @@ function createCard(pokemon, elmId) {
     localStorage.setItem("cart", JSON.stringify(cart))
     console.log(cart)
   }
+
+  function displayTypeButtons(){}

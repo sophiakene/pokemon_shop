@@ -71,7 +71,8 @@ a:focus {
     color: #fff; */
     /* the time it takes to collapse and expand*/
     transition: all 0.3s;
-    position: sticky;
+    /* position: sticky; */
+    
 }
 
 #sidebar.active {
@@ -83,6 +84,14 @@ a:focus {
     /* background: #6d7fcc; */
 
 }
+
+#sidebarCollapse {
+    writing-mode: vertical-lr;
+    color: #fff;
+    font-size: large;
+}
+
+
 
 /* #sidebar ul.components {
     padding: 20px 0;
