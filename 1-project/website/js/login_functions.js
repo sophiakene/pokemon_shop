@@ -31,6 +31,10 @@ function showName() {
     // }
 }
 
+function goToStart() {
+    window.location.href = "./index.html"
+}
+
 
 
 // more functions we might need (later):
