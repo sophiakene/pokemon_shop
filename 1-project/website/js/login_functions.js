@@ -5,27 +5,30 @@ function checkPassword() {
     }
 }
 
-function storeNewName() {
-    let newName = document.getElementById("newUsername");
-    localStorage.setItem("newName", newName.value);
-    alert(newName.value)
+function storeName() {
+    let newName = document.getElementById("username");
+    sessionStorage.setItem("newName", newName.value);
         }
 
-function storeOldName() {
-    let oldName = document.getElementById("oldUsername");
-    localStorage.setItem("oldName", oldName.value);
-    alert(oldName.value)
-        }
+//function storeOldName() {
+//    let oldName = document.getElementById("oldUsername");
+//    sessionStorage.setItem("oldName", oldName.value);
+//       }
 
 function showName() {
     // check if new user name first
-    if (newName !== undefined) {
-        document.getElementById("nameField").innerHTML = newName
+    const name = sessionStorage.newName
+    //const oldName = sessionStorage.oldName
+
+    if (name !== undefined) {
+        console.log("name", name)
+        document.getElementById("welcomeHeader").innerHTML = "Welcome back to" + "<br />" + "PokéShop, " + name + "!"
     }
-    // if it's undefined, check if old user name is available
-    else if (oldName !== undefined) {
-        document.getElementById("nameField").innerHTML = oldName
-    }
+    //
+    // if it's undefined, check if old user name is available 
+    //else if (oldName !== undefined) { 
+    //    document.getElementById("welcomeHeader").innerHTML = "Welcome back to PokéShop, " + oldName + "!"
+    // }
 }
 
 
