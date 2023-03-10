@@ -8,12 +8,12 @@ function checkPassword() {
 function storeName() {
     let newName = document.getElementById("username");
     sessionStorage.setItem("newName", newName.value);
+    if (newName.value.length == 0) {
+        console.log("here")
+        let newName = document.getElementById("newUsername");
+        sessionStorage.setItem("newName", newName.value);    
+    }    
         }
-
-//function storeOldName() {
-//    let oldName = document.getElementById("oldUsername");
-//    sessionStorage.setItem("oldName", oldName.value);
-//       }
 
 function showName() {
     // check if new user name first
@@ -21,7 +21,7 @@ function showName() {
     //const oldName = sessionStorage.oldName
 
     if (name !== undefined) {
-        console.log("name", name)
+
         document.getElementById("welcomeHeader").innerHTML = "Welcome back to" + "<br />" + "PokéShop, " + name + "!"
     }
     //
