@@ -55,7 +55,7 @@ function browse(){
       i.addEventListener('click', function() {
           let pokemonFiltered = pokemonAll.filter(pokemon => pokemon.type.includes(this.value))
           document.getElementById("cards").innerHTML = ""
-          console.log(pokemonFiltered)
+          // console.log(pokemonFiltered)
           displayCards(pokemonFiltered, 'cards')
 
       })
@@ -64,7 +64,7 @@ function browse(){
     i.addEventListener('click', function() {
         let pokemonFiltered = pokemonAll.filter(pokemon => getSize(pokemon) === this.value)
         document.getElementById("cards").innerHTML = ""
-        console.log(pokemonFiltered)
+        // console.log(pokemonFiltered)
         displayCards(pokemonFiltered, 'cards')
 
     })
@@ -105,7 +105,7 @@ function addToShoppingCart(pokemonName) {
     cart[index].amount++
   }
   localStorage.setItem("cart", JSON.stringify(cart))
-  console.log(cart)
+  // console.log(cart)
 }
 
 function displayTypeButtons(elmID){
