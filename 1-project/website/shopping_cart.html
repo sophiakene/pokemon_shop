@@ -6,28 +6,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+
     <script src="./js/buildStandardElements.js"></script>
+
+    <script src="js/shopping_cart.js"></script>
+    <script src="data/pokemon.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <header>
-        <p>---placeholder for header/navbar---</p>
-    </header>
+    <!-- navbar inserted by calling makeNavBar()-->
+
 
     <!-- Bootstrap's .container-fluid stacks rows when screen <768px -->
     <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center">
+            <div class="col-sm-8 mt-5" id="shopping-cart-title"></div>
+        </div>
+        <div class="row justify-content-center">
+            
             <!-- Contains products chosen to buy -->
-            <div class="col-sm-8">
-                    <div class="card" id="1-card" width="max">item 1</div>
-                    <div class="card" id="2-card">item 2</div>
-                    <div class="card" id="3-card">item 3</div>
+            <div class="col-sm-6 mt-3"  id="basket-cards">
+                    <!-- cart content inserted by calling function displayBasketCards()-->
             </div>
+          
+            <div class="col-sm-2 mt-3">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">Summary</h5>
+                    <!-- Actual summary info inserted by calling displaySummary()-->
+                    <p class="card-text" id="summary-items"></p>
+                    <p class="card-text" id="summary-total"></p>
+                    <a href="#" class="btn btn-danger btn-block">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        makeNavBar()
+        displayBasketCards("basket-cards")
+        displaySummary("summary-items", "summary-total")
+        // document.body.onload = makeFooter()
+    </script>
+
+</body>
+</html>
+
+
+                    <!-- <div class="card" id="1-card" width="max">item 1</div>
+                    <div class="card" id="2-card">item 2</div>
+                    <div class="card" id="3-card">item 3</div> -->
+            <!-- </div> -->
             <!-- Contains Personal info, Total amount, Proceed to Checkout button -->
-            <div class="col-sm-4">
-                <div class="alignBox">
+            
+                <!-- <div class="alignBox">
                     <div class="grayContainer" >
                         <h4 class="personalInfo">Personal info</h4>
                         <h5 class="personalInfo" id="userName">Name: </h5>
@@ -38,13 +82,7 @@
                     <div id='checkoutButton'>
                         <a href="#"><button class='redButton'>Proceed to checkout</button></a>
                     </div>
-               </div>
-            </div>
-        </div>
-    </div>
+               </div> -->
+            
 
-    <script>
-        document.body.onload = makeFooter()
-    </script>
-</body>
-</html>
+    

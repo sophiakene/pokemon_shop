@@ -59,7 +59,7 @@ a:focus {
 #card-box {
     /* using z-index and position to move cards behind expanded sidebar on small screens */
     position: relative;
-    z-index: -1;
+    z-index: 1;
 }
 
 #sidebar {
@@ -71,6 +71,7 @@ a:focus {
     color: #fff; */
     /* the time it takes to collapse and expand*/
     transition: all 0.3s;
+    z-index: 20;
     /* position: sticky; */
     
 }
@@ -89,6 +90,7 @@ a:focus {
     writing-mode: vertical-lr;
     color: #fff;
     font-size: large;
+    z-index: 20
 }
 
 

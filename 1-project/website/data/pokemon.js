@@ -9,7 +9,8 @@ const pokeTypes = {
 	rock: "rock",
 	bug: "bug",
 	flying: "flying",
-	dragon: "dragon"
+	dragon: "dragon",
+	normal: "normal"
 }
 
 

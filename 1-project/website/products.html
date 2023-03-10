@@ -10,8 +10,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="./css/products.css">
 
+
   <!--for bootstrap icons-->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -19,41 +19,13 @@
   <script src="data/pokemon.js"></script>
 
 
-  <!-- <script src="./javaScript/buildStandardElements.js"></script> -->
+  <script src="./js/buildStandardElements.js"></script>
 
     <title>Products</title>
   
   </head>
   <body>
 
-    
-
-    <!-- navbar html starts here-->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">PokéShop</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="products.html">Products</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="shopping_cart.html">Shopping Cart</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar html ends here-->
 
 
     <!-- .container introduces extra padding or margins that I don't want -->
@@ -80,32 +52,12 @@
                         
                         <div class="row justify-content-end">
                             <div class="col-10">
-                                <div class="type-buttons">
-                                    <div class="type-buttons btn-group-vertical" >
-                                        <button type="button" id="grass" class="btn btn-success" value="grass">Grass</button>
-    
-                                        <button type="button" id="fire" class="btn btn-danger" value="fire">Fire</button>
-    
-                                        <button type="button" id="water" class="btn btn-primary" value="water">Water</button>
-    
-                                        <button type="button" id="rock" class="btn btn-secondary" value="rock">Rock</button>
-    
-                                        <button type="button" id="normal" class="btn" value="normal" style="background-color:#a8a77a!important; color: #fff">Normal</button>
+                                <div class="typebuttons">
+                                    <div class="typebuttons btn-group-vertical" id="type-buttons">
+                                        
                                     </div>
                                 </div>
-                                <!-- <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="grass">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    Grass
-                                    </label>
-                                </div>
-            
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id=fire">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    Fire
-                                    </label>
-                                </div> -->
+                                
                             </div>
                         </div> 
     
@@ -119,30 +71,18 @@
                             <div class="col-10">
                                 <div class="size-buttons">
                                     <div class="size-buttons btn-group-vertical" >
-                                        <button type="button" id="s" class="btn btn-light" value="s">S</button>
+                                        <button type="button" id="s" class="btn btn-secondary btn-outline" value="s">S</button>
     
                                         <button type="button" id="m" class="btn btn-light" value="m">M</button>
     
-                                        <button type="button" id="l" class="btn btn-light" value="l">L</button>
+                                        <button type="button" id="l" class="btn btn-secondary" value="l">L</button>
     
                                         <button type="button" id="xl" class="btn btn-light" value="xl">XL</button>
     
-                                        <button type="button" id="xxl" class="btn btn-light" value="xxl" >XXL</button>
+                                        <button type="button" id="xxl" class="btn btn-secondary" value="xxl" >XXL</button>
                                     </div>
                                 </div>
-                                <!-- <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="grass">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    XS
-                                    </label>
-                                </div>
-            
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id=fire">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    S
-                                    </label>
-                                </div> -->
+                                
                             </div>
                         </div> 
     
@@ -160,33 +100,37 @@
                             <div class="col-10">
                                 <h5>Price</h5>
                             </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-10">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="" id="ascending">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Ascending
+                                </label>
+                            </div>
+        
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  value="" id="descending">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Descending
+                                </label>
+                            </div>
                         </div> 
                        
                         
                         <div class="row justify-content-end">
                             <div class="col-10">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="" id="grass">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    Ascending
-                                    </label>
-                                </div>
-            
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  value="" id=fire">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    Descending
-                                    </label>
-                                </div>
+                                
+                            </div>
                             </div>
                         </div> 
                     </div>
 
                 </nav>
-                <button type="button" id="sidebarCollapse" class="btn bg-dark" writing-mode="ver
-                -rl">
+                <button type="button" id="sidebarCollapse" class="btn bg-dark">
                     <i class="fa fa-angle-double-left fa-3x fa-inverse"></i>
-                    Browse Menu
                 </button>
             </div>
             </div>
@@ -200,204 +144,172 @@
             </div>
         </div>
 
-        <script>
-            // pokemonAll.forEach(pokemon => createCard(pokemon, 'cards'))
-            displayCards(pokemonAll, 'cards')
 
+    
+<!-- 
+    <div class="outside-wrapper">
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Browse</h3>
+        </div>
+        <h5>Type</h5>
+        <div class="type-buttons">
+            <div class="type-buttons btn-group-vertical" id="type-buttons">
+
+            </div>
+        </div>
+    </nav>
+    <button type="button" id="sidebarCollapse" class="btn bg-dark btn-sm" writing-mode="ver
+    -rl">
+        <i class="fa fa-angle-double-left fa-3x fa-inverse"></i>
+        Browse Menu
+    </button>
+</div> -->
+
+
+    <!-- calling makeNavBar later inserts navbar here-->
+    <!-- <div class="container-fluid p-0">
+        <div class="row no-gutters h-100">
+            <div class="col-4">
+                <div class="wrapper">
+                    <nav id="sidebar">
+                        <div class="sidebar-header">
+                            <h3>Browse</h3>
+                        </div>
+                        <div class="row no-gutters justify-content-center">
+                            <div class="col-10">
+                                <h5>Type</h5>
+                            </div>
+                        </div>   
+                        
+                        <div class="row no-gutters justify-content-end">
+                            <div class="col-10">
+                                <div class="type-buttons">
+                                    <div class="type-buttons btn-group-vertical" id="type-buttons" > -->
+                                        <!-- buttons are inserted with function displayTypeButtons-->
+                                    <!-- </div>
+                                </div>
+                            </div>
+                        </div> 
+    
+                        <div class="row no-gutters justify-content-center">
+                            <div class="col-10">
+                                <h5>Size</h5>
+                            </div>
+                        </div>   
+                        
+                        <div class="row no-gutters justify-content-end">
+                            <div class="col-10">
+                                <div class="size-buttons">
+                                    <div class="size-buttons btn-group-vertical" >
+                                        <button type="button" id="s" class="btn btn-secondary btn-outline" value="s">S</button>
+    
+                                        <button type="button" id="m" class="btn btn-light" value="m">M</button>
+    
+                                        <button type="button" id="l" class="btn btn-secondary" value="l">L</button>
+    
+                                        <button type="button" id="xl" class="btn btn-light" value="xl">XL</button> -->
+    
+                                        <!-- <button type="button" id="xxl" class="btn btn-secondary" value="xxl" >XXL</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  -->
+                        <!-- <div class="sidebar-header">
+                                <h3>Sort by</h3>
+                            </div>
+                        </div>   -->
+                        <!-- <div class="row justify-content-center">
+                            <div class="col-10">
+                                <h5>Price</h5>
+                            </div>
+                        </div> 
+                        <div class="row justify-content-end">
+                            <div class="col-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="" id="ascending">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                    Ascending
+                                    </label>
+                                </div>
             
-                
-            browse()
-        </script>
-    <!-- </div> -->
-
-
-
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  value="" id="descending">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                    Descending
+                                    </label>
+                                </div>
+                            </div>
+                         </div>  -->
+                    <!-- </nav>
+                    <button type="button" id="sidebarCollapse" class="btn bg-dark btn-sm" writing-mode="ver
+                    -rl">
+                        <i class="fa fa-angle-double-left fa-3x fa-inverse"></i>
+                        Browse Menu
+                    </button>
+                </div>
+                </div>
+            </div>  -->
     <!-- <div class="container">
-    <div class="row">
-        Sidebar 
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
+        <h2>Pokémon</h2>
+            <div id="cards">
             </div>
-
-            <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </nav> -->
-
-        <!-- <a href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-                <span id="collapse-text" class="menu-collapsed">Collapse</span>
-            </div>
-        </a> -->
-
-        <!-- <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fa fa-angle-double-left fa-3x"></i>
-        </button> -->
-
-        <!-- listing of available pokemon starts here -->
-        <!-- <div class="col-9" style="padding: 0;" id="card-box">
-
-            <h2>Pokémon</h2>
-            
-
-            <script>
-            pokemonAll.forEach(item => createCard(item, 'card-box'))
-            browse()
-            </script>
-
-        </div> -->
-    <!-- </div> -->
-
     </div>
+</div> -->
+
+        <!-- <div class="col-8 mt-5" style="padding: 0;" id="card-box">
+            
+        </div>
+    </div> -->
+<!-- </div> -->
 
     <script>
+        makeNavBar();
+
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
         });
+
+        displayTypeButtons("type-buttons")
+        browse()
+        displayCards(pokemonAll, 'cards')
+        // makeFooter();
+
+        // Hide submenus
+// $('#body-row .collapse').collapse('hide'); 
+
+// // Collapse/Expand icon
+// $('#collapse-icon').addClass('fa-angle-double-left'); 
+
+// // Collapse click
+// $('[data-toggle=sidebar-colapse]').click(function() {
+//     SidebarCollapse();
+// });
+
+// function SidebarCollapse () {
+//     $('.menu-collapsed').toggleClass('d-none');
+//     $('.sidebar-submenu').toggleClass('d-none');
+//     $('.submenu-icon').toggleClass('d-none');
+//     $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+    
+//     // Treating d-flex/d-none on separators with title
+//     var SeparatorTitle = $('.sidebar-separator-title');
+//     if ( SeparatorTitle.hasClass('d-flex') ) {
+//         SeparatorTitle.removeClass('d-flex');
+//     } else {
+//         SeparatorTitle.addClass('d-flex');
+//     }
+    
+//     // Collapse/Expand icon
+//     $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
+// }
     </script>
 
 
-    </body>
+</body>
 
 
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Wiki</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Create New Page</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Random Page</a>
-            </li>
-          </ul>
-        </div>
-      </nav> -->
-      
-<!-- 
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">MENU <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">MENU</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">MENU</a>
-            </li>
-      
-          </ul>
-        </div>
-      </nav> -->
-
-
-    <!-- <nav class="navbar">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation2">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Algo</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">DS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Languages</a>
-            </li>
-        </ul>
-        </div>
-    </nav> -->
-
-    <!-- <div class="row">
-        <div class="col-3">
-        <nav class ="navbar bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#colp">
-        <span class="navbar-toggler-icon" style="background-color:darkblue;"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="colp">
-        <ul class ="nav navbar-nav">
-        <li class ="nav-item">
-        <a class ="nav-link" href="#"> Home </a>
-        </li>
-        <li class ="nav-item">
-        <a class ="nav-link" href="#"> Services </a>
-        </li>
-        <li class ="nav-item">
-        <a class ="nav-link" href="#"> Contact </a>
-        </li>
-        <li class ="nav-item">
-        <a class ="nav-link" href="#"> Blogs </a>
-        </li>
-        </ul>
-        </div>
-        </nav>
-        </div>
-        <div class="col-9">
-        <div class="container">
-        The Web Content in detail.
-        </div>
-        <div class ="container">
-        <p> The vertical menu can place the left or right side of the web pages. <br> But the default vertical menu placed on the left side. </P>
-        </div>
-        </div>
-        </div> -->
-
-    <!-- <nav class="nav flex-column">
-        <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#vertical"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="vertical">
-        <a class="nav-link active" href="#">Active</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link disabled" href="#">Disabled</a>
-            </div>
-        </div>
-      </nav> -->
     
