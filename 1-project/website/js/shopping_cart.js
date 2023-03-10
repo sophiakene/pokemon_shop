@@ -54,16 +54,36 @@ function removeFromCart(cardID){
   console.log("newCart: ", newCart)
   localStorage.setItem("cart", JSON.stringify(newCart))
   displaySummary("summary-items", "summary-total")
+
+  // if (newCart.length < 1) {
+
+  // }
 }
+
+// function createCartText(customerName, )
 
   
 function displayBasketCards(elmID) {
   cart = JSON.parse(localStorage.getItem("cart") || "[]")
 
+  const customerName = sessionStorage.newName
+  console.log("customerName is: ", customerName)
+  let cartEmptyText = ""
+  let cartContentText = ""
+  
+  if (customerName != undefined) {
+    cartEmptyText = "What are you waiting for, " + customerName + "! Go buy some pokemon!"
+    cartContentText = "Shopping cart contents for " + customerName
+  } 
+  else {
+    cartEmptyText = "What are you waiting for, go buy some pokemon!"
+    cartContentText = "Shopping cart contents"
+  }
+
   if (cart.length > 0) {
       document.getElementById("shopping-cart-title").insertAdjacentHTML("afterbegin", 
           `
-          <h1>Shopping cart contents</h1>
+          <h1>${cartContentText}</h1>
           `) 
       cart.forEach(cartPokemon => {
           pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
@@ -74,7 +94,7 @@ function displayBasketCards(elmID) {
 
       document.getElementById("shopping-cart-title").insertAdjacentHTML("afterbegin", 
           `
-          <h1>What are you waiting for, go buy some pokemon!</h1>
+          <h1>${cartEmptyText}</h1>
           `) 
   }
 }
