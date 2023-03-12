@@ -2,6 +2,7 @@
 function makeNavBar() {
     const header = document.createElement('header')
     header.setAttribute("class", 'sticky-top')
+    totalItems = getTotal()[0]
     header.innerHTML =` 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
@@ -21,7 +22,7 @@ function makeNavBar() {
                         <a class="nav-link" href="login.html">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="shopping_cart.html">Shopping Cart</a>
+                        <a class="nav-link" href="shopping_cart.html">Shopping Cart <span class="badge badge-danger">${totalItems}</span></a>
                     </li>
                 </ul>
             </div>
@@ -31,32 +32,72 @@ function makeNavBar() {
     document.body.insertAdjacentElement("afterbegin", header)
 }
 
-// Footer present on all pages
+
 function makeFooter() {
-    // Mail Node
-    const mail = 'poke@shop.com'
-    const mailText = document.createTextNode(mail)
-    const a = document.createElement('a')
-    a.setAttribute('href', 'mailto:poke@shop.com')
-    a.setAttribute('class', 'footer-flexItem')
 
-    // Address Node
-    const address = 'Poké Valley 42, Los Angeles'
-    const addressText = document.createTextNode(address)
-    const div = document.createElement('div')
-    div.setAttribute('class', 'footer-flexItem')
-
-    // Footer node
-    const footer = document.createElement('footer')
-    footer.setAttribute("class", 'footer-flexContainer')
-
-    // Extend DOM node graph
-    // Footer is parent to Mail and Address elements
-    a.appendChild(mailText)
-    div.appendChild(addressText)
-    footer.appendChild(a)
-    footer.appendChild(div)
-    document.body.insertAdjacentElement("afterend", footer)
+    document.body.insertAdjacentHTML('beforeend', 
+    `
+    <footer class="bg-dark mt-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6 mt-md-0 mt-3">
+                    <h5 class="" style="color: white
+                    ">poké@shop.com</h5>
+                </div>
+                <div class="col-6 mt-md-0 mt-3">
+                    <h5 class="float-right" style="color: white
+                ">Poké Valley 42, Los Angeles</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
+    `)
 }
+
+// this function is needed on multiple pages, so for now I place it here
+function getTotal() {
+    cart = JSON.parse(localStorage.getItem("cart") || "[]")
+    
+    totalItems = cart.reduce((acc, cartPokemon) => {
+        pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
+        return acc + (cartPokemon.amount)
+    },0);
+    subtotal = cart.reduce((acc, cartPokemon) => {
+        pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
+        return acc + (cartPokemon.amount * pokemonObject.price)
+    },0);
+
+    return [totalItems, subtotal];
+}
+
+// Footer present on all pages
+// function makeFooter() {
+//     // Mail Node
+//     const mail = 'poke@shop.com'
+//     const mailText = document.createTextNode(mail)
+//     const a = document.createElement('a')
+//     a.setAttribute('href', 'mailto:poke@shop.com')
+//     a.setAttribute('class', 'footer-flexItem')
+
+//     // Address Node
+//     const address = 'Poké Valley 42, Los Angeles'
+//     const addressText = document.createTextNode(address)
+//     const div = document.createElement('div')
+//     div.setAttribute('class', 'footer-flexItem')
+
+//     // Footer node
+//     const footer = document.createElement('footer')
+//     footer.setAttribute("class", 'footer-flexContainer')
+
+//     // Extend DOM node graph
+//     // Footer is parent to Mail and Address elements
+//     a.appendChild(mailText)
+//     div.appendChild(addressText)
+//     footer.appendChild(a)
+//     footer.appendChild(div)
+//     document.body.insertAdjacentElement("afterend", footer)
+// }
+
+
 
 

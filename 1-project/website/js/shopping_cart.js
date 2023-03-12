@@ -99,20 +99,20 @@ function displayBasketCards(elmID) {
   }
 }
 
-function getTotal() {
-    cart = JSON.parse(localStorage.getItem("cart") || "[]")
+// function getTotal() {
+//     cart = JSON.parse(localStorage.getItem("cart") || "[]")
     
-    totalItems = cart.reduce((acc, cartPokemon) => {
-        pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
-        return acc + (cartPokemon.amount)
-    },0);
-    subtotal = cart.reduce((acc, cartPokemon) => {
-        pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
-        return acc + (cartPokemon.amount * pokemonObject.price)
-    },0);
+//     totalItems = cart.reduce((acc, cartPokemon) => {
+//         pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
+//         return acc + (cartPokemon.amount)
+//     },0);
+//     subtotal = cart.reduce((acc, cartPokemon) => {
+//         pokemonObject = pokemonAll.find(p => p.name === cartPokemon.name)
+//         return acc + (cartPokemon.amount * pokemonObject.price)
+//     },0);
 
-    return [totalItems, subtotal];
-}
+//     return [totalItems, subtotal];
+// }
 
 function displaySummary(itemsID, totalID) {
     [totalItems, subtotal] = getTotal()
