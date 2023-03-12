@@ -22,7 +22,9 @@ function makeNavBar() {
                         <a class="nav-link" href="login.html">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="shopping_cart.html">Shopping Cart <span class="badge badge-danger">${totalItems}</span></a>
+                        <a class="nav-link mb-0" href="shopping_cart.html">
+                        <i class="fa fa-shopping-cart fa-lg"></i> 
+                        <span class="badge badge-danger badge-pill"  style="position: relative; left: -8px; top: -15px; font-size:10px;" id="item-counter">${totalItems}</span></a>
                     </li>
                 </ul>
             </div>

@@ -13,7 +13,7 @@ function createBasketCard(pokemon, elmId, cartPokemon) {
     // Row no-gutters make it so the card becomes horizontal instead of vertical and removes the "gutters" between columns
     document.getElementById(elmId).insertAdjacentHTML("beforeend",
       `
-      <div class="card mb-3" id=${cardID} style="max-width: 800px;">
+      <div class="card mb-3 bg-light" id=${cardID} style="max-width: 800px;">
         <div class="row no-gutters"> 
           <div class="col-md-3">
             <img src=${imgPath} class="card-img" alt="...">
@@ -54,6 +54,7 @@ function removeFromCart(cardID){
   console.log("newCart: ", newCart)
   localStorage.setItem("cart", JSON.stringify(newCart))
   displaySummary("summary-items", "summary-total")
+  document.getElementById("item-counter").innerHTML = getTotal()[0]
 
   // if (newCart.length < 1) {
 

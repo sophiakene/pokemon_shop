@@ -32,7 +32,7 @@ function createCard(pokemon, elmId) {
           </div>
           <div class="col-md-3 mt-auto">
             <div class="card-body">
-              <button class="btn btn-danger" onclick="addToShoppingCart('${pokemon.name}')" id="${pokemon.name.toLowerCase()}">Add to shopping cart</button>
+              <button class="btn btn-danger" onclick="addToShoppingCart('${pokemon.name}')" id="${pokemon.name.toLowerCase()}"><i class="fa fa-shopping-cart fa-lg"></i> Add to shopping cart</button>
             </div>
           </div>
         </div>
@@ -106,6 +106,7 @@ function addToShoppingCart(pokemonName) {
   }
   localStorage.setItem("cart", JSON.stringify(cart))
   // console.log(cart)
+  document.getElementById("item-counter").innerHTML = getTotal()[0]
 }
 
 function displayTypeButtons(elmID){

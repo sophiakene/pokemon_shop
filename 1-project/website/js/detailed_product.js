@@ -15,7 +15,7 @@ function displayDetails() {
     document.title = pokemon.name
     document.getElementById("img").src = imgPath
     document.getElementById("name").innerHTML=pokemon.name
-    document.getElementById("price").innerHTML=pokemon.price
+    document.getElementById("price").innerHTML=pokemon.price + "kr"
     document.getElementById("size").innerHTML= pokemon.size + " m / " + sizeCategory 
     document.getElementById("info").innerHTML=pokemon.info
     document.getElementById("btn").onclick = function() {addToShoppingCart(pokemon.name)}
