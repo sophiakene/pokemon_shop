@@ -7,7 +7,6 @@ function createBasketCard(pokemon, elmId, cartPokemon) {
     else {
       imgPath = "data/poke_images/" + pokemon.name.toLowerCase() + ".avif";
     }
-    console.log(pokemon)
     cardID = pokemon.name
   
     // Row no-gutters make it so the card becomes horizontal instead of vertical and removes the "gutters" between columns
@@ -40,18 +39,15 @@ function createBasketCard(pokemon, elmId, cartPokemon) {
 }
 
 function removeFromCart(cardID){
-  console.log(cardID)
   const cardElm = document.getElementById(cardID);
   cardElm.remove();
 
   cart = JSON.parse(localStorage.getItem("cart"))
-  console.log("cart: ", cart)
 
   newCart = cart.filter(function( obj ) {
     return obj.name !== cardID;
   });
 
-  console.log("newCart: ", newCart)
   localStorage.setItem("cart", JSON.stringify(newCart))
   displaySummary("summary-items", "summary-total")
   document.getElementById("item-counter").innerHTML = getTotal()[0]
@@ -68,7 +64,6 @@ function displayBasketCards(elmID) {
   cart = JSON.parse(localStorage.getItem("cart") || "[]")
 
   const customerName = sessionStorage.newName
-  console.log("customerName is: ", customerName)
   let cartEmptyText = ""
   let cartContentText = ""
   

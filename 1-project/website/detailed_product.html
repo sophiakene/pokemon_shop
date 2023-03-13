@@ -11,6 +11,7 @@
 
 
   <link rel="stylesheet" href="./css/detailed_product.css">
+  <link rel="stylesheet" href="./css/style.css">
 
   <!--for font-awesome icons-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,7 +27,8 @@
     <title></title>
   
 </head>
-<body>
+<!-- need this body class to ensure the page takes up at least the full screen so the footer stays at the bottom of the screen even if it is not filled with content-->
+<body class="d-flex flex-column min-vh-100">
     
     <div class="container">
         <div class="card-deck mt-5">
@@ -69,44 +71,12 @@
         </div>
     </div>
 
-    <!-- <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-sm-5 border">
-                <div class="card mt-5 mb-5">
-                    <div class="card-body">
-                    <img src="data/poke_images/bulbasaur.jpg" class="card-img">
-                </div>
-            </div>
-            </div>
-            <div class="col-sm-5 border align-items-stretch">
-                <div class="card mt-5 mb-5">
-                    <div class="card-body d-flex flex-column">
-                            <div class="card-title">
-                                <h5>Bulbasaur</h5>
-                            </div>
-                            <p class="card-text">Price</p>
-                            <p class="card-text">Type</p>
-                            <p class="card-text">Size</p>
-                            <p class="card-text">Info</p>
-                            </div>
-                                <button type="button" class="btn btn-danger mt-auto" onclick="" id="bulbasaur">
-                                    Add to shopping cart
-                                </button>
-                            </div>
-                        </div>  
-                    </div>
-                </div> -->
-
+    
     
     <script>
-        // let params = new URLSearchParams(window.location.search)
-        // name = params.get('name')
-        // console.log("name is: ", name)
-
-
         makeNavBar()
         displayDetails()
-        //makeFooter()
+        makeFooter()
         
     </script>
 </body>

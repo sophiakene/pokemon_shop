@@ -1,4 +1,16 @@
-.logOrSign{
+/* ended up having to override bootstrap color classes
+to quickly change the color everywhere they were used
+*/ 
+.btn-danger {
+    background-color: #e94a4a !important;
+    border-color: #e94a4a !important;
+}
+
+.bg-dark {
+    background-color: #585858 !important;
+}
+
+.logOrsSign{
     float: left;
     width: 30%;
     background-color: gray;
@@ -7,9 +19,9 @@
     align-items: center;
 }
 
-html, body {
+/* html, body {
     height: 99%; /* Use full page for elements*/
-}
+/*} */
 
 .alignBox {
     display: flex; 

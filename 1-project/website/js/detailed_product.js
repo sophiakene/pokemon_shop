@@ -26,7 +26,6 @@ function displayDetails() {
 }
 
 function createBadge(typeElm, type) {
-    console.log("type is: ", type)
     typeElm.insertAdjacentHTML('beforeend',
     `
     <div class="badge" style="display: inline-block; width:6em; background-color: ${pokeColours[type]}!important;color: #fff">

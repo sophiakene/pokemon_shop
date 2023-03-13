@@ -10,7 +10,6 @@ function createCard(pokemon, elmId) {
     else {
       img_path = "data/poke_images/" + pokemon.name.toLowerCase() + ".avif";
     }
-    console.log(pokemon)
 
     const detailLink = "detailed_product.html?name=" + pokemon.name
 
@@ -48,8 +47,6 @@ function displayCards(pokemonForDisplay, elmID) {
 function browse(){
   const typeButtons = document.querySelectorAll(".type-buttons button");
   const sizeButtons = document.querySelectorAll(".size-buttons button");
-  console.log("number of typebuttons found: ", typeButtons.length)
-  console.log("number of sizebuttons found: ", sizeButtons.length)
 
   for (i of typeButtons) {
       i.addEventListener('click', function() {
@@ -90,8 +87,6 @@ function getSize(pokemon){
 }
   
 function addToShoppingCart(pokemonName) {
-  console.log("inside addToShoppingCart:")
-  console.log("the pokemon added is", pokemonName)
 
   cart = JSON.parse(localStorage.getItem("cart") || "[]")
 
@@ -114,7 +109,6 @@ function displayTypeButtons(elmID){
   for (const type in pokeTypes) {
     
     let typeVal = pokeTypes[type]
-    console.log("from inside dislpayTypeButtons: ", typeVal)
     document.getElementById(elmID).insertAdjacentHTML('beforeend',
     `
     <button type="button" id=${typeVal} class="btn btn-block" style="background-color: ${pokeColours[type]}!important;color: #fff" value=${typeVal}>${typeVal[0].toUpperCase() + typeVal.slice(1)}</button>

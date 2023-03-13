@@ -24,7 +24,7 @@ function makeNavBar() {
                     <li class="nav-item">
                         <a class="nav-link mb-0" href="shopping_cart.html">
                         <i class="fa fa-shopping-cart fa-lg"></i> 
-                        <span class="badge badge-danger badge-pill"  style="position: relative; left: -8px; top: -15px; font-size:10px;" id="item-counter">${totalItems}</span></a>
+                        <span class="badge btn-danger badge-pill"  style="position: relative; left: -8px; top: -15px; font-size:10px;" id="item-counter">${totalItems}</span></a>
                     </li>
                 </ul>
             </div>
@@ -43,7 +43,7 @@ function makeFooter() {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-6 mt-md-0 mt-3">
-                    <h5 class="" style="color: white
+                    <h5 style="color: white
                     ">poké@shop.com</h5>
                 </div>
                 <div class="col-6 mt-md-0 mt-3">
