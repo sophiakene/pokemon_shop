@@ -5,6 +5,14 @@ export async function getBasketContent(req, res) {
 }
 
 export async function createBasketForCustomer(req, res) {
+    try {
+        const customerId = parseInt(req.params.customerId)
+        await customerModel.addBasket(customerId)
+        res.end()
+
+    } catch(error) {
+        res.status(400).send(error.message)
+    }
     
 }
 
