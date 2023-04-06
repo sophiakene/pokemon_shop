@@ -4,6 +4,7 @@
       "name": "Bulbasaur",
       "type": ["grass", "poison"],
       "size": 0.7,
+      "sizeCategory": "l",
       "price": 40000,
       "info": "Your new best friend. A basic grass pokemon who will follow you through thick and thin"
     },
@@ -12,6 +13,7 @@
       "name": "Charmander",
       "type": ["fire"],
       "size": 0.6,
+      "sizeCategory": "l",
       "price": 10000,
       "info": "Your new best friend. A basic fire pokemon who will follow you through thick and thin."
     },
@@ -20,6 +22,7 @@
       "name": "Squirtle",
       "type": ["water"],
       "size": 0.5,
+      "sizeCategory": "l",
       "price": 10000,
       "info": "Do you like going to the beach? Bring your new friend Squirtle!"
     },
@@ -28,6 +31,7 @@
       "name": "Pikachu",
       "type": ["electric"],
       "size": 0.4,
+      "sizeCategory": "m",
       "price": 10000,
       "info": "Do you need energy? Pikachu can make your days electric!"
     },
@@ -36,6 +40,7 @@
       "name": "Nidoqueen",
       "type": ["poison", "ground"],
       "size": 1.3,
+      "sizeCategory": "xl",
       "price": 20000,
       "info": "Yas, queen! Nidoqueen is back in stock and ready to rumble."
     },
@@ -44,6 +49,7 @@
       "name": "Slowpoke",
       "type": ["water", "psychic"],
       "size": 1.2,
+      "sizeCategory": "xl",
       "price": 42000,
       "info": "Are you lazy? Like to sleep in? But you'd like some company in your nesting? Buy Slowpoke!"
     },
@@ -52,6 +58,7 @@
       "name": "Psyduck",
       "type": ["water"],
       "size": 0.8,
+      "sizeCategory": "l",
       "price": 999,
       "info": "Do you like taking care of others, then buy a Psyduck. It needs constant attention to prevent its headaches!"
     },
@@ -60,6 +67,7 @@
       "name": "Mewtwo",
       "type": ["psychic"],
       "size": 2,
+      "sizeCategory": "xxl",
       "price": 200000,
       "info": "Our most expensive Pokémon which will make you famous and powerful."
     },
@@ -68,6 +76,7 @@
       "name": "Diglett",
       "type": ["ground"],
       "size": 0.2,
+      "sizeCategory": "s",
       "price": 100,
       "info": "Cheap wormy Pokémon. Not good for anything, but kinda entertaning. Consider buying 10, a hammer and you can build your own game of Whack'a'mole."
     },
@@ -76,6 +85,7 @@
       "name": "Voltorb",
       "type": ["electric", "grass"],
       "size": 0.5,
+      "sizeCategory": "l",
       "price": 5000,
       "info": "Looks like a pokéball, acts like a Pokémon, what's not to like? Buy it now!"
     },
@@ -84,6 +94,7 @@
       "name": "Onix",
       "type": ["rock", "ground"],
       "size": 8.8,
+      "sizeCategory": "xxl",
       "price": 800000,
       "info": "Beautiful, rocky, wormy Onix. Imagine how amazing you'd look taking your Onix for a walk. Buy it before your neighbor!"
     },
@@ -92,6 +103,7 @@
       "name": "Meowth",
       "type": ["normal"],
       "size": 0.4,
+      "sizeCategory": "m",
       "price": 8000,
       "info": "Loving and caring Pokémon always ready to cuddle. Maybe you are lucky and buy a Meowth which can talk hooman?"
     },
@@ -100,6 +112,7 @@
       "name": "Scyther",
       "type": ["bug", "flying"],
       "size": 1.5,
+      "sizeCategory": "xxl",
       "price": 20000,
       "info": "Scyther is the perfect gardener. Buy it and you never have to cut another straw of grass!"
     },
@@ -108,6 +121,7 @@
       "name": "Ditto",
       "type": ["normal"],
       "size": 0.3,
+      "sizeCategory": "m",
       "price": 100000,
       "info": "Cannot decide which Pokémon to buy? Buy 'em all, by just bying Ditto! Ditto can turn into any Pokémon at any time."
     },
@@ -116,6 +130,7 @@
       "name": "Dragonite",
       "type": ["dragon"],
       "size": 2.2,
+      "sizeCategory": "xxl",
       "price": 90000,
       "info": "Dragonite is fun. Dragonite is cute. Dragonite is ready to move in with you! Buy it before your mom does."
     }

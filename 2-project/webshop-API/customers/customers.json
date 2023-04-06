@@ -2,7 +2,10 @@
     {
         "id": 1,
         "firstName": "Sophia",
-        "lastName": "Akene" 
+        "lastName": "Akene", 
+        "basket": [
+            {"productId": 2, "amount": 5}
+        ]
     },
     {
         "id": 2,
