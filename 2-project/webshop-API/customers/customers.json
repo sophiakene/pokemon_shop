@@ -1,12 +1,22 @@
 [
     {
         "id": 1,
-        "firstName": "Alice",
-        "lastName": "Vikander" 
+        "firstName": "Sophia",
+        "lastName": "Akene" 
     },
     {
         "id": 2,
-        "firstName": "Tom",
-        "lastName": "Ford" 
+        "firstName": "Johannes",
+        "lastName": "HP-sauce" 
+    },
+    {
+        "id": 3,
+        "firstName": "Cami",
+        "lastName": "Millacat" 
+    },
+    {
+        "id": 4,
+        "firstName": "Nanna",
+        "lastName": "Berg" 
     }
 ]
