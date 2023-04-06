@@ -1,7 +1,7 @@
 import express from "express";
 
 import {productsRouter} from "./products/products.route.js";
-import {customerRouter} from "./customers/customers.route.js";
+import {customersRouter} from "./customers/customers.route.js";
 const app = express();
 const PORT = 3000;
 
@@ -11,7 +11,7 @@ app.use(express.json());
 // paths '/products' are handled by productsRouter
 app.use(productsRouter)
 // paths '/customers' are handled by customersRouter
-app.use(customerRouter)
+app.use(customersRouter)
 
 app.get("/", (req, res) => res.send("Server 3: Hello World!"));
 
