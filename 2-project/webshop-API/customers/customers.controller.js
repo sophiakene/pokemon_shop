@@ -1,7 +1,14 @@
 import * as customerModel from "./customers.model.js"
 
 export async function getBasketContent(req, res) {
-
+    try {
+        const customerId = parseInt(req.params.customerId)
+        const basketContent = await customerModel.getBasket(customerId)
+        res.json(basketContent)
+    }
+    catch(error) {
+        res.status(400).send(error.message)
+    }
 }
 
 export async function createBasketForCustomer(req, res) {

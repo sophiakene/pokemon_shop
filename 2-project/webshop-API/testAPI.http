@@ -2,9 +2,11 @@ POST http://localhost:3000/customers/3/baskets
 
 ###
 
-PUT http://localhost:3000/customers/3/baskets/products/1
+PUT http://localhost:3000/customers/4/baskets/products/2
 content-type: application/json
 
-{ "amount": 6 }
+{ "amount": 10 }
 
 ###
+
+GET http://localhost:3000/customers/3/baskets

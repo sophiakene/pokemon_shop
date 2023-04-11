@@ -29,14 +29,21 @@ function customerHasBasket(customer) {
     return customer.hasOwnProperty('basket')
 }
 
+function getCustomerIfExists(customers, customerId) {
+    const customerIndex = findCustomer(customers, customerId)
+    const customerNotExists = notExistsInCollection(customerIndex)
+    if (customerNotExists) {
+        throw new Error(`Customer with id ${customerId} does not exist`)
+    }
+    else {
+        return customerIndex
+    }
+}
+
 export async function addBasket(customerId) {
     try {
         let customers = await getAllCustomers()
-        const customerIndex = findCustomer(customers, customerId)
-        const customerNotExists = notExistsInCollection(customerIndex)
-        if (customerNotExists) {
-            throw new Error(`Customer with id ${customerId} does not exist`)
-        }
+        const customerIndex = getCustomerIfExists(customers, customerId)
         let customer = customers[customerIndex]
         if (customerHasBasket(customer)) {
             throw new Error(`Customer with id ${customerId} already has a basket`)
@@ -68,30 +75,59 @@ export async function addProductToBasket(customerId, productId, amount) {
             throw new Error('Cannot buy zero or negative amount of pokémon')
         }
         let customers = await getAllCustomers()
-        const customerIndex = findCustomer(customers, customerId)
-        const customerNotExists = notExistsInCollection(customerIndex)
-        if (customerNotExists) {
-            throw new Error(`Customer with id ${customerId} does not exist`)
-        }
+        const customerIndex = getCustomerIfExists(customers, customerId)
+        let customer = customers[customerIndex]
+
         let products = await getAllProducts()
         const productIndex = findProduct(products, "id", productId)
         const productNotExists = notExistsInCollection(productIndex)
         if (productNotExists) {
             throw new Error(`Product with id ${productId} does not exist`)
         }
-        let customer = customers[customerIndex]
-        if (customer.hasOwnProperty('basket')) {
+        if (customerHasBasket(customer)) {
             let basket = customer.basket
             let newBasket = updateBasket(basket, productId, amount)
             customer.basket = newBasket
-            console.log({newBasket: newBasket})
             customers[customerIndex] = customer
             await saveCustomers(customers)
         } else {
-            throw new Error(`Customer with id ${customerId} already has a basket`)
+            throw new Error(`Customer with id ${customerId} does not have a basket`)
         }
 
     } catch(error) {
         throw error
     }
+}
+
+export async function getBasket(customerId) {
+    try {
+        let customers = await getAllCustomers()
+        const customerIndex = getCustomerIfExists(customers, customerId)
+        let customer = customers[customerIndex]
+        if (customerHasBasket(customer)) {
+            const basket = customer.basket
+            const completeBasket = await getCompleteBasket(basket)
+            return {
+                customerId: customerId, 
+                basket: completeBasket
+            }
+        } else {
+            throw new Error(`Customer with id ${customerId} does not have a basket`)
+        }
+    }
+    catch(error) {
+        throw error
+    }
+}
+
+async function getCompleteBasket(basket) {
+    const products = await getAllProducts()
+    const completeBasket = basket.map(basketProduct => {
+        let productIndex = findProduct(products, "id", basketProduct.productId)
+        return {
+            amount: basketProduct.amount,
+            product: products[productIndex] 
+        }
+    })
+    return completeBasket
 }
