@@ -1,6 +1,6 @@
 import { 
     getAllProducts, 
-    findProduct,
+    getProductIndex,
     getIndexIfProductExists,
 } from "../products/products.model.js"
 import { 
@@ -12,9 +12,7 @@ import {
     notExistsInCollection,
     getElementIndexWithId,
 } from "../utilities/arrays.js"
-import {
-    ERROR_CAUSES
-} from "../errors.js"
+import { errorCauses } from "../errors.js"
 const CUSTOMERS_FILE = "./customers/customers.json"
 
 
@@ -26,7 +24,7 @@ async function saveCustomers(customers) {
     saveToFile(CUSTOMERS_FILE, customers)
 }
 
-function findCustomer(customers, customerId) {
+function getCustomerIndex(customers, customerId) {
     return getElementIndexWithId(customers, "id", customerId)
 }
 
@@ -35,12 +33,12 @@ function customerHasBasket(customer) {
 }
 
 function getIndexIfCustomerExists(customers, customerId) {
-    const customerIndex = findCustomer(customers, customerId)
+    const customerIndex = getCustomerIndex(customers, customerId)
     const customerNotExists = notExistsInCollection(customerIndex)
     if (customerNotExists) {
         throw new Error(
             `Customer with id ${customerId} does not exist`,
-            { cause: ERROR_CAUSES.CUSTOMER_NOT_EXISTS },
+            { cause: errorCauses.CUSTOMER_NOT_EXISTS },
         )
     }
     else {
@@ -56,7 +54,7 @@ export async function addBasket(customerId) {
         if (customerHasBasket(customer)) {
             throw new Error(
                 `Customer with id ${customerId} already has a basket`, 
-                { cause: ERROR_CAUSES.BASKET_EXISTS },
+                { cause: errorCauses.BASKET_EXISTS },
             )
         }
         customer.basket = []
@@ -68,7 +66,7 @@ export async function addBasket(customerId) {
 }
 
 function addToBasket(basket, productId, amount) {
-    const productIndex = findProduct(basket, "productId", productId)
+    const productIndex = getProductIndex(basket, "productId", productId)
     const productIsInBasket = existsInCollection(productIndex)
     if (productIsInBasket) {
         basket[productIndex].amount += newAmount
@@ -80,7 +78,7 @@ function addToBasket(basket, productId, amount) {
 }
 
 function removeFromBasket(basket, productId, amount) {
-    const productIndex = findProduct(basket, "productId", productId)
+    const productIndex = getProductIndex(basket, "productId", productId)
     const productIsInBasket = existsInCollection(productIndex)
     if (productIsInBasket) {
         const newAmount = basket[productIndex].amount - amount
@@ -102,8 +100,9 @@ export async function addProductToBasket(customerId, productId, amount) {
         if (amount <= 0) { 
             throw new Error(
                 'Amount must be positive', 
-                { cause: ERROR_CAUSES.AMOUNT_NOT_POSITIVE}) 
-            }
+                { cause: errorCauses.AMOUNT_NOT_POSITIVE}
+            )
+        }
 
         let customers = await getAllCustomers()
         const customerIndex = getIndexIfCustomerExists(customers, customerId)
@@ -122,7 +121,8 @@ export async function addProductToBasket(customerId, productId, amount) {
         } else {
             throw new Error(
                 `Customer with id ${customerId} does not have a basket`,
-                { cause: ERROR_CAUSES.BASKET_NOT_EXISTS})
+                { cause: errorCauses.BASKET_NOT_EXISTS}
+            )
         }
     } catch(error) { 
         throw error 
@@ -134,8 +134,9 @@ export async function removeProuductFromBasket(customerId, productId, amount) {
         if (amount < 0) { 
             throw new Error(
                 'Amount must be positive', 
-                { cause: ERROR_CAUSES.AMOUNT_NOT_POSITIVE}) 
-            }
+                { cause: errorCauses.AMOUNT_NOT_POSITIVE}
+            ) 
+        }
 
         const customers = await getAllCustomers()
         const customerIndex = getIndexIfCustomerExists(customers, customerId)
@@ -154,7 +155,8 @@ export async function removeProuductFromBasket(customerId, productId, amount) {
         } else {
             throw new Error(
                 `Customer with id ${customerId} does not have a basket`,
-                { cause: ERROR_CAUSES.BASKET_NOT_EXISTS})
+                { cause: errorCauses.BASKET_NOT_EXISTS}
+            )
         }
     } catch(error) {
         throw error
@@ -176,7 +178,8 @@ export async function getBasket(customerId) {
         } else {
             throw new Error(
                 `Customer with id ${customerId} does not have a basket`,
-                { cause: ERROR_CAUSES.BASKET_NOT_EXISTS})
+                { cause: errorCauses.BASKET_NOT_EXISTS}
+            )
         }
     }
     catch(error) {
@@ -188,7 +191,7 @@ async function getCompleteBasket(basket) {
     const products = await getAllProducts()
     const completeBasket = basket.map(
         basketProduct => {
-            let productIndex = findProduct(products, "id", basketProduct.productId)
+            let productIndex = getProductIndex(products, "id", basketProduct.productId)
             return {
                 amount: basketProduct.amount,
                 product: products[productIndex] 

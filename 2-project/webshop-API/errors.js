@@ -1,4 +1,4 @@
-export const ERROR_CAUSES = {
+export const errorCauses = {
     CUSTOMER_NOT_EXISTS: 0,
     PRODUCT_NOT_EXISTS: 1,
     BASKET_NOT_EXISTS: 2,

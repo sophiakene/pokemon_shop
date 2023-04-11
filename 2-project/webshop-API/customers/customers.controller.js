@@ -1,7 +1,5 @@
 import * as customerModel from "./customers.model.js"
-import {
-    ERROR_CAUSES
-} from "../errors.js"
+import { errorCauses } from "../errors.js"
 
 export async function getBasket(req, res) {
     try {
