@@ -1,10 +1,13 @@
 import * as customerModel from "./customers.model.js"
+import {
+    CUSTOMER_NOT_EXIST
+} from "../errors.js"
 
-export async function getBasketContent(req, res) {
+export async function getBasket(req, res) {
     try {
         const customerId = parseInt(req.params.customerId)
-        const basketContent = await customerModel.getBasket(customerId)
-        res.json(basketContent)
+        const basket = await customerModel.getBasket(customerId)
+        res.json(basket)
     }
     catch(error) {
         res.status(400).send(error.message)
@@ -16,11 +19,12 @@ export async function createBasketForCustomer(req, res) {
         const customerId = parseInt(req.params.customerId)
         await customerModel.addBasket(customerId)
         res.end()
-
     } catch(error) {
+        if (error.cause === CUSTOMER_NOT_EXIST) {
+            res.status(404).send(error.message)
+        }
         res.status(400).send(error.message)
     }
-    
 }
 
 export async function addProductToBasket(req, res) {
@@ -28,16 +32,21 @@ export async function addProductToBasket(req, res) {
         const customerId = parseInt(req.params.customerId)
         const productId = parseInt(req.params.productId)
         const amount = req.body.amount
-        console.log({cid: customerId, pid: productId, amount: amount})
-        await customerModel.addProductToBasket(customerId, productId, amount)
-        res.end()
-
+        const basket = await customerModel.addProductToBasket(customerId, productId, amount)
+        res.json(basket)
     } catch(error) {
         res.status(400).send(error.message)
     }
-    
 }
 
 export async function removeProductFromBasket(req, res) {
-    
+    try {
+        const customerId = parseInt(req.params.customerId)
+        const productId = parseInt(req.params.productId)
+        const amount = req.body.amount
+        const basket = await customerModel.removeProuductFromBasket(customerId, productId, amount)
+        res.json(basket)
+    } catch(error) {
+        res.status(400).send(error.message)
+    }
 }

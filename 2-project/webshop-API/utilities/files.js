@@ -17,7 +17,7 @@ export async function getAllJsonData(filePath) {
     } 
     catch (error) {
         if (fileNotExists(error.code)) {
-            await saveToFile(filePath, []) // create a new file with ampty array
+            await saveToFile(filePath, []) // create a new file with empty array
             return []
         }
         else { throw error }

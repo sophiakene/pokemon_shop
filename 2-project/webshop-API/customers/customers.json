@@ -1,1 +1,1 @@
-[{"id":1,"firstName":"Sophia","lastName":"Akene","basket":[]},{"id":2,"firstName":"Johannes","lastName":"HP-sauce","basket":[]},{"id":3,"firstName":"Cami","lastName":"Millacat","basket":[{"productId":1,"amount":6},{"productId":2,"amount":10}]},{"id":4,"firstName":"Nanna","lastName":"Berg"}]
+[{"id":1,"firstName":"Sophia","lastName":"Akene","basket":[]},{"id":2,"firstName":"Johannes","lastName":"HP-sauce","basket":[]},{"id":3,"firstName":"Cami","lastName":"Millacat","basket":[{"productId":1,"amount":6}]},{"id":4,"firstName":"Nanna","lastName":"Berg"}]
