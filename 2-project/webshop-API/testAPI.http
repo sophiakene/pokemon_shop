@@ -1,0 +1,10 @@
+POST http://localhost:3000/customers/1/baskets
+
+###
+
+PUT http://localhost:3000/customers/20/baskets/products/1
+content-type: application/json
+
+{ "amount": 6 }
+
+###
