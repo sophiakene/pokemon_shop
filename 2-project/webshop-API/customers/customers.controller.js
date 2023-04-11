@@ -12,10 +12,10 @@ export async function getBasket(req, res) {
     catch(error) {
         if (error.cause === ERROR_CAUSES.CUSTOMER_NOT_EXISTS ||
             error.cause === ERROR_CAUSES.BASKET_NOT_EXISTS) {
-            res.status(404).send(error.message)
+            res.status(404).send({ error: error.message })
         }
         else {
-            res.status(400).send(error.message)
+            res.status(400).send({ error: error.message })
         }
     }
 }
@@ -28,10 +28,10 @@ export async function createBasketForCustomer(req, res) {
     } catch(error) {
         if (error.cause === ERROR_CAUSES.CUSTOMER_NOT_EXISTS ||
             error.cause === ERROR_CAUSES.BASKET_EXISTS)  {
-            res.status(404).send(error.message)
+            res.status(404).send({ error: error.message })
         }
         else {
-            res.status(400).send(error.message)
+            res.status(400).send({ error: error.message })
         }
         
     }
@@ -49,10 +49,10 @@ export async function addProductToBasket(req, res) {
             error.cause === ERROR_CAUSES.BASKET_NOT_EXISTS ||
             error.cause === ERROR_CAUSES.AMOUNT_NOT_POSITIVE ||
             error.cause === ERROR_CAUSES.PRODUCT_NOT_EXISTS) {
-            res.status(404).send(error.message)
+            res.status(404).send({ error: error.message })
         }
         else {
-            res.status(400).send(error.message)
+            res.status(400).send({ error: error.message })
         }
         
     }
@@ -70,10 +70,10 @@ export async function removeProductFromBasket(req, res) {
             error.cause === ERROR_CAUSES.BASKET_NOT_EXISTS ||
             error.cause === ERROR_CAUSES.AMOUNT_NOT_POSITIVE,
             error.cause === ERROR_CAUSES.PRODUCT_NOT_EXISTS) {
-            res.status(404).send(error.message)
+            res.status(404).send({ error: error.message })
         }
         else {
-            res.status(400).send(error.message)
+            res.status(400).send({ error: error.message })
         }
     }
 }
