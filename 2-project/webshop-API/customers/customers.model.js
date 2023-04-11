@@ -1,72 +1,64 @@
-import * as fs from "fs/promises"
 import { 
     getAllProducts, 
-    findProduct 
+    findProduct,
 } from "../products/products.model.js"
+import { 
+    saveToFile,
+    getAllJsonData,
+} from "../utilities/files.js"
+import {
+    existsInCollection,
+    notExistsInCollection,
+    getElementIndexWithId,
+} from "../utilities/arrays.js"
 const CUSTOMERS_FILE = "./customers/customers.json"
 
-
 export async function getAllCustomers() {
-    try {
-        let customersTxt = await fs.readFile(CUSTOMERS_FILE)
-        let customers = JSON.parse(customersTxt)
-        return customers
-        } catch (error) {
-        // file does not exits
-        if (error.code === "ENOENT") {
-            await saveCustomers([]) // create a new file with ampty array
-            return []
-        } // cannot handle this exception, so rethrow
-        else throw error
-    }
-  }
+    return getAllJsonData(CUSTOMERS_FILE)
+}
 
-async function saveCustomers(customers = []) {
-    const customersJSON = JSON.stringify(customers)
-    await fs.writeFile(CUSTOMERS_FILE, customersJSON)
-  }
+async function saveCustomers(customers) {
+    saveToFile(CUSTOMERS_FILE, customers)
+}
 
 function findCustomer(customers, customerId) {
-    return customers.findIndex(
-        currentCustomer => currentCustomer.id === customerId
-    )
-  }
+    return getElementIndexWithId(customers, "id", customerId)
+}
+
+function customerHasBasket(customer) {
+    return customer.hasOwnProperty('basket')
+}
 
 export async function addBasket(customerId) {
     try {
         let customers = await getAllCustomers()
         const customerIndex = findCustomer(customers, customerId)
-        const customerNotExists = customerIndex === -1
+        const customerNotExists = notExistsInCollection(customerIndex)
         if (customerNotExists) {
             throw new Error(`Customer with id ${customerId} does not exist`)
         }
         let customer = customers[customerIndex]
-        if (customer.hasOwnProperty('basket')) {
+        if (customerHasBasket(customer)) {
             throw new Error(`Customer with id ${customerId} already has a basket`)
-        } else {
-            customer.basket = []
-            customers[customerIndex] = customer
-            await saveCustomers(customers)
         }
-
+        customer.basket = []
+        customers[customerIndex] = customer
+        await saveCustomers(customers)
     } catch (error) {
         throw error
     }
 }
 
-function updateBasket(basket, productId, amount) {
-    const productIndex = basket.findIndex(
-        currentProduct => currentProduct.productId === productId
-    )
 
-    if (productIndex === -1) {
-        basket.push({productId: productId, amount: amount})
-    }
-    else {
+function updateBasket(basket, productId, amount) {
+    const productIndex = findProduct(basket, "productId", productId)
+    const productIsInBasket = existsInCollection(productIndex)
+    if (productIsInBasket) {
         basket[productIndex].amount += amount
     }
-
-    
+    else {
+        basket.push({productId: productId, amount: amount})
+    }
     return basket
 }
 
@@ -82,7 +74,7 @@ export async function addProductToBasket(customerId, productId, amount) {
             throw new Error(`Customer with id ${customerId} does not exist`)
         }
         let products = await getAllProducts()
-        const productIndex = findProduct(products, productId)
+        const productIndex = findProduct(products, "id", productId)
         const productNotExists = productIndex === -1
         if (productNotExists) {
             throw new Error(`Product with id ${productId} does not exist`)

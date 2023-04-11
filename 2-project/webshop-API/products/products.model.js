@@ -1,32 +1,22 @@
 import * as fs from "fs/promises"
 const PRODUCTS_FILE = "./products/products.json"
-
-function fileNotExists(errorCode) {
-    return errorCode === "ENOENT"
-}
+import { 
+    saveToFile,
+    getAllJsonData,
+} from "../utilities/files.js"
+import {
+    getElementIndexWithId
+} from "../utilities/arrays.js"
 
 export async function getAllProducts() {
-    try {
-        let productsTxt = await fs.readFile(PRODUCTS_FILE)
-        let products = JSON.parse(productsTxt)
-        return products
-    } 
-    catch (error) {
-        if (fileNotExists(error.code)) {
-            await saveProducts([]) // create a new file with ampty array
-            return []
-        }
-        else throw error
-    }
-  }
+    return getAllJsonData(PRODUCTS_FILE)
+}
 
-  async function saveProducts(products = []) {
-    const productsJSON = JSON.stringify(products)
-    await fs.writeFile(PRODUCTS_FILE, productsJSON)
-  }
+async function saveProducts(products) {
+    saveToFile(PRODUCTS_FILE, products)
+}
 
-  export function findProduct(products, productId) {
-    return products.findIndex(
-        currentProduct => currentProduct.id === productId
-    )
-  }
+export function findProduct(products, property, productId) {
+    return getElementIndexWithId(products, property, productId)
+}
+
