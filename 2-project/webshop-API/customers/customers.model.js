@@ -14,7 +14,6 @@ import {
 } from "../utilities/arrays.js"
 import {
     ERROR_CAUSES
-    // CUSTOMER_NOT_EXISTS,
 } from "../errors.js"
 const CUSTOMERS_FILE = "./customers/customers.json"
 
@@ -64,7 +63,6 @@ export async function addBasket(customerId) {
         customers[customerIndex] = customer
         await saveCustomers(customers)
     } catch (error) {
-        // console.log({error:error})
         throw error
     }
 }

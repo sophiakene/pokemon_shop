@@ -1,7 +1,5 @@
 import * as customerModel from "./customers.model.js"
 import {
-    // BASKET_NOT_EXISTS,
-    // CUSTOMER_NOT_EXISTS
     ERROR_CAUSES
 } from "../errors.js"
 
