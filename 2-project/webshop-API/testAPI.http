@@ -1,4 +1,4 @@
-POST http://localhost:3000/customers/0/baskets
+POST http://localhost:3000/customers/3/baskets
 
 ###
 
@@ -9,7 +9,7 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3000/customers/3/baskets
+GET http://localhost:3000/customers/4/baskets
 
 ###
 

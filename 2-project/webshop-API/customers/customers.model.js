@@ -13,7 +13,8 @@ import {
     getElementIndexWithId,
 } from "../utilities/arrays.js"
 import {
-    CUSTOMER_NOT_EXIST,
+    ERROR_CAUSES
+    // CUSTOMER_NOT_EXISTS,
 } from "../errors.js"
 const CUSTOMERS_FILE = "./customers/customers.json"
 
@@ -40,7 +41,7 @@ function getIndexIfCustomerExists(customers, customerId) {
     if (customerNotExists) {
         throw new Error(
             `Customer with id ${customerId} does not exist`,
-            { cause: CUSTOMER_NOT_EXIST },
+            { cause: ERROR_CAUSES.CUSTOMER_NOT_EXISTS },
         )
     }
     else {
@@ -54,13 +55,16 @@ export async function addBasket(customerId) {
         const customerIndex = getIndexIfCustomerExists(customers, customerId)
         let customer = customers[customerIndex]
         if (customerHasBasket(customer)) {
-            throw new Error(`Customer with id ${customerId} already has a basket`)
+            throw new Error(
+                `Customer with id ${customerId} already has a basket`, 
+                { cause: ERROR_CAUSES.BASKET_EXISTS },
+            )
         }
         customer.basket = []
         customers[customerIndex] = customer
         await saveCustomers(customers)
     } catch (error) {
-        console.log({error:error})
+        // console.log({error:error})
         throw error
     }
 }
@@ -97,7 +101,11 @@ function checkProductExists(products, productId) {
 
 export async function addProductToBasket(customerId, productId, amount) {
     try {
-        if (amount <= 0) { throw new Error('Amount must be positive') }
+        if (amount <= 0) { 
+            throw new Error(
+                'Amount must be positive', 
+                { cause: ERROR_CAUSES.AMOUNT_NOT_POSITIVE}) 
+            }
 
         let customers = await getAllCustomers()
         const customerIndex = getIndexIfCustomerExists(customers, customerId)
@@ -114,7 +122,9 @@ export async function addProductToBasket(customerId, productId, amount) {
             await saveCustomers(customers)
             return getBasket(customerId)
         } else {
-            throw new Error(`Customer with id ${customerId} does not have a basket`)
+            throw new Error(
+                `Customer with id ${customerId} does not have a basket`,
+                { cause: ERROR_CAUSES.BASKET_NOT_EXISTS})
         }
     } catch(error) { 
         throw error 
@@ -123,7 +133,11 @@ export async function addProductToBasket(customerId, productId, amount) {
 
 export async function removeProuductFromBasket(customerId, productId, amount) {
     try {
-        if (amount < 0) { throw new Error('Amount must be positive') }
+        if (amount < 0) { 
+            throw new Error(
+                'Amount must be positive', 
+                { cause: ERROR_CAUSES.AMOUNT_NOT_POSITIVE}) 
+            }
 
         const customers = await getAllCustomers()
         const customerIndex = getIndexIfCustomerExists(customers, customerId)
@@ -140,7 +154,9 @@ export async function removeProuductFromBasket(customerId, productId, amount) {
             await saveCustomers(customers)
             return getBasket(customerId)
         } else {
-            throw new Error(`Customer with id ${customerId} does not have a basket`)
+            throw new Error(
+                `Customer with id ${customerId} does not have a basket`,
+                { cause: ERROR_CAUSES.BASKET_NOT_EXISTS})
         }
     } catch(error) {
         throw error
@@ -160,7 +176,9 @@ export async function getBasket(customerId) {
                 basket: completeBasket
             }
         } else {
-            throw new Error(`Customer with id ${customerId} does not have a basket`)
+            throw new Error(
+                `Customer with id ${customerId} does not have a basket`,
+                { cause: ERROR_CAUSES.BASKET_NOT_EXISTS})
         }
     }
     catch(error) {

@@ -1,6 +1,8 @@
 import * as customerModel from "./customers.model.js"
 import {
-    CUSTOMER_NOT_EXIST
+    // BASKET_NOT_EXISTS,
+    // CUSTOMER_NOT_EXISTS
+    ERROR_CAUSES
 } from "../errors.js"
 
 export async function getBasket(req, res) {
@@ -10,7 +12,13 @@ export async function getBasket(req, res) {
         res.json(basket)
     }
     catch(error) {
-        res.status(400).send(error.message)
+        if (error.cause === ERROR_CAUSES.CUSTOMER_NOT_EXISTS ||
+            error.cause === ERROR_CAUSES.BASKET_NOT_EXISTS) {
+            res.status(404).send(error.message)
+        }
+        else {
+            res.status(400).send(error.message)
+        }
     }
 }
 
@@ -20,10 +28,14 @@ export async function createBasketForCustomer(req, res) {
         await customerModel.addBasket(customerId)
         res.end()
     } catch(error) {
-        if (error.cause === CUSTOMER_NOT_EXIST) {
+        if (error.cause === ERROR_CAUSES.CUSTOMER_NOT_EXISTS ||
+            error.cause === ERROR_CAUSES.BASKET_EXISTS)  {
             res.status(404).send(error.message)
         }
-        res.status(400).send(error.message)
+        else {
+            res.status(400).send(error.message)
+        }
+        
     }
 }
 
@@ -35,7 +47,16 @@ export async function addProductToBasket(req, res) {
         const basket = await customerModel.addProductToBasket(customerId, productId, amount)
         res.json(basket)
     } catch(error) {
-        res.status(400).send(error.message)
+        if (error.cause === ERROR_CAUSES.CUSTOMER_NOT_EXISTS ||
+            error.cause === ERROR_CAUSES.BASKET_NOT_EXISTS ||
+            error.cause === ERROR_CAUSES.AMOUNT_NOT_POSITIVE ||
+            error.cause === ERROR_CAUSES.PRODUCT_NOT_EXISTS) {
+            res.status(404).send(error.message)
+        }
+        else {
+            res.status(400).send(error.message)
+        }
+        
     }
 }
 
@@ -47,6 +68,14 @@ export async function removeProductFromBasket(req, res) {
         const basket = await customerModel.removeProuductFromBasket(customerId, productId, amount)
         res.json(basket)
     } catch(error) {
-        res.status(400).send(error.message)
+        if (error.cause === ERROR_CAUSES.CUSTOMER_NOT_EXISTS ||
+            error.cause === ERROR_CAUSES.BASKET_NOT_EXISTS ||
+            error.cause === ERROR_CAUSES.AMOUNT_NOT_POSITIVE,
+            error.cause === ERROR_CAUSES.PRODUCT_NOT_EXISTS) {
+            res.status(404).send(error.message)
+        }
+        else {
+            res.status(400).send(error.message)
+        }
     }
 }

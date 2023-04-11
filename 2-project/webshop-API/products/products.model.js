@@ -9,6 +9,7 @@ import {
     notExistsInCollection,
     existsInCollection,
 } from "../utilities/arrays.js"
+import { ERROR_CAUSES } from "../errors.js"
 
 export async function getAllProducts() {
     return getAllJsonData(PRODUCTS_FILE)
@@ -26,7 +27,9 @@ export function getIndexIfProductExists(products, productId) {
     const productIndex = findProduct(products, "id", productId)
     const productNotExists = notExistsInCollection(productIndex)
     if (productNotExists) {
-        throw new Error(`Product with id ${productId} does not exist`)
+        throw new Error(
+            `Product with id ${productId} does not exist`,
+            { cause: ERROR_CAUSES.PRODUCT_NOT_EXISTS})
     }
     return productIndex
 }
