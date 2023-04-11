@@ -69,13 +69,13 @@ export async function addProductToBasket(customerId, productId, amount) {
         }
         let customers = await getAllCustomers()
         const customerIndex = findCustomer(customers, customerId)
-        const customerNotExists = customerIndex === -1
+        const customerNotExists = notExistsInCollection(customerIndex)
         if (customerNotExists) {
             throw new Error(`Customer with id ${customerId} does not exist`)
         }
         let products = await getAllProducts()
         const productIndex = findProduct(products, "id", productId)
-        const productNotExists = productIndex === -1
+        const productNotExists = notExistsInCollection(productIndex)
         if (productNotExists) {
             throw new Error(`Product with id ${productId} does not exist`)
         }
