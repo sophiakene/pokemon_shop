@@ -57,7 +57,8 @@ export async function getProductsFromCategory(req, res) {
 
 export async function getProduct(req, res) {
     try {
-        const product = await productsModel.getProduct()
+        const productId = req.params.productId
+        const product = await productsModel.getProduct(productId)
         res.json(product)
     }
 

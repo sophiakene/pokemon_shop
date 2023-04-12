@@ -74,5 +74,9 @@ export async function getProductsFromCategory(category) {
 }
 
 export async function getProduct(productId) {
-    return None
+    //const productId = req.params.productId
+    const products = await getAllProducts();
+    //return products.id == productId
+    return products[parseInt(productId)-1]
+    //return {"product": products[products.id == productId]}
 }

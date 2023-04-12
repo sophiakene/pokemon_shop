@@ -25,3 +25,9 @@ GET http://localhost:3000/products
 ###
 
 GET http://localhost:3000/products/categories
+
+###
+
+###
+
+GET http://localhost:3000/products/4
