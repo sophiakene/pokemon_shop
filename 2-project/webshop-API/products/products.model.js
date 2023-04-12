@@ -69,9 +69,30 @@ export async function getCategories() {
 }
 
 
-export async function getProductsFromCategory(category) {
-   return None 
+export async function getProductsFromCategory(genericCategory, specificCategory) {
+   const products = await getAllProducts();
+   var productsFromCategory = [];
+
+   if (genericCategory === "type") {
+    for (var i=0; i<products.length; i++){
+
+    //products.forEach(product => product.type.forEach(type => if() productsFromCategory.push(product)))
+        if (products[i].type.includes(specificCategory)) {
+            productsFromCategory.push(products[i])
+        }
+   }}
+
+   else if (genericCategory === "sizeCategory") {
+    for (var i=0; i<products.length; i++){
+        if (products[i].sizeCategory.includes(specificCategory)) {
+            productsFromCategory.push(products[i])
+        }
+   }
 }
+   return productsFromCategory 
+
+}
+
 
 export async function getProduct(productId) {
     //const productId = req.params.productId

@@ -27,6 +27,8 @@ GET http://localhost:3000/products
 GET http://localhost:3000/products/categories
 
 ###
+Get http://localhost:3000/products/categories/type/water
+Get http://localhost:3000/products/categories/sizeCategory/xxl
 
 ###
 

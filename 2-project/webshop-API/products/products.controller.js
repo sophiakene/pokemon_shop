@@ -39,12 +39,14 @@ export async function getProductCategories(req, res) {
 
 export async function getProductsFromCategory(req, res) {
     try {
-        const productsFromCategory = await productsModel.getProductsFromCategory()
+        const genericCategory = req.params.genericCategory;
+        const specificCategory = req.params.specificCategory;
+        const productsFromCategory = await productsModel.getProductsFromCategory(genericCategory, specificCategory)
         res.json(productsFromCategory)
     }
 
     catch (error) {
-        if (error.cause === errorCauses.CATEGORIY_NOT_EXISTS) {
+        if (error.cause === errorCauses.CATEGORY_NOT_EXISTS) {
             res.status(404).send({ error: error.message })
         }
         else {

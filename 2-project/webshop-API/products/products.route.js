@@ -17,6 +17,6 @@ productsRouter.get("/products", getAllProducts)
 
 productsRouter.get("/products/categories", getProductCategories)
 
-productsRouter.get("/products/categories/:categoryName", getProductsFromCategory)
+productsRouter.get("/products/categories/:genericCategory/:specificCategory", getProductsFromCategory)
 
 productsRouter.get("/products/:productId", getProduct)
