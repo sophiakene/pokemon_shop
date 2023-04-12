@@ -1,6 +1,7 @@
 import * as productsModel from "./products.model.js"
 import { errorCauses } from "../errors.js"
 
+
 export async function getAllProducts(req, res) {
     try {
         const products = await productsModel.getAllProducts()
@@ -13,12 +14,11 @@ export async function getAllProducts(req, res) {
         }
         else {
             res.status(400).send({ error: error.message })
-
+        }
     }
 }
-}
 
-///
+
 export async function getProductCategories(req, res) {
     try {
         const categories = await productsModel.getCategories()
@@ -31,9 +31,8 @@ export async function getProductCategories(req, res) {
         }
         else {
             res.status(400).send({ error: error.message })
-
+        }
     }
-}
 }
 
 
@@ -51,9 +50,8 @@ export async function getProductsFromCategory(req, res) {
         }
         else {
             res.status(400).send({ error: error.message })
-
+        }
     }
-}
 }
 
 
@@ -70,7 +68,7 @@ export async function getProduct(req, res) {
         }
         else {
             res.status(400).send({ error: error.message })
-
+        }
     }
 }
-}
+
