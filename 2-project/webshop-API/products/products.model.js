@@ -33,3 +33,46 @@ export function getIndexIfProductExists(products, productId) {
     }
     return productIndex
 }
+
+
+export async function getCategories() {
+    /*return {"type": ["grass", "poison", "fire", "water", "electric", "ground", "psychic", 
+    "rock", "normal", "bug", "flying", "dragon"],
+    "sizeCategory": ["s", "m", "l", "xl", "xxl"]}*/
+
+    const products = await getAllProducts();
+
+    //return products
+
+
+    //const products = JSON.parse()
+    var types = [];
+    var sizeCategory = [];
+    
+    products.forEach(product => product.type.forEach(type => types.push(type)));
+    products.forEach(product => sizeCategory.push(product.sizeCategory));
+
+    var types_set = []
+    var sizeCategory_set = []
+
+    function myFunc(list, item) {
+        var i;
+        for (i=0; i<list.length; i++) {
+            if (list[i] === item) { break; }
+        }
+        }
+    
+
+    types.forEach(type => types_set.push(myFunc(types_set, type)))
+    sizeCategory.forEach(sizeCategory => sizeCategory_set.push(sizeCategory))
+    return {"type":types_set, "sizeCategory":sizeCategory_set} 
+}
+
+
+export async function getProductsFromCategory(category) {
+   return None 
+}
+
+export async function getProduct(productId) {
+    return None
+}
