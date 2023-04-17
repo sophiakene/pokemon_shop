@@ -22,7 +22,7 @@ content-type: application/json
 { "amount": 1000 }
 
 ###
-//using negative amount
+//using negative (ie invalid) amount
 PATCH http://localhost:3000/customers/3/baskets/products/2
 content-type: application/json
 
