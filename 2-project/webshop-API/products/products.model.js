@@ -44,19 +44,9 @@ export async function getCategories() {
     products.forEach(product => product.type.forEach(type => types.push(type)));
     products.forEach(product => sizeCategory.push(product.sizeCategory));
 
-    var types_set = []
-    var sizeCategory_set = []
-
-    function myFunc(list, item) {
-        var i;
-        for (i=0; i<list.length; i++) {
-            if (list[i] === item) { break; }
-        }
-    }
-
-    types.forEach(type => types_set.push(myFunc(types_set, type)))
-    sizeCategory.forEach(sizeCategory => sizeCategory_set.push(sizeCategory))
-    return { "type": types_set, "sizeCategory": sizeCategory_set }
+    var types_set = [... new Set(types)]
+    var sizeCategory_set = [... new Set(sizeCategory)]
+    return {"type": types_set, "sizeCategory": sizeCategory_set}
 }
 
 
