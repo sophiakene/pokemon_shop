@@ -69,7 +69,7 @@ function addToBasket(basket, productId, amount) {
     const productIndex = getProductIndex(basket, "productId", productId)
     const productIsInBasket = existsInCollection(productIndex)
     if (productIsInBasket) {
-        basket[productIndex].amount += newAmount
+        basket[productIndex].amount += amount
     }
     else {
         basket.push({productId: productId, amount: amount})

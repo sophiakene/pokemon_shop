@@ -1,34 +1,50 @@
-POST http://localhost:3000/customers/4/baskets
+// Creates a new basket for the user with a certain ID
+// URI: customers/{customerId}/baskets
 
 ###
+POST http://localhost:3000/customers/4/baskets
 
+
+//Put a product in the basket
+// URI: customers/{customerId}/baskets/products/{productId}
+// specify amount in the body of the patch request
+###
 PATCH http://localhost:3000/customers/4/baskets/products/2
 content-type: application/json
 
 { "amount": 1000 }
 
+// Retrieves basket of a customer with a specific id
+// URI: customers/{customerId}/baskets
 ###
-
 GET http://localhost:3000/customers/4/baskets
 
+// Delete a product from the basket of a customer with a specific id
+// URI: customers/{customerId}/baskets/products/{productId}
+// specify amount in the body of the delete request
 ###
-
 DELETE http://localhost:3000/customers/3/baskets/products/1
 content-type: application/json
 
 { "amount": 500 }
 
-###
 
+// Get all producs
+// URI: products
+###
 GET http://localhost:3000/products
 
+// Get categories and the values they can take
+// products/categories
 ###
-
 GET http://localhost:3000/products/categories
 
+// Get products of a specific category
+// URI: products/categories/{genericCategory}/{specificCategory}
 ###
 Get http://localhost:3000/products/categories/type/water
 
+// Get produt of a specific id
+// products/{productId}
 ###
-
 GET http://localhost:3000/products/4
