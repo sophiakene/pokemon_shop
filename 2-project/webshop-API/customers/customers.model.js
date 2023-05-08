@@ -21,7 +21,7 @@ export async function getAllCustomers() {
 }
 
 async function saveCustomers(customers) {
-    saveToFile(CUSTOMERS_FILE, customers)
+    return saveToFile(CUSTOMERS_FILE, customers)
 }
 
 function getCustomerIndex(customers, customerId) {

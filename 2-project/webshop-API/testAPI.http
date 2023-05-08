@@ -4,12 +4,33 @@
 ###
 POST http://localhost:3000/customers/4/baskets
 
+### 
+// Using an invalid customerID
+POST http://localhost:3000/customers/20/baskets
+
+###
+//Using a customerID where a basket already exists
+POST http://localhost:3000/customers/3/baskets
 
 //Put a product in the basket
 // URI: customers/{customerId}/baskets/products/{productId}
 // specify amount in the body of the patch request
 ###
-PATCH http://localhost:3000/customers/4/baskets/products/2
+PATCH http://localhost:3000/customers/3/baskets/products/2
+content-type: application/json
+
+{ "amount": 1000 }
+
+###
+//using negative (ie invalid) amount
+PATCH http://localhost:3000/customers/3/baskets/products/2
+content-type: application/json
+
+{ "amount": -1000 }
+
+###
+//using invalid productId
+PATCH http://localhost:3000/customers/3/baskets/products/40
 content-type: application/json
 
 { "amount": 1000 }
@@ -17,13 +38,14 @@ content-type: application/json
 // Retrieves basket of a customer with a specific id
 // URI: customers/{customerId}/baskets
 ###
-GET http://localhost:3000/customers/4/baskets
+GET http://localhost:3000/customers/3/baskets
+
 
 // Delete a product from the basket of a customer with a specific id
 // URI: customers/{customerId}/baskets/products/{productId}
 // specify amount in the body of the delete request
 ###
-DELETE http://localhost:3000/customers/3/baskets/products/1
+DELETE http://localhost:3000/customers/3/baskets/products/2
 content-type: application/json
 
 { "amount": 500 }
@@ -47,4 +69,4 @@ Get http://localhost:3000/products/categories/type/water
 // Get produt of a specific id
 // products/{productId}
 ###
-GET http://localhost:3000/products/4
+GET http://localhost:3000/products/2

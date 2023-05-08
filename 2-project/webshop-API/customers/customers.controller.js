@@ -22,7 +22,7 @@ export async function createBasketForCustomer(req, res) {
     try {
         const customerId = parseInt(req.params.customerId)
         await customerModel.addBasket(customerId)
-        res.status(201)
+        res.status(201).send()
     } catch(error) {
         if (error.cause === errorCauses.CUSTOMER_NOT_EXISTS ||
             error.cause === errorCauses.BASKET_EXISTS)  {

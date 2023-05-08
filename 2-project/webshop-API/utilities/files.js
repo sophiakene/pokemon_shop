@@ -6,7 +6,7 @@ export function fileNotExists(errorCode) {
 
 export async function saveToFile(filePath, data = []) {
     const dataJSON = JSON.stringify(data)
-    await fs.writeFile(filePath, dataJSON)
+    return fs.writeFile(filePath, dataJSON)
 }
 
 export async function getAllJsonData(filePath) {
