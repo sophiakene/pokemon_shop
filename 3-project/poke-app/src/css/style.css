@@ -1,0 +1,75 @@
+/* ended up having to override bootstrap color classes
+to quickly change the color everywhere they were used
+*/ 
+.btn-danger {
+    background-color: #e94a4a !important;
+    border-color: #e94a4a !important;
+}
+
+.bg-dark {
+    background-color: #585858 !important;
+}
+
+.logOrsSign{
+    float: left;
+    width: 30%;
+    background-color: gray;
+    border: 30px solid black;
+    border-color: white;
+    align-items: center;
+}
+
+/* html, body {
+    height: 99%; /* Use full page for elements*/
+/*} */
+
+.alignBox {
+    display: flex; 
+    flex-direction: column;
+   /* justify-content: space-between; */
+    align-items: center;
+    align-content: space-between;
+    height: 100vh;
+}
+
+.grayContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(191, 191, 191);
+   /* height: 90%; /* /*200pt; /* should be changed to be adaptive */
+    /*width: 90%; */
+}
+
+#checkoutButton {
+    /*width: 90%; */
+    font-size: 20pt;
+}
+
+.personalInfo {
+    margin-left: 5px;
+    text-align: left;
+    font-weight: 400;
+    font-size: 20pt;
+    line-height: 48px;
+}
+
+/*** To be used across multiple pages ***/
+
+.redButton {
+    background-color: rgb(233, 74, 74);
+    color: white;
+    text-align: center;
+    border-color: black;
+}
+
+.footer-flexContainer {
+    display: flex; /* Make flex layout context */
+    justify-content: space-between; /* Distribution of space w.r.t. elements */
+    background-color: rgb(55, 55, 55);
+    font-size:14pt;
+    color:white;
+}
+
+/* To overwrite the mail address color turning purple */
+.footer-flexItem { color:white }
+

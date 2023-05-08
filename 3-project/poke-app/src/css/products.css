@@ -1,0 +1,55 @@
+.wrapper {
+    display: flex;  /*automatically align children in a row*/
+    width: 100;
+    /* align-items: stretch; */
+    /* position: absolute; */
+
+}
+#card-box {
+    /* using z-index and position to move cards behind expanded sidebar on small screens */
+    position: relative;
+    z-index: 1;
+}
+
+#sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    padding-bottom: 20px;
+    /* the time it takes to collapse and expand*/
+    transition: all 0.3s;
+    z-index: 20;
+    /* background-color: #bfbfbf; */
+    
+}
+
+#sidebar.active {
+    margin-left: -200px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+
+}
+
+#sidebarCollapse {
+    writing-mode: vertical-lr;
+    color: #fff;
+    font-size: large;
+    z-index: 20
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -200px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+
+
+
