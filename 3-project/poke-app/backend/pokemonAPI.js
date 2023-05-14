@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import {productsRouter} from "./products/products.route.js";
 import {customersRouter} from "./customers/customers.route.js";
@@ -7,6 +8,7 @@ const PORT = 3005;
 
 // This is a built-in middleware function in Express. It parses incoming requests with JSON payloads.
 app.use(express.json());
+app.use(cors())
 
 // paths '/products' are handled by productsRouter
 app.use(productsRouter)

@@ -50,7 +50,7 @@ export async function addCustomer(firstName, lastName, mail) {
     try {
         let customers = await getAllCustomers()
         const mailIsInUse = getElementIndexWithId(customers, 'mail', mail)
-        if (mailIsInUse) { 
+        if (existsInCollection(mailIsInUse)) { 
             throw new Error(
                 `Mail ${mail} is already in use`,
                 { cause: errorCauses.MAIL_ALREADY_IN_USE },

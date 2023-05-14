@@ -10,6 +10,8 @@ import {
 
 export const customersRouter = express.Router()
 
+customersRouter.post("/customers", addCustomer)
+
 customersRouter.get("/customers/:customerId/baskets", getBasket)
 
 customersRouter.post("/customers/:customerId/baskets", createBasketForCustomer)
@@ -18,4 +20,3 @@ customersRouter.patch("/customers/:customerId/baskets/products/:productId", addP
 
 customersRouter.delete("/customers/:customerId/baskets/products/:productId", removeProductFromBasket)
 
-customersRouter.post("/customers", addCustomer)
