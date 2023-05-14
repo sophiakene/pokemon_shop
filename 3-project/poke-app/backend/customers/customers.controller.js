@@ -31,7 +31,7 @@ export async function createBasketForCustomer(req, res) {
         else {
             res.status(400).send({ error: error.message })
         }
-        
+
     }
 }
 
@@ -52,7 +52,7 @@ export async function addProductToBasket(req, res) {
         else {
             res.status(400).send({ error: error.message })
         }
-        
+
     }
 }
 
@@ -75,3 +75,18 @@ export async function removeProductFromBasket(req, res) {
         }
     }
 }
+
+export async function addCustomer(req, res) {
+    try {
+        const firstName = req.body.firstName
+        const lastName = req.body.lastName
+        const mail = req.body.mail
+        const customer = await customerModel.addCustomer(firstName, lastName, mail)
+        res.json(customer)
+    } catch(error) {
+        error.cause === errorCauses.CUSTOMER_EXISTS
+        ? res.status(404).send({ error: error.message })
+        : res.status(400).send({ error: error.message })
+    }
+}
+

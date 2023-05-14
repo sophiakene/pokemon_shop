@@ -1,15 +1,22 @@
-// Creates a new basket for the user with a certain ID
-// URI: customers/{customerId}/baskets
+###
+// Add new customer
+POST http://localhost:3005/customers
+content-type: application/json
+
+{ "firstName": "Bobby",
+  "lastName": "Brown",
+  "mail": "bob@browni.bom" }
 
 ###
+// Add basket to customer with customerId 4
 POST http://localhost:3005/customers/4/baskets
 
-### 
-// Using an invalid customerID
+###
+// Using an invalid customerId
 POST http://localhost:3005/customers/20/baskets
 
 ###
-//Using a customerID where a basket already exists
+//Using a customerId where a basket already exists
 POST http://localhost:3005/customers/3/baskets
 
 //Put a product in the basket
