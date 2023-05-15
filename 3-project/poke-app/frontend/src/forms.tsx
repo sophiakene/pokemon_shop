@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
-import { Container, Form, Row, Col } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useContext } from "react"
+import { Container, Form, Row, Col } from "react-bootstrap"
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from "react-bootstrap/Button"
-import { SetUserContext } from "./App";
+import { SetUserContext } from "./App"
+import './form.css'
 
 export type SignUpData = {
     FirstName : string
@@ -85,72 +86,97 @@ export function LoginForm() {
         }
     }
 
+    function onRegisteredSubmit(event: React.FormEvent) {
+        event.preventDefault()
+        // get customer from backend based on mail
+        // throw error if not exists
+    }
+
     return (
         <div>
-            <Container>
-                <Col sm={6}>
-                <h1>Sign up</h1>
-                <Form onSubmit={onSubmit}>
-                    <Form.Group className="row">
-                        <Col sm={4}>
-                            <Form.Label htmlFor='FirstName'> First name </Form.Label>
-                        </Col>
-                        <Col sm={8}>
-                            <Form.Control
-                                id='FirstName-input'
-                                name='FirstName'
-                                placeholder='Enter first name'
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <br/><br/>
-                    <Form.Group className="row">
-                        <Col sm={4}>
-                            <Form.Label htmlFor='LastName'> Last name </Form.Label>
-                        </Col>
-                        <Col sm={8}>
-                            <Form.Control
-                                id='LastName-input'
-                                name='LastName'
-                                placeholder='Enter last name'
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <br/><br/>
-                    <Form.Group className="row" controlId="EmailForm">
-                        <Col sm={4}>
-                            <Form.Label htmlFor='Email'> Email </Form.Label>
-                        </Col>
-                        <Col sm={8}>
-                            <Form.Control 
-                                id='Email-input'
-                                name='Email'
-                                placeholder='Enter Email'
-                                onChange={handleInputChange}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Row>
-                        <Col sm={4}/>
-                        <Col sm={8}>
+            <Container fluid>
+                <Row>
+                <Col sm={2}/>
+                <Col sm={4}>
+                    <br/>
+                    <h2>Already registered?</h2>
+                    <br/>
+                    <Container className="form-container">
+                        <Form onSubmit={onRegisteredSubmit}>
+                            <Form.Group className='row'>
+                                <Form.Control
+                                    name='Email'
+                                    placeholder='Enter Email'
+                                />
+                            </Form.Group>
+                            <br/>
+                            <Row>
+                                <Button
+                                    type='submit'
+                                    variant='danger'
+                                    size='lg'
+                                >
+                                    Login
+                                </Button>
+                            </Row>
+                        </Form>
+                    </Container>
+                </Col>
+                <Col sm={4}>
+                    <br/>
+                    <h2>New here?</h2>
+                    <br/>
+                    <Container className="form-container">
+                    <Form onSubmit={onSubmit}>
+                        <Form.Group className="row">
+                                <Form.Control
+                                    className="user-signup-input"
+                                    id='FirstName-input'
+                                    name='FirstName'
+                                    placeholder='Enter first name'
+                                    onChange={handleInputChange}
+                                />
+                        </Form.Group>
+                        <br/>
+                        <Form.Group className="row">
+                                <Form.Control
+                                    className="user-signup-input"
+                                    id='LastName-input'
+                                    name='LastName'
+                                    placeholder='Enter last name'
+                                    onChange={handleInputChange}
+                                />
+                        </Form.Group>
+                        <br/>
+                        <Form.Group className="row" controlId="EmailForm">
+                                <Form.Control
+                                    className="user-signup-input"
+                                    id='Email-input'
+                                    name='Email'
+                                    placeholder='Enter Email'
+                                    onChange={handleInputChange}
+                                />
+                        </Form.Group>
+                        <Row>
                             { errors.FirstName ? <span style={{color:'red', textAlign:'left'}}> { errors.FirstName } | </span> : null }
                             { errors.LastName ? <span style={{color:'red'}}> { errors.LastName } | </span> : null }
                             { errors.Email ? <span style={{color:'red'}}> { errors.Email }</span> : null }
-                        </Col>
-                    </Row>
-                    <div>
-                        <Button
-                            type='submit'
-                            variant='text' // 'danger'
-                            size='lg'
-                        >
-                            Sign up
-                        </Button>
-                    </div>
-                </Form>
+                        </Row>
+                        <br/>
+                        <Row>
+                            <Button
+                                type='submit'
+                                variant='danger'
+                                size='lg'
+                            >
+                                Sign up
+                            </Button>
+                        </Row>
+                    </Form>
+                    
+                    </Container>
                 </Col>
+                </Row>
             </Container>
         </div>
     )

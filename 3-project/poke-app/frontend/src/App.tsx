@@ -19,9 +19,8 @@ function App() {
 
   return (
     <div className="App">
-      <SetUserContext.Provider 
-          value={newSetUserContext} // Overwrite default context values with newSetUserContext
-      >
+      {/* Set Usercontext for LoginForm overriding default values  */}
+      <SetUserContext.Provider value={newSetUserContext}>
           <LoginForm/>
       </SetUserContext.Provider>
       <p>{user} with id {id}</p>
