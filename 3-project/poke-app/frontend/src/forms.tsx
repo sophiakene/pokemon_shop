@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react"
 import { Container, Form, Row, Col } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from "react-bootstrap/Button"
-import { SetUserContext } from "./App"
+import { SetUserContext } from "./header"
 import './form.css'
 
 export type SignUpData = {
