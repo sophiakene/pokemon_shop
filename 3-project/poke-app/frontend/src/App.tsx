@@ -12,9 +12,6 @@ function App() {
   return (
     <div className="App">
       <Header/>
-      {/* Set Usercontext for LoginForm overriding default values  */}
-      
-      {/* <p>{user} with id {id}</p> */}
       <Footer />
     </div>
   );
