@@ -1,0 +1,5 @@
+#card-box {
+    /* using z-index and position to move cards behind expanded sidebar on small screens */
+    position: relative;
+    z-index: 1;
+}

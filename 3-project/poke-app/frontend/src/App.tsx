@@ -3,20 +3,11 @@ import './App.css'
 import { LoginForm } from './forms'
 import { Footer } from './footer'
 import { Products, ProductsFilterBar } from './products'
-
-export type Pokemon = {
-  id: string
-  name: string
-  size: number
-  price: number
-  sizeCategory: string
-  type: string[]
-  info: string
-}
+import { Pokemon } from "./types";
 
 export const PokemonContext = createContext({
   pokemon: [] as Pokemon[],
-  setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
+  //setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
 })
 
 // User context with default values for setting User data
@@ -28,20 +19,6 @@ export const SetUserContext = createContext({
 // Context for getting data about user
 export const UserContext = createContext({ user: "", id: -1 })
 
-function ContextedLogin() {
-  return (
-    <div>
-      {/* Set Usercontext for LoginForm overriding default values  */}
-      {/*<SetUserContext.Provider value={newSetUserContext}>
-        <LoginForm/>
-      </SetUserContext.Provider>
-      <p>{user} with id {id}</p> 
-      <Footer />
-      */}
-    </div>
-  )
-}
-
 function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
   fetch('http://localhost:3005/products', {
       method: 'GET',
@@ -51,6 +28,7 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
   .then(pokemon => setPokemon(pokemon))
   .catch(error => console.log( {error: error} ))
 }
+
 function App() {
   const [pokemon, setPokemon] = useState<Pokemon[]>([])
   useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -58,14 +36,17 @@ function App() {
   const [id, setLoggedInUserId] = useState(-1)
   const newSetUserContext = { setLoggedInUser, setLoggedInUserId }
   const newGetUserContext = { user, id }
-  const pokemonContext = { pokemon, setPokemon }
+  const pokemonContext = { pokemon }
 
   return (
     <div className="App">
-      <p>sss</p>
       <PokemonContext.Provider value={pokemonContext}>
         <Products/>
       </PokemonContext.Provider>
+      {/* Set Usercontext for LoginForm overriding default values  */}
+      <SetUserContext.Provider value={newSetUserContext}>
+        <LoginForm/>
+      </SetUserContext.Provider>
     </div>
   );
 }
