@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
 import { useContext, useEffect } from "react"
-import { PokemonContext } from "./App"
+import { PokemonContext } from "./header"
 import { Pokemon } from "./types"
 import { addToShoppingCart } from "./shoppingCart"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
