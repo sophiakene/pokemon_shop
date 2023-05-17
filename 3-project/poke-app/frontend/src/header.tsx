@@ -1,14 +1,35 @@
 import React from "react"
+import { useState, createContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import { LoginForm } from "./forms";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
+
+// User context with default values for setting User data
+export const SetUserContext = createContext({
+    setLoggedInUser: (user: string) => {},
+    setLoggedInUserId: (id: number) => {},
+  })
+
+
+// Context for getting data about user
+export const UserContext = createContext({ user: "", id: -1 })
+
 export function Header() {
+    const [user, setLoggedInUser] = useState("")
+    const [id, setLoggedInUserId] = useState(-1)
+    const newSetUserContext = { setLoggedInUser, setLoggedInUserId }
+    const newGetUserContext = { user, id }
+
     return (
-        <Navbar bg="dark" variant="dark" sticky="top" expand="md">
-            <Container>
-                <BrowserRouter>
+        <BrowserRouter>
+         <SetUserContext.Provider value={newSetUserContext}>
+            <Navbar bg="dark" variant="dark" sticky="top" expand="md">
+                <Container fluid>
+                {/* Set Usercontext for LoginForm overriding default values  */}
+               
+                    
                     <NavLink style={{textDecoration: 'none'}} to= "/">
                         <Navbar.Brand>PokéShop</Navbar.Brand>
                     </NavLink>
@@ -21,27 +42,34 @@ export function Header() {
                         </Nav>
                         <Nav>
                             <Nav.Link style={{textDecoration: 'none'}} href="/signup">
-                                Login
+                                Login 
                             </Nav.Link>
                             <Nav.Link style={{textDecoration: 'none'}} href="/cart">
                                 Cart
                             </Nav.Link>
+                            <Nav.Link style={{textDecoration: 'none'}}>
+                                {user} with id {id}
+                            </Nav.Link>
                         </Nav>
-                    </Navbar.Collapse>                    
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/signup" element={<LoginForm/>}/>
-                        <Route path="/products" element={<Products/>}/>
-                        <Route path="/cart" element={<Cart/>}/>
-                    </Routes>
-                </BrowserRouter>
-            </Container>
-        </Navbar>  
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar> 
+            
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/signup" element={<LoginForm/>}/>
+                <Route path="/products" element={<Products/>}/>
+                <Route path="/cart" element={<Cart/>}/>
+            </Routes>
+            </SetUserContext.Provider> 
+        </BrowserRouter>
     )
 }
 
 function Home() {
-    return <h2></h2>
+    return (
+        <h2>Home</h2>
+    ) 
   }
 
 function Cart() {
@@ -49,7 +77,7 @@ function Cart() {
 }
 
 function Products() {
-    return <h2></h2>
+    return <h2>Products</h2>
 }
 
 
