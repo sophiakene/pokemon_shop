@@ -1,6 +1,7 @@
 import React, { useState, createContext } from "react";
 import './App.css'
 import { LoginForm } from './forms'
+import { Footer } from './footer'
 
 // User context with default values for setting User data
 export const SetUserContext = createContext({
@@ -24,6 +25,7 @@ function App() {
           <LoginForm/>
       </SetUserContext.Provider>
       <p>{user} with id {id}</p>
+      <Footer />
     </div>
   );
 }
