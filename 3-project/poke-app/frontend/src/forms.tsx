@@ -71,18 +71,22 @@ export function LoginForm() {
                   "lastName": SignUpData.LastName,
                   "mail": SignUpData.Email 
                 }
-               // event.preventDefault()
                 fetch('http://localhost:3005/customers', {
                     method: 'POST',
                     headers: { 'Content-type': 'application/json; charset=UTF-8' },
                     body: JSON.stringify(user),
                 })
                 .then(userResult => userResult.json())
-                .then(js => { console.log({js:js})
+                .then(js => {
                     setLoggedInUser(js.firstName + js.lastName)
                     setLoggedInUserId(js.id)
-                }) // save logged in user somewhere, so we can use it.
-                .catch(error => console.log({ error: error }))
+                    // Create basket for user
+                    fetch(`http://localhost:3005/customers/${js.id}/baskets`, {
+                        method: 'POST',
+                        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+                    }).catch(error => console.log({ errorAddingBasket: error}))
+                })
+                .catch(error => console.log({ errorAddingUser: error }))
         }
     }
 

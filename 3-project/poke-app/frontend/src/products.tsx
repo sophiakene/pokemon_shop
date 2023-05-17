@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
 import { useContext, useEffect } from "react"
-import { PokemonContext } from "./App"
+import { CartContext, PokemonContext } from "./App"
+import { UserContext } from "./header"
 import { Pokemon } from "./types"
-import { addToShoppingCart } from "./shoppingCart"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
@@ -16,9 +16,18 @@ import 'font-awesome/css/font-awesome.min.css'
 
 function PokeCard({ index } : { index: number }) {
     const { pokemon } = useContext(PokemonContext)
+    const { user, id } = useContext(UserContext)
+    const { cart, setCart } = useContext(CartContext)
+
     function handleAddToBacket() {
-        addToShoppingCart(pokemon[index])
+        // Call backend to add product
+        fetch(`/customers/${id}/baskets/products/${pokemon[index].id}`, {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' }
+        })
+        // setCart with new cart
     }
+
     if( pokemon.length !== 0 ) {
         const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
@@ -37,7 +46,6 @@ function PokeCard({ index } : { index: number }) {
                             <Card.Title>{pokemon[index].name}</Card.Title>
                         </a>
                         <Card.Text>{pokemon[index].info}</Card.Text>
-
                         <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
                     </Col>
                     <Col sm={3}>

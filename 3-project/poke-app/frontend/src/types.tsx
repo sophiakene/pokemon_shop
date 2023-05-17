@@ -8,3 +8,10 @@ export type Pokemon = {
     type: string[]
     info: string
 }
+
+export type CartElement = {
+    amount: number
+    pokemon: Pokemon
+}
+
+export type Cart = CartElement[]

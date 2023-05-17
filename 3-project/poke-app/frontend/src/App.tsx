@@ -2,7 +2,7 @@ import React, { useState, createContext, useEffect } from "react";
 import './App.css'
 import { Footer } from './footer'
 import { Products } from './products'
-import { Pokemon } from "./types";
+import { Pokemon, Cart } from "./types";
 import { Header } from "./header"
 
 export const PokemonContext = createContext({
@@ -20,17 +20,23 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
   .catch(error => console.log( {error: error} ))
 }
 
+export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart) => {} })
+
 function App() {
   const [pokemon, setPokemon] = useState<Pokemon[]>([])
   useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
   const pokemonContext = { pokemon }
+  const [cart, setCart] = useState<Cart>([])
+  const cartContext = { cart, setCart }
 
   return (
     <div className="App">
       <Header/>
+      <CartContext.Provider value={cartContext}>
       <PokemonContext.Provider value={pokemonContext}>
         <Products/>
       </PokemonContext.Provider>
+      </CartContext.Provider>
       <Footer />
     </div>
   );
