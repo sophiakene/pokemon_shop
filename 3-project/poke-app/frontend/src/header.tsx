@@ -36,19 +36,13 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
     .catch(error => console.log( {error: error} ))
     }
 
-
-
-
 export function Header() {
-    // for user context
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
     const [pokemon, setPokemon] = useState<Pokemon[]>([])
     const newSetUserContext = { setLoggedInUser, setLoggedInUserId }
     const newGetUserContext = { user, id }
 
-    // for products context
-    // const [pokemon, setPokemon] = useState<Pokemon[]>([])
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 
