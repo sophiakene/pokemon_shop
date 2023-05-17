@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 import './App.css'
 import { LoginForm } from './forms'
 import { Footer } from './footer'
+import { Header } from "./header"
 
 // User context with default values for setting User data
 export const SetUserContext = createContext({
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
       {/* Set Usercontext for LoginForm overriding default values  */}
       <SetUserContext.Provider value={newSetUserContext}>
           <LoginForm/>
