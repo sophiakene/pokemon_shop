@@ -31,12 +31,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
+      
       <CartContext.Provider value={cartContext}>
       <PokemonContext.Provider value={pokemonContext}>
-        <Products/>
+        <Header/>
       </PokemonContext.Provider>
       </CartContext.Provider>
+
       <Footer />
     </div>
   );

@@ -5,7 +5,7 @@ import { Navbar, Container, Nav } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
 import { LoginForm } from "./forms";
 // import 'bootstrap/dist/css/bootstrap.min.css'
-
+import { Products } from './products'
 
 // User context with default values for setting User data
 export const SetUserContext = createContext({
@@ -65,7 +65,10 @@ export function Header() {
                         <SetUserContext.Provider value={newSetUserContext}>
                             <LoginForm/> 
                         </SetUserContext.Provider>}/>
-                    <Route path="/products" element={<Products/>}/>
+                    <Route path="/products" element={
+                        <UserContext.Provider value={newGetUserContext}>
+                            <Products/>
+                        </UserContext.Provider>}/>
                     <Route path="/cart" element={
                         <UserContext.Provider value={newGetUserContext}>
                             <Cart/>
@@ -96,12 +99,4 @@ function Cart() {
     ) 
 }
 
-function Products() {
-    const { user, id } = useContext(UserContext)
-    return (
-        <div>
-            <h2>Products</h2>
-        </div>
-    ) 
-}
 

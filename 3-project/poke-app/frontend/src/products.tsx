@@ -21,11 +21,14 @@ function PokeCard({ index } : { index: number }) {
 
     function handleAddToBacket() {
         // Call backend to add product
-        fetch(`/customers/${id}/baskets/products/${pokemon[index].id}`, {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json; charset=UTF-8' }
+        fetch(`http://localhost:3005/customers/${id}/baskets/products/${pokemon[index].id}`, {
+            method: 'PATCH',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ amount: 1})
         })
-        // setCart with new cart
+        .then(response => response.json() )
+        .then(shoppingCart => setCart(shoppingCart))
+        .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
     if( pokemon.length !== 0 ) {
@@ -71,8 +74,8 @@ function PokeCard({ index } : { index: number }) {
 export function Products() {
     const { pokemon } = useContext(PokemonContext)
     const pokemonCards = 
-        pokemon.map((_, index) => { return (
-            <Row>
+        pokemon.map((pokemon, index) => { return (
+            <Row key={pokemon.name}>
                 <Col sm={3}></Col>
                 <Col sm={8}>
                     <PokeCard index={index}/>
@@ -89,6 +92,8 @@ export function Products() {
     );
 }
 
+
+//// Not working. not doing anything
 export function ProductsFilterBar() {
     return (
         <SidebarMenu>
@@ -96,6 +101,8 @@ export function ProductsFilterBar() {
         </SidebarMenu>
     );
 }
+
+// // Not working. not doing anything
 export function ProductsFilterBar1() {
     return (
     <Container fluid className="h-100 px-0">
@@ -229,7 +236,7 @@ export function ProductsFilterBar1() {
     );
 }
 
-
+// Not working. not doing anything
 export function ProductsFilterBar2() {
     return (
         <nav className="bg-light" id="sidebar">
