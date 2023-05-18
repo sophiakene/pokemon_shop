@@ -6,7 +6,7 @@ export function CarouselBanner() {
     return (
         <Carousel variant='dark'>
             <Carousel.Item>
-                <img 
+                <img className='carousel-img'
                 src='/data/poke_images/bulbasaur.avif'
                 alt='Bulbasaur on offer!'
                 />
@@ -15,7 +15,7 @@ export function CarouselBanner() {
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-                <img 
+                <img className='carousel-img'
                 src='/data/poke_images/diglett.avif'
                 alt='Diglett on offer!'
                 />
