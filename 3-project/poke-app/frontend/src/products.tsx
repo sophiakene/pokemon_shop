@@ -5,9 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
 import { useContext, useEffect } from "react"
-import { PokemonContext } from "./header"
+import { PokemonContext, UserContext, CartContext } from "./header"
 import { Pokemon } from "./types"
-import { addToShoppingCart } from "./shoppingCart"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
@@ -18,9 +17,21 @@ import 'font-awesome/css/font-awesome.min.css'
 
 function PokeCard({ index } : { index: number }) {
     const { pokemon } = useContext(PokemonContext)
+    const { user, id } = useContext(UserContext)
+    const { cart, setCart } = useContext(CartContext)
+
     function handleAddToBacket() {
-        addToShoppingCart(pokemon[index])
+        // Call backend to add product
+        fetch(`http://localhost:3005/customers/${id}/baskets/products/${pokemon[index].id}`, {
+            method: 'PATCH',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ amount: 1})
+        })
+        .then(response => response.json() )
+        .then(shoppingCart => setCart(shoppingCart))
+        .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
+
     if( pokemon.length !== 0 ) {
         // const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
         // changed the url as react-router-dom uses very specific path structure for placeholders
@@ -41,7 +52,6 @@ function PokeCard({ index } : { index: number }) {
                             <Card.Title>{pokemon[index].name}</Card.Title>
                         </Link>
                         <Card.Text>{pokemon[index].info}</Card.Text>
-
                         <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
                     </Col>
                     <Col sm={3}>
@@ -67,8 +77,8 @@ function PokeCard({ index } : { index: number }) {
 export function Products() {
     const { pokemon } = useContext(PokemonContext)
     const pokemonCards = 
-        pokemon.map((_, index) => { return (
-            <Row>
+        pokemon.map((pokemon, index) => { return (
+            <Row key={pokemon.name}>
                 <Col sm={3}></Col>
                 <Col sm={8}>
                     <PokeCard index={index}/>
@@ -85,6 +95,8 @@ export function Products() {
     );
 }
 
+
+//// Not working. not doing anything
 export function ProductsFilterBar() {
     return (
         <SidebarMenu>
@@ -92,6 +104,8 @@ export function ProductsFilterBar() {
         </SidebarMenu>
     );
 }
+
+// // Not working. not doing anything
 export function ProductsFilterBar1() {
     return (
     <Container fluid className="h-100 px-0">
@@ -225,7 +239,7 @@ export function ProductsFilterBar1() {
     );
 }
 
-
+// Not working. not doing anything
 export function ProductsFilterBar2() {
     return (
         <nav className="bg-light" id="sidebar">

@@ -3,10 +3,9 @@ import { useState, useEffect, createContext, useContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
 import { LoginForm } from "./forms";
-import { Pokemon } from "./types";
+import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 // import 'bootstrap/dist/css/bootstrap.min.css'
-
 
 //// login context stuff
 // User context with default values for setting User data
@@ -18,6 +17,7 @@ export const SetUserContext = createContext({
 // Context for getting data about user
 export const UserContext = createContext({ user: "", id: -1 })
 
+export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart) => {} })
 
 //// products context stuff
 export const PokemonContext = createContext({
@@ -33,7 +33,7 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
     .then(response => response.json())
     .then(pokemon => setPokemon(pokemon))
     .catch(error => console.log( {error: error} ))
-    }
+}
 
 export function Header() {
     const [user, setLoggedInUser] = useState("")
@@ -41,6 +41,8 @@ export function Header() {
     const [pokemon, setPokemon] = useState<Pokemon[]>([])
     const newSetUserContext = { setLoggedInUser, setLoggedInUserId }
     const newGetUserContext = { user, id }
+    const [cart, setCart] = useState<Cart>([])
+    const cartContext = { cart, setCart }
 
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
@@ -89,12 +91,16 @@ export function Header() {
                         </SetUserContext.Provider>}/>
                     <Route path="/products" element={
                         <PokemonContext.Provider value={pokemonContext}>
-                            <Products/>
+                            <UserContext.Provider value={newGetUserContext}>
+                                <CartContext.Provider value={cartContext}>
+                                    <Products/>
+                                </CartContext.Provider>
+                            </UserContext.Provider>
                         </PokemonContext.Provider>
                     }/>
                     <Route path="/cart" element={
                         <UserContext.Provider value={newGetUserContext}>
-                            <Cart/>
+                            <CartShow/>
                         </UserContext.Provider>}/>
                     <Route path="/detailed_product">
                         <Route path=":name" element={<DetailDummy/>}/>
@@ -115,7 +121,7 @@ function Home() {
     ) 
   }
 
-function Cart() {
+function CartShow() {
     const { user, id } = useContext(UserContext)
     return (
         <div>
@@ -124,7 +130,6 @@ function Cart() {
         </div>
     ) 
 }
-
 
 // should be deleted when real detail component in place
 function DetailDummy() {
