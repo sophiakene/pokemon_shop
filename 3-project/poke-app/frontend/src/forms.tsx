@@ -85,13 +85,18 @@ export function LoginForm() {
                 })
                 .then(userResult => userResult.json())
                 .then(userResult => {
-                    setLoggedInUserId(userResult.id)
-                    setLoggedInUser(userResult.firstName + userResult.lastName)
-                    // Create basket for user
-                    fetch(`http://localhost:3005/customers/${userResult.id}/baskets`, {
-                        method: 'POST',
-                        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-                    }).catch(error => console.log({ errorAddingBasket: error}))
+                    if (userResult.hasOwnProperty('error')) {
+                        setError({ Email : 'Mail is already in use' })
+                    }
+                    else {
+                        setLoggedInUserId(userResult.id)
+                        setLoggedInUser(userResult.firstName + userResult.lastName)
+                        // Create basket for user
+                        fetch(`http://localhost:3005/customers/${userResult.id}/baskets`, {
+                            method: 'POST',
+                            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+                        }).catch(error => console.log({ errorAddingBasket: error}))
+                    }
                 })
                 .catch(error => console.log({ errorAddingUser: error }))
         }
