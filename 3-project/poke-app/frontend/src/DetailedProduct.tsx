@@ -12,7 +12,6 @@ export function DetailedProductPage() {
 
     const productImage = `/data/poke_images/${pokemon[Number(index)].name.toLowerCase()}.avif` 
 
-
     return (
         <div className="d-flex flex-column min-vh-100">
         <div className="container">

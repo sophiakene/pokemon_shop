@@ -35,7 +35,7 @@ function PokeCard({ index } : { index: number }) {
     if( pokemon.length !== 0 ) {
         // const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
         // changed the url as react-router-dom uses very specific path structure for placeholders
-        const detailedProduct = `/detailed_product/${pokemon[index].name}`
+        const detailedProduct = `/detailed_product/${index}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
         return (
             <Container fluid>
