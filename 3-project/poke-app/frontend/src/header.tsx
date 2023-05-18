@@ -23,7 +23,7 @@ export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart)
 export const PokemonContext = createContext({
     pokemon: [] as Pokemon[],
     //setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
-  })
+})
 
 function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
     fetch('http://localhost:3005/products', {
@@ -35,6 +35,7 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
     .catch(error => console.log( {error: error} ))
 }
 
+
 export function Header() {
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
@@ -43,7 +44,6 @@ export function Header() {
     const newGetUserContext = { user, id }
     const [cart, setCart] = useState<Cart>([])
     const cartContext = { cart, setCart }
-
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 
