@@ -110,7 +110,6 @@ export function LoginForm() {
     function onRegisteredSubmit(event: React.FormEvent) {
         event.preventDefault()
         const isValidFormat = validateLoginMail()
-        console.log({isValidFormat:isValidFormat, err: loginError})
         if (isValidFormat) {
             // get customer from backend based on mail
             fetch(`http://localhost:3005/customers/${loginMail}`, {
@@ -119,7 +118,6 @@ export function LoginForm() {
             })
             .then(userResult => userResult.json())
             .then(userResult => {
-                console.log({userres:userResult})
                 if (userResult.hasOwnProperty('error')) {
                     setLoginError({ Email: `User with email ${loginMail} does not exist`})
                 } else {
@@ -127,7 +125,7 @@ export function LoginForm() {
                     setLoggedInUser(userResult.firstName + userResult.lastName)
                 }
             })
-            .catch(error => setLoginError({ Email: error })) 
+            .catch(error => setLoginError({ Email: `User with email ${loginMail} does not exist`}))
         }
     }
 
