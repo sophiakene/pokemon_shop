@@ -46,6 +46,21 @@ function getIndexIfCustomerExists(customers, customerId) {
     }
 }
 
+export async function getCustomerFromMail(mail) {
+    const customers = await getAllCustomers()
+    const customerIndex = getElementIndexWithId(customers, 'mail', mail)
+    const customerNotExists = notExistsInCollection(customerIndex)
+    if (customerNotExists) {
+        throw new Error(
+            `Customer with mail ${mail} does not exist`,
+            { cause: errorCauses.CUSTOMER_NOT_EXISTS },
+        )
+    }
+    else {
+        return customers[customerIndex]
+    }
+}
+
 export async function addCustomer(firstName, lastName, mail) {
     try {
         let customers = await getAllCustomers()
