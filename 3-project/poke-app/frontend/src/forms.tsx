@@ -149,7 +149,7 @@ export function LoginForm() {
                                 />
                             </Form.Group>
                             <Row>
-                                { loginError.Email ? <span style={{color: 'red'}}> {loginError.Email} </span>: null}
+                                { loginError.Email ? <span className="errorMsg">{ loginError.Email }</span>: null}
                             </Row>
                             <br/>
                             <Row>
@@ -201,11 +201,10 @@ export function LoginForm() {
                                 />
                         </Form.Group>
                         <Row>
-                            { errors.FirstName ? <span style={{color:'red', textAlign:'left'}}> { errors.FirstName } | </span> : null }
-                            { errors.LastName ? <span style={{color:'red'}}> { errors.LastName } | </span> : null }
-                            { errors.Email ? <span style={{color:'red'}}> { errors.Email }</span> : null }
+                            { errors.FirstName ? <span className="errorMsg"> { errors.FirstName } </span> : null }
+                            { errors.LastName ? <span className="errorMsg"> { errors.LastName } </span> : null }
+                            { errors.Email ? <span className="errorMsg"> { errors.Email } </span> : null }
                         </Row>
-                        <br/>
                         <Row>
                             <Button
                                 type='submit'
