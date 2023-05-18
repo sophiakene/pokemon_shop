@@ -101,7 +101,7 @@ export function Header() {
                     }/>
                     <Route path="/cart" element={
                         <UserContext.Provider value={newGetUserContext}>
-                            <Cart/>
+                            <CartShow/>
                         </UserContext.Provider>}/>
                 </Routes>
              
@@ -119,7 +119,7 @@ function Home() {
     ) 
   }
 
-function Cart() {
+function CartShow() {
     const { user, id } = useContext(UserContext)
     return (
         <div>
