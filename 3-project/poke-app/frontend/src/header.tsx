@@ -1,27 +1,52 @@
 import React from "react"
-import { useState, createContext, useContext } from "react"
+import { useState, useEffect, createContext, useContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
 // if you're missing it: npm install react-router-dom
 import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
 import { LoginForm } from "./forms";
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import { Pokemon, Cart } from "./types";
 import { Products } from './products'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
+//// login context stuff
 // User context with default values for setting User data
 export const SetUserContext = createContext({
     setLoggedInUser: (user: string) => {},
     setLoggedInUserId: (id: number) => {},
   })
 
-
 // Context for getting data about user
 export const UserContext = createContext({ user: "", id: -1 })
+
+export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart) => {} })
+
+//// products context stuff
+export const PokemonContext = createContext({
+    pokemon: [] as Pokemon[],
+    //setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
+  })
+
+function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
+    fetch('http://localhost:3005/products', {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+    })
+    .then(response => response.json())
+    .then(pokemon => setPokemon(pokemon))
+    .catch(error => console.log( {error: error} ))
+}
 
 export function Header() {
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
+    const [pokemon, setPokemon] = useState<Pokemon[]>([])
     const newSetUserContext = { setLoggedInUser, setLoggedInUserId }
     const newGetUserContext = { user, id }
+    const [cart, setCart] = useState<Cart>([])
+    const cartContext = { cart, setCart }
+
+    useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
+    const pokemonContext = { pokemon }
 
     return (
         <BrowserRouter>
@@ -66,9 +91,14 @@ export function Header() {
                             <LoginForm/> 
                         </SetUserContext.Provider>}/>
                     <Route path="/products" element={
-                        <UserContext.Provider value={newGetUserContext}>
-                            <Products/>
-                        </UserContext.Provider>}/>
+                        <PokemonContext.Provider value={pokemonContext}>
+                            <UserContext.Provider value={newGetUserContext}>
+                                <CartContext.Provider value={cartContext}>
+                                    <Products/>
+                                </CartContext.Provider>
+                            </UserContext.Provider>
+                        </PokemonContext.Provider>
+                    }/>
                     <Route path="/cart" element={
                         <UserContext.Provider value={newGetUserContext}>
                             <Cart/>
@@ -98,5 +128,3 @@ function Cart() {
         </div>
     ) 
 }
-
-
