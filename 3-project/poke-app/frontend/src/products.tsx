@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
@@ -15,13 +15,16 @@ import 'font-awesome/css/font-awesome.min.css'
 //library.add(faShoppingCart)
 
 
+
 function PokeCard({ index } : { index: number }) {
     const { pokemon } = useContext(PokemonContext)
     function handleAddToBacket() {
         addToShoppingCart(pokemon[index])
     }
     if( pokemon.length !== 0 ) {
-        const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
+        // const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
+        // changed the url as react-router-dom uses very specific path structure for placeholders
+        const detailedProduct = `/detailed_product/${pokemon[index].name}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
         return (
             <Container fluid>
