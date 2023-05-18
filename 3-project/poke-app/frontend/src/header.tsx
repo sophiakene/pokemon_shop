@@ -5,6 +5,7 @@ import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-ro
 import { LoginForm } from "./forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
+import { Home } from "./home";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -83,7 +84,7 @@ export function Header() {
                 <Routes>
                     <Route path="/" element={
                         <UserContext.Provider value={newGetUserContext}>
-                            <Home/>
+                            <Home />
                         </UserContext.Provider>}/>
                     <Route path="/signup" element={
                         <SetUserContext.Provider value={newSetUserContext}>
@@ -108,16 +109,6 @@ export function Header() {
                 </Routes>
              
         </BrowserRouter>
-    )
-}
-
-function Home() {
-    const { user, id } = useContext(UserContext)
-    return (
-        <div>
-            <h2>Home</h2>
-            <h2>Welcome, {user} with id {id}</h2>
-        </div>
     )
 }
 
