@@ -1,8 +1,7 @@
 import React from "react"
 import { useState, useEffect, createContext, useContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
-// if you're missing it: npm install react-router-dom
-import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
 import { LoginForm } from "./forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
@@ -103,6 +102,9 @@ export function Header() {
                         <UserContext.Provider value={newGetUserContext}>
                             <CartShow/>
                         </UserContext.Provider>}/>
+                    <Route path="/detailed_product">
+                        <Route path=":name" element={<DetailDummy/>}/>
+                    </Route>
                 </Routes>
              
         </BrowserRouter>
@@ -128,3 +130,14 @@ function CartShow() {
         </div>
     ) 
 }
+
+// should be deleted when real detail component in place
+function DetailDummy() {
+    const { name } = useParams()
+    return (
+        <div>
+            <h2>Detailed product page dummy</h2>
+            <h2> {name} </h2>
+        </div>
+    ) 
+  }
