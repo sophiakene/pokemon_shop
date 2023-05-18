@@ -112,28 +112,6 @@ export function Header() {
     )
 }
 
-<<<<<<< HEAD
-// function Home() {
-//     const { user, id } = useContext(UserContext)
-//     return (
-//         <div>
-//             <h2>Home</h2>
-//             <h2>Welcome, {user} with id {id}</h2>
-//         </div>
-//     ) 
-//   }
-=======
-function Home() {
-    const { user, id } = useContext(UserContext)
-    return (
-        <div>
-            <h2>Home</h2>
-            <h2>Welcome, {user} with id {id}</h2>
-        </div>
-    )
-}
->>>>>>> 337d52808aa86df9e2dc8717753e44f646537d13
-
 function CartShow() {
     const { user, id } = useContext(UserContext)
     return (
