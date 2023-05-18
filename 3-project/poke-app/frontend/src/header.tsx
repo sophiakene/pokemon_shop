@@ -2,7 +2,7 @@ import React from "react"
 import { useState, useEffect, createContext, useContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
-import { LoginForm } from "./forms";
+import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 import { Home } from "./home";
@@ -117,7 +117,7 @@ export function Header() {
                         </UserContext.Provider>}/>
                     <Route path="/signup" element={
                         <SetUserContext.Provider value={newSetUserContext}>
-                            <LoginForm/> 
+                            <Forms/> 
                         </SetUserContext.Provider>}/>
                     <Route path="/products" element={
                         <PokemonContext.Provider value={pokemonContext}>
