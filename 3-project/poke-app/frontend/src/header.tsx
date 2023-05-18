@@ -6,6 +6,7 @@ import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 import { Home } from "./home";
+import { DetailedProductPage } from "./DetailedProduct";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -132,9 +133,10 @@ export function Header() {
                         <UserContext.Provider value={newGetUserContext}>
                             <CartShow/>
                         </UserContext.Provider>}/>
-                    <Route path="/detailed_product">
-                        <Route path=":name" element={<DetailDummy/>}/>
-                    </Route>
+
+                    <Route path="/detailed_product/:index" element =
+                    {<PokemonContext.Provider value={pokemonContext}>
+                    <DetailedProductPage/> </PokemonContext.Provider>}/>
                 </Routes>
              
         </BrowserRouter>
