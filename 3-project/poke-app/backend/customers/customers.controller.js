@@ -75,6 +75,16 @@ export async function removeProductFromBasket(req, res) {
     }
 }
 
+export async function cleanUpBasket(req, res) {
+    try {
+    const mail = req.params.mail
+    const customer = await customerModel.cleanUpBasket(mail)
+    res.json(customer)
+    } catch(error) {
+        res.status(400).send({ error: error.message})
+    }
+}
+
 export async function addCustomer(req, res) {
     try {
         const firstName = req.body.firstName

@@ -1,0 +1,10 @@
+.background {
+    background-image: url('../public/data/frontpage-pika-hello.jpg');
+    background-size: cover;
+    height: 75vh;
+    width: auto;
+}
+
+.welcome-text {
+    transform: translateY(200%);
+}

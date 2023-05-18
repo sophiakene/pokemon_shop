@@ -1,11 +1,11 @@
-import { Header } from "./header";
 import { CarouselBanner } from "./carousel";
-import { Footer } from "./footer";
+import { PikaWelcome } from "./welcome";
 
 export function Home() {
     return (
     <>
     <CarouselBanner />
+    <PikaWelcome />
     </>
     )
 }
