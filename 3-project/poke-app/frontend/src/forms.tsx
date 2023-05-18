@@ -16,6 +16,9 @@ type SignUpError = {
     LastName? : string
     Email? : string
 }
+
+type LoginError = { Email?: string }
+
 const EMAIL = "Email"
 const FIRSTNAME = "FirstName"
 const LASTNAME = "LastName"
@@ -24,8 +27,9 @@ export function LoginForm() {
     const [SignUpData, setSignUpData] = useState<SignUpData>({ FirstName : "", LastName : "", Email : "" })
     const [errors, setError] = useState<SignUpError>({})
     const { setLoggedInUser, setLoggedInUserId } = useContext(SetUserContext)
+    const [loginMail, setLoginMail] = useState("")
+    const [loginError, setLoginError] = useState<LoginError>({})
 
-    function errorExists() { return errors.hasOwnProperty(FIRSTNAME) || errors.hasOwnProperty(LASTNAME) || errors.hasOwnProperty(EMAIL) }
     
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         const inputName = event.target.name
@@ -57,8 +61,11 @@ export function LoginForm() {
             validationError.Email = "Email must contain '@'"
         }
         setError(validationError)
-
-        return !errorExists()
+        const isValidInput = 
+            !(validationError.hasOwnProperty(FIRSTNAME) 
+              || validationError.hasOwnProperty(LASTNAME) 
+              || validationError.hasOwnProperty(EMAIL))
+        return isValidInput
     }
 
     function onSubmit(event: React.FormEvent) {
@@ -77,11 +84,11 @@ export function LoginForm() {
                     body: JSON.stringify(user),
                 })
                 .then(userResult => userResult.json())
-                .then(js => {
-                    setLoggedInUser(js.firstName + js.lastName)
-                    setLoggedInUserId(js.id)
+                .then(userResult => {
+                    setLoggedInUserId(userResult.id)
+                    setLoggedInUser(userResult.firstName + userResult.lastName)
                     // Create basket for user
-                    fetch(`http://localhost:3005/customers/${js.id}/baskets`, {
+                    fetch(`http://localhost:3005/customers/${userResult.id}/baskets`, {
                         method: 'POST',
                         headers: { 'Content-type': 'application/json; charset=UTF-8' },
                     }).catch(error => console.log({ errorAddingBasket: error}))
@@ -90,10 +97,36 @@ export function LoginForm() {
         }
     }
 
+    function validateLoginMail() {
+        let validationError : LoginError = {}
+        console.log({loginMail:loginMail})
+        if ((!loginMail) || loginMail === "") { validationError.Email = "Email is required" }
+        else if (! /@/.test(loginMail)) { validationError.Email = "Email must contain '@'" }
+        setLoginError(validationError)
+        const isValid = !(validationError.hasOwnProperty(EMAIL))
+        return isValid
+    }
+
     function onRegisteredSubmit(event: React.FormEvent) {
         event.preventDefault()
-        // get customer from backend based on mail
-        // throw error if not exists
+        const isValidFormat = validateLoginMail()
+        if (isValidFormat) {
+            // get customer from backend based on mail
+            fetch(`http://localhost:3005/customers/${loginMail}`, {
+                    method: 'GET',
+                    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            })
+            .then(userResult => userResult.json())
+            .then(userResult => {
+                if (userResult.hasOwnProperty('error')) {
+                    setLoginError({ Email: `User with email ${loginMail} does not exist`})
+                } else {
+                    setLoggedInUserId(userResult.id)
+                    setLoggedInUser(userResult.firstName + userResult.lastName)
+                }
+            })
+            .catch(error => setLoginError({ Email: `User with email ${loginMail} does not exist`}))
+        }
     }
 
     return (
@@ -101,6 +134,7 @@ export function LoginForm() {
             <Container fluid>
                 <Row>
                 <Col sm={2}/>
+
                 <Col sm={4}>
                     <br/>
                     <h2>Already registered?</h2>
@@ -111,8 +145,12 @@ export function LoginForm() {
                                 <Form.Control
                                     name='Email'
                                     placeholder='Enter Email'
+                                    onChange={e => setLoginMail(e.target.value) }
                                 />
                             </Form.Group>
+                            <Row>
+                                { loginError.Email ? <span style={{color: 'red'}}> {loginError.Email} </span>: null}
+                            </Row>
                             <br/>
                             <Row>
                                 <Button
@@ -126,6 +164,7 @@ export function LoginForm() {
                         </Form>
                     </Container>
                 </Col>
+
                 <Col sm={4}>
                     <br/>
                     <h2>New here?</h2>

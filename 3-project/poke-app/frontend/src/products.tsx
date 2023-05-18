@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
@@ -11,6 +12,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
 //import { library } from '@fortawesome/fontawesome-svg-core'; 
 //library.add(faShoppingCart)
+
 
 
 function PokeCard({ index } : { index: number }) {
@@ -31,7 +33,9 @@ function PokeCard({ index } : { index: number }) {
     }
 
     if( pokemon.length !== 0 ) {
-        const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
+        // const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
+        // changed the url as react-router-dom uses very specific path structure for placeholders
+        const detailedProduct = `/detailed_product/${pokemon[index].name}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
         return (
             <Container fluid>
@@ -39,14 +43,14 @@ function PokeCard({ index } : { index: number }) {
                 key={'Light'}>
                 <Row className='no-gutters'>
                     <Col sm={3}>
-                        <a href={detailedProduct}>
+                        <Link to={detailedProduct}>
                             <Card.Img src={image} alt="Pokemon" />
-                        </a>
+                        </Link>
                     </Col>
                     <Col sm={6}>
-                        <a href={detailedProduct}>
+                        <Link to={detailedProduct}>
                             <Card.Title>{pokemon[index].name}</Card.Title>
-                        </a>
+                        </Link>
                         <Card.Text>{pokemon[index].info}</Card.Text>
                         <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
                     </Col>

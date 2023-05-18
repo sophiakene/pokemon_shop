@@ -4,13 +4,16 @@ import {
     createBasketForCustomer,
     addProductToBasket,
     removeProductFromBasket,
-    addCustomer
+    addCustomer,
+    getCustomerFromMail,
 } from './customers.controller.js'
 
 
 export const customersRouter = express.Router()
 
 customersRouter.post("/customers", addCustomer)
+
+customersRouter.get("/customers/:mail", getCustomerFromMail)
 
 customersRouter.get("/customers/:customerId/baskets", getBasket)
 
