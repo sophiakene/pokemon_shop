@@ -3,19 +3,25 @@ import { useContext, useEffect } from "react"
 import Button from "react-bootstrap/Button"
 import { Container, Form, Row, Col, Card } from "react-bootstrap"
 import { PokemonContext } from "./header"
+import { useParams } from 'react-router-dom'
 
-export function DetailedProductPage({ index } : { index: number }) {
+
+export function DetailedProductPage() {
+    const { index } = useParams() as { index: string}
     const { pokemon } = useContext(PokemonContext)
-    const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
+
+    const productImage = `/data/poke_images/${pokemon[Number(index)].name.toLowerCase()}.avif` 
+
+
     return (
         <div className="d-flex flex-column min-vh-100">
         <div className="container">
         <div className="card-deck mt-5"><div className="card-body"></div>
-            <div className="card bg-light">
-            <div className="card-body">
-            <Card.Img src="/data/poke_images/bulbasaur.avif" alt="Pokemon"/>
-            </div>
-            </div>
+            <Card className="bg-light">
+            <Card.Body>
+            <Card.Img src={productImage} alt="Pokemon"/>
+            </Card.Body>
+            </Card>
             <div className="card bg-light">
                 <div className="card-body d-flex flex-column">
                     <div className="card-title">
@@ -45,6 +51,7 @@ export function DetailedProductPage({ index } : { index: number }) {
         </div>
     </div>
     </div>
-
     )
 }; 
+
+
