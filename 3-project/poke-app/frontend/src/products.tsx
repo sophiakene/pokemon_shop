@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
@@ -28,14 +29,14 @@ function PokeCard({ index } : { index: number }) {
                 key={'Light'}>
                 <Row className='no-gutters'>
                     <Col sm={3}>
-                        <a href={detailedProduct}>
+                        <Link to={detailedProduct}>
                             <Card.Img src={image} alt="Pokemon" />
-                        </a>
+                        </Link>
                     </Col>
                     <Col sm={6}>
-                        <a href={detailedProduct}>
+                        <Link to={detailedProduct}>
                             <Card.Title>{pokemon[index].name}</Card.Title>
-                        </a>
+                        </Link>
                         <Card.Text>{pokemon[index].info}</Card.Text>
 
                         <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
