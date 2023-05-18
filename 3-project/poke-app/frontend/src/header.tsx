@@ -24,7 +24,7 @@ export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart)
 export const PokemonContext = createContext({
     pokemon: [] as Pokemon[],
     //setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
-  })
+})
 
 function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
     fetch('http://localhost:3005/products', {
@@ -36,6 +36,35 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
     .catch(error => console.log( {error: error} ))
 }
 
+let defaultUser = {
+    id: 0,
+    firstName: "default",
+    lastName: "",
+    mail: "DEFAULT@UNKNOWN",
+}
+
+function setDefaultUser(
+        setLoggedInUserId: React.Dispatch<React.SetStateAction<number>>,
+        setLoggedInUser: React.Dispatch<React.SetStateAction<string>>
+    ) {
+    // Call backend to get default user data                 
+    fetch(`http://localhost:3005/customers/${defaultUser.mail}`, {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+    .then(res => res.json())
+    .then(userResult => {
+        // Clean up basket from last unknown user
+        fetch(`http://localhost:3005/customers/${userResult.mail}/baskets`, {
+            method: 'DELETE',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        })
+        setLoggedInUserId(userResult.id)
+        setLoggedInUser(userResult.firstName)
+    })
+    .catch(error => console.log({ errorSettingUser: error }))
+}
+
 export function Header() {
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
@@ -44,7 +73,7 @@ export function Header() {
     const newGetUserContext = { user, id }
     const [cart, setCart] = useState<Cart>([])
     const cartContext = { cart, setCart }
-
+    useEffect(() => setDefaultUser(setLoggedInUserId, setLoggedInUser), [])
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 

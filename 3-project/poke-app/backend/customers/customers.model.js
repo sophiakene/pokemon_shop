@@ -61,6 +61,24 @@ export async function getCustomerFromMail(mail) {
     }
 }
 
+export async function cleanUpBasket(mail) {
+    const customers = await getAllCustomers()
+    const customerIndex = getElementIndexWithId(customers, 'mail', mail)
+    const customerExists = existsInCollection(customerIndex)
+    if (customerExists) {
+        let customer = customers[customerIndex]
+        customer.basket = []
+        customers[customerIndex] = customer
+        await saveCustomers(customers)
+        return customer
+    } else {
+        throw new Error(
+            `Customer with mail ${mail} does not exist`,
+            { cause: errorCauses.CUSTOMER_NOT_EXISTS },
+        ) 
+    }
+}
+
 export async function addCustomer(firstName, lastName, mail) {
     try {
         let customers = await getAllCustomers()
