@@ -1,11 +1,11 @@
 import React from "react"
 import { useState, useEffect, createContext, useContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
-// if you're missing it: npm install react-router-dom
-import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
 import { LoginForm } from "./forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
+import { Home } from "./home";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -84,7 +84,7 @@ export function Header() {
                 <Routes>
                     <Route path="/" element={
                         <UserContext.Provider value={newGetUserContext}>
-                            <Home/>
+                            <Home />
                         </UserContext.Provider>}/>
                     <Route path="/signup" element={
                         <SetUserContext.Provider value={newSetUserContext}>
@@ -103,12 +103,26 @@ export function Header() {
                         <UserContext.Provider value={newGetUserContext}>
                             <CartShow/>
                         </UserContext.Provider>}/>
+                    <Route path="/detailed_product">
+                        <Route path=":name" element={<DetailDummy/>}/>
+                    </Route>
                 </Routes>
              
         </BrowserRouter>
     )
 }
 
+<<<<<<< HEAD
+// function Home() {
+//     const { user, id } = useContext(UserContext)
+//     return (
+//         <div>
+//             <h2>Home</h2>
+//             <h2>Welcome, {user} with id {id}</h2>
+//         </div>
+//     ) 
+//   }
+=======
 function Home() {
     const { user, id } = useContext(UserContext)
     return (
@@ -116,8 +130,9 @@ function Home() {
             <h2>Home</h2>
             <h2>Welcome, {user} with id {id}</h2>
         </div>
-    ) 
-  }
+    )
+}
+>>>>>>> 337d52808aa86df9e2dc8717753e44f646537d13
 
 function CartShow() {
     const { user, id } = useContext(UserContext)
@@ -128,3 +143,14 @@ function CartShow() {
         </div>
     ) 
 }
+
+// should be deleted when real detail component in place
+function DetailDummy() {
+    const { name } = useParams()
+    return (
+        <div>
+            <h2>Detailed product page dummy</h2>
+            <h2> {name} </h2>
+        </div>
+    ) 
+  }

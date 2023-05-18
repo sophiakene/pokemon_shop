@@ -52,7 +52,6 @@ export async function addProductToBasket(req, res) {
         else {
             res.status(400).send({ error: error.message })
         }
-
     }
 }
 
@@ -85,6 +84,18 @@ export async function addCustomer(req, res) {
         res.json(customer)
     } catch(error) {
         error.cause === errorCauses.CUSTOMER_EXISTS
+        ? res.status(404).send({ error: error.message })
+        : res.status(400).send({ error: error.message })
+    }
+}
+
+export async function getCustomerFromMail(req, res) {
+    try {
+        const mail = req.params.mail
+        const customer = await customerModel.getCustomerFromMail(mail)
+        res.json(customer)
+    } catch(error) {
+        error.cause === errorCauses.CUSTOMER_NOT_EXISTS
         ? res.status(404).send({ error: error.message })
         : res.status(400).send({ error: error.message })
     }
