@@ -5,7 +5,7 @@ import './welcome.css'
 
 export function PikaWelcome() {
     const { user, id } = useContext(UserContext)
-    if (user.length === 0) {
+    if (id === 0) {
         return (
         <div className='background'>
             <div className='welcome-text'>
