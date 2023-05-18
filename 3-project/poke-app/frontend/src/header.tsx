@@ -116,8 +116,8 @@ function Home() {
             <h2>Home</h2>
             <h2>Welcome, {user} with id {id}</h2>
         </div>
-    ) 
-  }
+    )
+}
 
 function CartShow() {
     const { user, id } = useContext(UserContext)
