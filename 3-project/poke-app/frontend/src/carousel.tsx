@@ -7,7 +7,7 @@ export function CarouselBanner() {
     return (
         <Carousel variant='dark' indicators={false}>
             <Carousel.Item>
-                <Link to='/detailed_product/Bulbasaur'>
+                <Link to='/detailed_product/0'>
                 <img className='carousel-img'
                 src='/data/poke_images/bulbasaur.avif'
                 alt='Bulbasaur on offer!'
@@ -18,7 +18,7 @@ export function CarouselBanner() {
                 </Link>
             </Carousel.Item>
             <Carousel.Item>
-                <Link to='/detailed_product/Diglett'>
+                <Link to='/detailed_product/8'>
                 <img className='carousel-img'
                 src='/data/poke_images/diglett.avif'
                 alt='Diglett on offer!'
