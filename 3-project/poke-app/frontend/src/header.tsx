@@ -2,10 +2,11 @@ import React from "react"
 import { useState, useEffect, createContext, useContext } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
-import { LoginForm } from "./forms";
+import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 import { Home } from "./home";
+import { DetailedProductPage } from "./DetailedProduct";
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -24,7 +25,7 @@ export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart)
 export const PokemonContext = createContext({
     pokemon: [] as Pokemon[],
     //setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
-  })
+})
 
 function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
     fetch('http://localhost:3005/products', {
@@ -36,6 +37,35 @@ function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]
     .catch(error => console.log( {error: error} ))
 }
 
+let defaultUser = {
+    id: 0,
+    firstName: "default",
+    lastName: "",
+    mail: "DEFAULT@UNKNOWN",
+}
+
+function setDefaultUser(
+        setLoggedInUserId: React.Dispatch<React.SetStateAction<number>>,
+        setLoggedInUser: React.Dispatch<React.SetStateAction<string>>
+    ) {
+    // Call backend to get default user data                 
+    fetch(`http://localhost:3005/customers/${defaultUser.mail}`, {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+    .then(res => res.json())
+    .then(userResult => {
+        // Clean up basket from last unknown user
+        fetch(`http://localhost:3005/customers/${userResult.mail}/baskets`, {
+            method: 'DELETE',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        })
+        setLoggedInUserId(userResult.id)
+        setLoggedInUser(userResult.firstName)
+    })
+    .catch(error => console.log({ errorSettingUser: error }))
+}
+
 export function Header() {
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
@@ -44,7 +74,7 @@ export function Header() {
     const newGetUserContext = { user, id }
     const [cart, setCart] = useState<Cart>([])
     const cartContext = { cart, setCart }
-
+    useEffect(() => setDefaultUser(setLoggedInUserId, setLoggedInUser), [])
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 
@@ -88,7 +118,7 @@ export function Header() {
                         </UserContext.Provider>}/>
                     <Route path="/signup" element={
                         <SetUserContext.Provider value={newSetUserContext}>
-                            <LoginForm/> 
+                            <Forms/> 
                         </SetUserContext.Provider>}/>
                     <Route path="/products" element={
                         <PokemonContext.Provider value={pokemonContext}>
@@ -103,9 +133,10 @@ export function Header() {
                         <UserContext.Provider value={newGetUserContext}>
                             <CartShow/>
                         </UserContext.Provider>}/>
-                    <Route path="/detailed_product">
-                        <Route path=":name" element={<DetailDummy/>}/>
-                    </Route>
+
+                    <Route path="/detailed_product/:index" element =
+                    {<PokemonContext.Provider value={pokemonContext}>
+                    <DetailedProductPage/> </PokemonContext.Provider>}/>
                 </Routes>
              
         </BrowserRouter>

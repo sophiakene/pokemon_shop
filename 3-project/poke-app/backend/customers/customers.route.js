@@ -6,6 +6,7 @@ import {
     removeProductFromBasket,
     addCustomer,
     getCustomerFromMail,
+    cleanUpBasket,
 } from './customers.controller.js'
 
 
@@ -21,5 +22,6 @@ customersRouter.post("/customers/:customerId/baskets", createBasketForCustomer)
 
 customersRouter.patch("/customers/:customerId/baskets/products/:productId", addProductToBasket)
 
-customersRouter.delete("/customers/:customerId/baskets/products/:productId", removeProductFromBasket)
+customersRouter.delete("/customers/:mail/baskets", cleanUpBasket)
 
+customersRouter.delete("/customers/:customerId/baskets/products/:productId", removeProductFromBasket)

@@ -4,6 +4,24 @@
     transform: translateX(-350%);
 }
 
+@media screen and (max-width: 1000px) {
+    .carousel-caption {
+        transform: translateY(30%);
+    }
+  }
+
+@media screen and (max-width: 800px) {
+    .carousel-caption {
+        transform: translateY(50%);
+    }
+  }
+
+@media screen and (max-width: 500px) {
+    .carousel-caption {
+        transform: translateY(60%);
+    }
+  }
+
 .carousel {
     border-color: #343a40;
     border-style: solid;

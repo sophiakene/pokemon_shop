@@ -2,3 +2,9 @@
     text-align: center;
     font-size: 22pt;
 }
+
+.errorMsg {
+    color: red;
+    font-size: 13pt;
+}
+
