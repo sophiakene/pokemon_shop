@@ -7,6 +7,7 @@ import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 import { Home } from "./home";
 import { DetailedProductPage } from "./DetailedProduct";
+import { ShoppingCart } from "./shoppingCart"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -131,9 +132,12 @@ export function Header() {
                     }/>
                     <Route path="/cart" element={
                         <UserContext.Provider value={newGetUserContext}>
-                            <CartShow/>
+                            <CartContext.Provider value={cartContext}>
+                                <PokemonContext.Provider value={pokemonContext}>
+                                    <ShoppingCart/>
+                                </PokemonContext.Provider>
+                            </CartContext.Provider>
                         </UserContext.Provider>}/>
-
                     <Route path="/detailed_product/:index" element =
                     {<PokemonContext.Provider value={pokemonContext}>
                     <DetailedProductPage/> </PokemonContext.Provider>}/>
@@ -143,15 +147,15 @@ export function Header() {
     )
 }
 
-function CartShow() {
-    const { user, id } = useContext(UserContext)
-    return (
-        <div>
-            <h2>Cart</h2>
-            <h2>Welcome, {user} with id {id}</h2>
-        </div>
-    ) 
-}
+// function ShoppingCart() {
+//     const { user, id } = useContext(UserContext)
+//     return (
+//         <div>
+//             <h2>Cart</h2>
+//             <h2>Welcome, {user} with id {id}</h2>
+//         </div>
+//     ) 
+// }
 
 // should be deleted when real detail component in place
 function DetailDummy() {

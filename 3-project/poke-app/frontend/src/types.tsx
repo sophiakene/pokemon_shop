@@ -1,6 +1,6 @@
 
 export type Pokemon = {
-    id: string
+    id: number
     name: string
     size: number
     price: number
@@ -11,7 +11,7 @@ export type Pokemon = {
 
 export type CartElement = {
     amount: number
-    pokemon: Pokemon
+    product: Pokemon
 }
 
 export type Cart = CartElement[]
