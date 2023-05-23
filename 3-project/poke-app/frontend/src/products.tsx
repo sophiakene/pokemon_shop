@@ -1,15 +1,16 @@
 // eslint-disable-next-line
-import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
+import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge } from "react-bootstrap"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { PokemonContext, UserContext, CartContext } from "./header"
 import { Pokemon } from "./types"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
+import { pokeTypes, pokeSizes, pokeColors } from "./consts"
 //import { library } from '@fortawesome/fontawesome-svg-core'; 
 //library.add(faShoppingCart)
 
@@ -38,7 +39,6 @@ function PokeCard({ index } : { index: number }) {
         const detailedProduct = `/detailed_product/${index}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
         return (
-            <Container fluid>
             <Card bg='light' className='mb-3' // margin bottom sizing of 3
                 key={'Light'}>
                 <Row className='no-gutters'>
@@ -69,37 +69,116 @@ function PokeCard({ index } : { index: number }) {
                     </Col>
                 </Row>
             </Card>
-            </Container>
         );
     } else { return (<div></div>) }
 }
 
 export function Products() {
     const { pokemon } = useContext(PokemonContext)
+
+    // maybe this is the way forward?
+    const [typeCheckedState, setTypeCheckedState] = useState(new Array(pokeTypes.length).fill(false))
+    const [sizeCheckedState, setSizeCheckedState] = useState(new Array(pokeSizes.length).fill(false))
+
     const pokemonCards = 
         pokemon.map((pokemon, index) => { return (
-            <Row key={pokemon.name}>
-                <Col sm={3}></Col>
-                <Col sm={8}>
-                    <PokeCard index={index}/>
-                </Col>
-            </Row>
+            <div key={pokemon.name}>
+                <PokeCard index={index}/>
+            </div>
         )})
     return (
-        <div>
-            <Col sm={8} className="mt-5" style={{ padding: 0 }} id="card-box">
+        <Container fluid>
+        <Row>
+            <Col className="" sm={3}>
+                <ProductsFilterBar/>
+            </Col>
+            <Col sm={1}></Col>
+            <Col sm={5} className="mt-5" style={{ padding: 0 }} id="card-box">
                 <h2>Pokémon</h2>
                 {pokemonCards}
             </Col>
-        </div>
+            <Col sm={3}>
+            </Col>
+        </Row>
+        </Container>
     );
 }
 
-//// Not working. not doing anything
-export function ProductsFilterBar() {
+
+function FilterCheckBox({name, id, color} : {name: string, id: string, color:string}) {
     return (
-        <SidebarMenu>
-            <h3>Browse</h3>
+        <Form.Check
+            name={name}
+            id={id} 
+            label={<Badge color={color}>{id}</Badge>}
+        >    
+        </Form.Check>
+    )
+}
+
+function AllTypeCheckBoxes() {
+    const allTypeCheckBoxes = 
+        pokeTypes.map((pokeType) => {
+            // can't get this to work
+            // const color = pokeColors[{pokeType}]
+            const color = "blue" //temporary 
+            return (
+                <FilterCheckBox name={"type"} id={pokeType} color={color}/>
+            )
+        })
+    return (
+        <div>
+            {allTypeCheckBoxes}
+        </div>
+    )
+}
+
+function AllSizeCheckBoxes() {
+    const allSizeCheckBoxes = 
+        pokeSizes.map((pokeSize) => {
+            const color = "blue"
+            return (
+                <FilterCheckBox name={"type"} id={pokeSize} color={color}/>
+            )
+        })
+    return (
+        <div>
+            {allSizeCheckBoxes}
+        </div>
+    )
+}
+
+export function ProductsFilterBar() {
+    const [openTypeFilter, setOpenTypeFilter] = useState(false)
+    const [openSizeFilter, setOpenSizeFilter] = useState(false)
+
+    return (
+        <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="">
+            <SidebarMenu.Body>
+                <br></br>
+                <br></br>
+                <h3 className="borderBottomWidth">Filters 
+                </h3>
+                <br></br>
+                <h5
+                onClick={() => {
+                    console.log({poketypes: pokeTypes})
+                    setOpenTypeFilter(!openTypeFilter)}}>Type
+                </h5>
+                <Collapse in={openTypeFilter}>
+                    <div>
+                        <AllTypeCheckBoxes/>
+                    </div>
+                </Collapse>
+                <h5 
+                    onClick={() => setOpenSizeFilter(!openSizeFilter)}>Size
+                </h5>
+                <Collapse in={openSizeFilter}>
+                    <div>
+                        <AllSizeCheckBoxes/>
+                    </div>
+                </Collapse>
+            </SidebarMenu.Body>
         </SidebarMenu>
     );
 }
