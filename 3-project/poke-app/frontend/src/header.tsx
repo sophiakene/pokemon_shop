@@ -141,9 +141,15 @@ export function Header() {
                                 </PokemonContext.Provider>
                             </CartContext.Provider>
                         </UserContext.Provider>}/>
-                    <Route path="/detailed_product/:index" element =
-                    {<PokemonContext.Provider value={pokemonContext}>
-                    <DetailedProductPage/> </PokemonContext.Provider>}/>
+
+                    <Route path="/detailed_product/:index" element = {
+                        <UserContext.Provider value={newGetUserContext}>
+                            <CartContext.Provider value={cartContext}>
+                                <PokemonContext.Provider value={pokemonContext}>
+                                    <DetailedProductPage/>
+                                </PokemonContext.Provider>
+                            </CartContext.Provider>
+                        </UserContext.Provider>}/>
                 </Routes>
              
         </BrowserRouter>
