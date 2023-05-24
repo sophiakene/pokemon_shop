@@ -52,7 +52,7 @@ function PokeCard({ index } : { index: number }) {
                         <Link to={detailedProduct}>
                             <Card.Title>{pokemon[index].name}</Card.Title>
                         </Link>
-                        <Card.Text>{pokemon[index].info}</Card.Text>
+                        {/* <Card.Text>{pokemon[index].info}</Card.Text> */}
                         <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
                     </Col>
                     <Col sm={3}>
@@ -243,13 +243,17 @@ export function ProductsFilterBar() {
             <SidebarMenu.Body>
                 <br></br>
                 <br></br>
-                <h3 className="borderBottomWidth">Filters 
+                <h3 className="borderBottomWidth">
+                    Filters 
                 </h3>
                 <br></br>
                 <h5
                 onClick={() => {
                     console.log({poketypes: pokeTypes})
-                    setOpenTypeFilter(!openTypeFilter)}}>Type
+                    setOpenTypeFilter(!openTypeFilter)}}>
+                        <Button variant="text" size="lg">
+                            Type
+                        </Button>
                 </h5>
                 <Collapse in={openTypeFilter}>
                     <div>
@@ -257,7 +261,10 @@ export function ProductsFilterBar() {
                     </div>
                 </Collapse>
                 <h5 
-                    onClick={() => setOpenSizeFilter(!openSizeFilter)}>Size
+                    onClick={() => setOpenSizeFilter(!openSizeFilter)}>
+                        <Button variant="text" size="lg">
+                            Size
+                        </Button>
                 </h5>
                 <Collapse in={openSizeFilter}>
                     <div>
