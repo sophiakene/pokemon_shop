@@ -6,7 +6,7 @@ import "./css/detailed-product.css"
 import { Container, Form, Row, Col, Card } from "react-bootstrap"
 import { PokemonContext } from "./header"
 import { useParams } from 'react-router-dom'
-import { pokeColours } from './pokemon'
+import { pokeColours } from './consts'
 
 export function DetailedProductPage() {
     const { index } = useParams() as { index: string}

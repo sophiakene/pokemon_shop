@@ -1,15 +1,17 @@
 // eslint-disable-next-line
-import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
+import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge } from "react-bootstrap"
+import  { createContext } from "react"
+import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { PokemonContext, UserContext, CartContext } from "./header"
 import { Pokemon } from "./types"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
+import { pokeTypes, pokeSizes, pokeColours } from "./consts"
 //import { library } from '@fortawesome/fontawesome-svg-core'; 
 //library.add(faShoppingCart)
 
@@ -38,7 +40,6 @@ function PokeCard({ index } : { index: number }) {
         const detailedProduct = `/detailed_product/${index}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
         return (
-            <Container fluid>
             <Card bg='light' className='mb-3' // margin bottom sizing of 3
                 key={'Light'}>
                 <Row className='no-gutters'>
@@ -51,7 +52,7 @@ function PokeCard({ index } : { index: number }) {
                         <Link to={detailedProduct}>
                             <Card.Title>{pokemon[index].name}</Card.Title>
                         </Link>
-                        <Card.Text>{pokemon[index].info}</Card.Text>
+                        {/* <Card.Text>{pokemon[index].info}</Card.Text> */}
                         <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
                     </Col>
                     <Col sm={3}>
@@ -69,37 +70,208 @@ function PokeCard({ index } : { index: number }) {
                     </Col>
                 </Row>
             </Card>
-            </Container>
         );
     } else { return (<div></div>) }
 }
 
+const TypeContext = createContext({
+    typeCheckedState: [] as boolean[],
+    setTypeCheckedState: (typeCheckedState: boolean[]) => {}
+})
+
+const SizeContext = createContext({
+    sizeCheckedState: [] as boolean[],
+    setSizeCheckedState: (sizeCheckedState: boolean[]) => {}
+})
+
 export function Products() {
     const { pokemon } = useContext(PokemonContext)
+
+    const [typeCheckedState, setTypeCheckedState] = useState(new Array(pokeTypes.length).fill(false))
+    const [sizeCheckedState, setSizeCheckedState] = useState(new Array(pokeSizes.length).fill(false))
+    
+    const typeContext = { typeCheckedState, setTypeCheckedState }
+    const sizeContext = { sizeCheckedState, setSizeCheckedState }
+    
     const pokemonCards = 
-        pokemon.map((pokemon, index) => { return (
-            <Row key={pokemon.name}>
-                <Col sm={3}></Col>
-                <Col sm={8}>
-                    <PokeCard index={index}/>
-                </Col>
-            </Row>
-        )})
+        pokemon.map((pokemon, index) => { 
+            
+            const checkedTypes = pokeTypes.filter((t, index) => {
+                if (typeCheckedState[index]) {
+                    return t
+                }
+            })
+            const checkedSizes = pokeSizes.filter((s, index) => {
+                if (sizeCheckedState[index]) {
+                    return s
+                }
+            })
+            const typeFound = checkedTypes.some(r => pokemon.type.indexOf(r) >= 0)
+            const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+
+            const noTypesChecked = typeCheckedState.every(elm => elm === false)
+            const noSizesChecked = sizeCheckedState.every(elm => elm === false)
+            
+            
+            if (typeFound || noTypesChecked){
+                if ( sizeFound || noSizesChecked) {
+                    return (
+                        <div key={pokemon.name}>
+                            <PokeCard index={index}/>
+                        </div>)
+                }
+            } 
+        })
     return (
-        <div>
-            <Col sm={8} className="mt-5" style={{ padding: 0 }} id="card-box">
+        <Container fluid>
+        <Row>
+            <Col className="" sm={3}>
+                <TypeContext.Provider value={typeContext}>
+                    <SizeContext.Provider value={sizeContext}>
+                        <ProductsFilterBar />
+                    </SizeContext.Provider>
+                </TypeContext.Provider>
+            </Col>
+            <Col sm={1}></Col>
+            <Col sm={5} className="mt-5" style={{ padding: 0 }} id="card-box">
                 <h2>Pokémon</h2>
                 {pokemonCards}
             </Col>
-        </div>
+            <Col sm={3}>
+            </Col>
+        </Row>
+        </Container>
     );
 }
 
-//// Not working. not doing anything
-export function ProductsFilterBar() {
+
+function TypeCheckBox({name, id, color, index} : {name: string, id: string, color:string, index:number}) {
+    const { typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
+
+    function handleOnChange(pos: number) {
+        const updatedTypeCheckedState = typeCheckedState.map((item, i) => {
+            if (i === pos) {
+                return !item
+            } else {
+                return item
+            }
+        })
+        setTypeCheckedState(updatedTypeCheckedState)
+    }
     return (
-        <SidebarMenu>
-            <h3>Browse</h3>
+        <Form.Check
+            name={name}
+            id={id} 
+            // label={<Badge style={{backgroundColor:"red"}}>{id}</Badge>}
+            label={
+                <div className="badge" style={{backgroundColor:color}}>
+                    {id}
+                </div>}
+            checked={typeCheckedState[index]}
+            onChange={(() => handleOnChange(index))}
+        >    
+        </Form.Check>
+    )
+}
+
+function SizeCheckBox({name, id, color, index} : {name: string, id: string, color:string, index:number}) {
+    const { sizeCheckedState, setSizeCheckedState} = useContext(SizeContext)
+
+    function handleOnChange(pos: number) {
+        const updatedSizeCheckedState = sizeCheckedState.map((item, i) => {
+            if (i === pos) {
+                return !item
+            } else {
+                return item
+            }
+        })
+
+        console.log({before: sizeCheckedState})  
+        setSizeCheckedState(updatedSizeCheckedState)   
+        console.log({after: sizeCheckedState})    
+    }
+    return (
+        <Form.Check
+            name={name}
+            id={id} 
+            label={<Badge>{id}</Badge>}
+            checked={sizeCheckedState[index]}
+            onChange={(() => handleOnChange(index))}
+        >    
+        </Form.Check>
+    )
+}
+
+function AllTypeCheckBoxes() {
+    const allTypeCheckBoxes = 
+        pokeTypes.map((pokeType, index) => {
+            const color = pokeColours[pokeType as keyof typeof pokeColours]
+            return (
+                <TypeCheckBox name={"type"} id={pokeType} color={color} index={index}/>
+            )
+        })
+    return (
+        <div>
+            {allTypeCheckBoxes}
+        </div>
+    )
+}
+
+function AllSizeCheckBoxes() {
+    const allSizeCheckBoxes = 
+        pokeSizes.map((pokeSize, index) => {
+            const color = "black"
+            return (
+                <SizeCheckBox name={"type"} id={pokeSize} color={color} index={index} />
+            )
+        })
+    return (
+        <div>
+            {allSizeCheckBoxes}
+        </div>
+    )
+}
+
+export function ProductsFilterBar() {
+    const [openTypeFilter, setOpenTypeFilter] = useState(false)
+    const [openSizeFilter, setOpenSizeFilter] = useState(false)
+    // const {typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
+    // console.log({typeCheckedState: typeCheckedState})
+
+    return (
+        <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="">
+            <SidebarMenu.Body>
+                <br></br>
+                <br></br>
+                <h3 className="borderBottomWidth">
+                    Filters 
+                </h3>
+                <br></br>
+                <h5
+                onClick={() => {
+                    console.log({poketypes: pokeTypes})
+                    setOpenTypeFilter(!openTypeFilter)}}>
+                        <Button variant="text" size="lg">
+                            Type
+                        </Button>
+                </h5>
+                <Collapse in={openTypeFilter}>
+                    <div>
+                        <AllTypeCheckBoxes/>
+                    </div>
+                </Collapse>
+                <h5 
+                    onClick={() => setOpenSizeFilter(!openSizeFilter)}>
+                        <Button variant="text" size="lg">
+                            Size
+                        </Button>
+                </h5>
+                <Collapse in={openSizeFilter}>
+                    <div>
+                        <AllSizeCheckBoxes/>
+                    </div>
+                </Collapse>
+            </SidebarMenu.Body>
         </SidebarMenu>
     );
 }
