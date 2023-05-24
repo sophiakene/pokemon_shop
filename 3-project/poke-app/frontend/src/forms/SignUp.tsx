@@ -83,7 +83,7 @@ export function SignUpForm() {
                     }
                     else {
                         setLoggedInUserId(userResult.id)
-                        setLoggedInUser(userResult.firstName + userResult.lastName)
+                        setLoggedInUser(userResult.firstName + ' ' + userResult.lastName)
                         // Create basket for user
                         fetch(`http://localhost:3005/customers/${userResult.id}/baskets`, {
                             method: 'POST',
