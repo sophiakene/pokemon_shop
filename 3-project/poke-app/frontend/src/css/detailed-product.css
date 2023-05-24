@@ -1,0 +1,15 @@
+.detailed-text {
+    text-align: left;
+    margin-left: 5px;
+}
+
+.detailed-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 700px) {
+    .detailed-container {
+        width: 90vh;
+    }
+  }

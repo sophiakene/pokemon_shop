@@ -34,61 +34,60 @@ export function DetailedProductPage() {
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
-    return (            
-            <Container>
-            <Row>
-            <Card className="bg-light" style={{width:"45%", margin:"10px"}}>
+    return (
+        
+            <Container className="detailed-container">
+            <Card className="bg-light" style={{margin:"10px"}}>
             <Card.Body>
-            <Card.Img src={productImage} alt="Pokemon"/>
-            </Card.Body>
-            </Card>
-            <Card className="bg-light" style={{width:"45%", margin:"10px"}}>
-                <div className="card-body d-flex flex-column">
-                    <div className="card-title">
-                        <h3 id="name">{pokemon[Number(index)].name}</h3>
-                        <p className="card-text">
-                        <h5>{pokemon[Number(index)].info}</h5>
-                        </p> 
-                        <p className="card-text">
-                        <div>
-                            <ol style={{ listStyle: 'none' }}>
+            <h1>{pokemon[Number(index)].name}</h1>
+            <Card.Img src={productImage} alt="Pokemon" variant="top" style={{width: "30vw", height: "auto"}}/>
+            
+            
+            <Card.Text className='align-self-center'>
+            <Button 
+                className = "btn-lg"
+                style={{margin:"5px"}}
+                type='submit' 
+                variant='danger'
+                onClick={handleAddToBasket}
+                id="{pokemon[index].name.toLowerCase()}">
+                <FontAwesomeIcon icon={faShoppingCart}/> 
+                Add to shopping cart
+            </Button>  
+            <Card className="align-self-center" style={{width:"97.5%"}}>
+                    <div className="detailed-text">
+                        <h6>Information:</h6>
+                        <h4>{pokemon[Number(index)].info}</h4>
+                    </div>
+                    <div className="detailed-text">
+                        <h6>Price:</h6>
+                        <h4 id="price">{pokemon[Number(index)].price} DKK</h4>
+                    </div>
+
+                    <div className="detailed-text">
+                        <h6>Type:</h6>
+                            <ol style={{ listStyle: 'none', margin:0, padding:0 }}>
                             {pokemon[Number(index)].type.map((item,index) => 
                                 <>
-                                <div className="badge" style={{background:pokeColours[item as keyof typeof pokeColours]}}>
-                                <li key={index}>{item}</li>
+                                <div className="badge" style={{background:pokeColours[item as keyof typeof pokeColours], margin:"2px"}}>
+                                <li style={{margin:"2px"}} key={index}>{item}</li>
                                 </div>
-                                <br/>
                                 </>
                             )}
                             </ol>
                         </div>
-
-                    </p>
-                    </div>
-                    <p className="card-text">
-                        <h5 id="price">Prize: {pokemon[Number(index)].price} DKK</h5>
-                    </p>
                     
-                <p className="card-text">
-                    <h5>Size: {pokemon[Number(index)].size}</h5>
-                </p>
-          
-                </div>
+                <div className="detailed-text">
+                    <h6>Size:</h6>
+                    <h4>{pokemon[Number(index)].size}m</h4>
+                </div>         
 
-                <Button 
-                                type='submit' 
-                                variant='danger'
-                                onClick={handleAddToBasket}
-                                id="{pokemon[index].name.toLowerCase()}"
-                            >
-                                <FontAwesomeIcon icon={faShoppingCart}/> 
-                                Add to shopping cart
-                            </Button>                  
-
-
+            </Card>                  
+            </Card.Text>
+            </Card.Body>
             </Card>
-            </Row>
             </Container>
+
     )
 }; 
 
