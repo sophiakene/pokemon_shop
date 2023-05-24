@@ -6,7 +6,7 @@ import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 import { Home } from "./home";
-import { DetailedProductPage } from "./DetailedProduct";
+import { DetailedProductPage } from "./detailed-product";
 import { ShoppingCart } from "./shoppingCart"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
