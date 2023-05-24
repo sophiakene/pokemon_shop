@@ -28,6 +28,17 @@ export function CarouselBanner() {
                 </Carousel.Caption>
                 </Link>
             </Carousel.Item>
+            <Carousel.Item>
+                <Link to='/detailed_product/3'>
+                <img className='carousel-img'
+                src='/data/poke_images/pikachu.avif'
+                alt='Pikachu on offer!'
+                />
+                <Carousel.Caption className='carousel-caption justify-content-end'>
+                    <h2>Pikachu on sale!</h2>
+                </Carousel.Caption>
+                </Link>
+            </Carousel.Item>
         </Carousel>
     )
 }
