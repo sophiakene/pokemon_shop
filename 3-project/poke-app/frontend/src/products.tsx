@@ -11,7 +11,7 @@ import { Pokemon } from "./types"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
-import { pokeTypes, pokeSizes, pokeColors } from "./consts"
+import { pokeTypes, pokeSizes, pokeColours } from "./consts"
 //import { library } from '@fortawesome/fontawesome-svg-core'; 
 //library.add(faShoppingCart)
 
@@ -205,7 +205,7 @@ function SizeCheckBox({name, id, color, index} : {name: string, id: string, colo
 function AllTypeCheckBoxes() {
     const allTypeCheckBoxes = 
         pokeTypes.map((pokeType, index) => {
-            const color = pokeColors[pokeType as keyof typeof pokeColors]
+            const color = pokeColours[pokeType as keyof typeof pokeColours]
             return (
                 <TypeCheckBox name={"type"} id={pokeType} color={color} index={index}/>
             )
