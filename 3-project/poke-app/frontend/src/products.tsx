@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge } from "react-bootstrap"
 import  { createContext } from "react"
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
@@ -96,7 +96,6 @@ export function Products() {
     const pokemonCards = 
         pokemon.map((pokemon, index) => { 
             
-            // 
             const checkedTypes = pokeTypes.filter((t, index) => {
                 if (typeCheckedState[index]) {
                     return t
@@ -157,16 +156,17 @@ function TypeCheckBox({name, id, color, index} : {name: string, id: string, colo
                 return item
             }
         })
-
-        console.log({before: typeCheckedState})  
-        setTypeCheckedState(updatedTypeCheckedState)   
-        console.log({after: typeCheckedState})    
+        setTypeCheckedState(updatedTypeCheckedState)
     }
     return (
         <Form.Check
             name={name}
             id={id} 
-            label={<Badge color={color}>{id}</Badge>}
+            // label={<Badge style={{backgroundColor:"red"}}>{id}</Badge>}
+            label={
+                <div className="badge" style={{backgroundColor:color}}>
+                    {id}
+                </div>}
             checked={typeCheckedState[index]}
             onChange={(() => handleOnChange(index))}
         >    
@@ -194,7 +194,7 @@ function SizeCheckBox({name, id, color, index} : {name: string, id: string, colo
         <Form.Check
             name={name}
             id={id} 
-            label={<Badge color={color}>{id}</Badge>}
+            label={<Badge>{id}</Badge>}
             checked={sizeCheckedState[index]}
             onChange={(() => handleOnChange(index))}
         >    
@@ -205,9 +205,7 @@ function SizeCheckBox({name, id, color, index} : {name: string, id: string, colo
 function AllTypeCheckBoxes() {
     const allTypeCheckBoxes = 
         pokeTypes.map((pokeType, index) => {
-            // can't get this to work
-            // const color = pokeColors[{pokeType}]
-            const color = "blue" //temporary 
+            const color = pokeColors[pokeType as keyof typeof pokeColors]
             return (
                 <TypeCheckBox name={"type"} id={pokeType} color={color} index={index}/>
             )
@@ -222,7 +220,7 @@ function AllTypeCheckBoxes() {
 function AllSizeCheckBoxes() {
     const allSizeCheckBoxes = 
         pokeSizes.map((pokeSize, index) => {
-            const color = "blue"
+            const color = "black"
             return (
                 <SizeCheckBox name={"type"} id={pokeSize} color={color} index={index} />
             )
@@ -237,10 +235,8 @@ function AllSizeCheckBoxes() {
 export function ProductsFilterBar() {
     const [openTypeFilter, setOpenTypeFilter] = useState(false)
     const [openSizeFilter, setOpenSizeFilter] = useState(false)
-    const {typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
-    console.log({typeCheckedState: typeCheckedState})
-
-
+    // const {typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
+    // console.log({typeCheckedState: typeCheckedState})
 
     return (
         <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="">
