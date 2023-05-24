@@ -8,6 +8,7 @@ import { Products } from './products'
 import { Home } from "./home";
 import { DetailedProductPage } from "./detailed-product";
 import { ShoppingCart } from "./shoppingCart"
+import './css/logo.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -92,10 +93,10 @@ export function Header() {
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
                         <NavLink style={{textDecoration: 'none'}} to= "/">
-                            <img src="data/pokeball-logo.png" width='30vw'/>
+                            <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
                         </NavLink>
                         <NavLink style={{textDecoration: 'none'}} to= "/">
-                            <Navbar.Brand>PokéShop</Navbar.Brand>
+                            <Navbar.Brand>Pokéshop</Navbar.Brand>
                         </NavLink>
                         <Navbar.Toggle className="ms-auto"/>
                         <Navbar.Collapse> 
