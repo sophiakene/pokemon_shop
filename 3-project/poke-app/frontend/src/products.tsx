@@ -14,7 +14,6 @@ import 'font-awesome/css/font-awesome.min.css'
 //library.add(faShoppingCart)
 
 
-
 function PokeCard({ index } : { index: number }) {
     const { pokemon } = useContext(PokemonContext)
     const { user, id } = useContext(UserContext)
@@ -28,7 +27,8 @@ function PokeCard({ index } : { index: number }) {
             body: JSON.stringify({ amount: 1})
         })
         .then(response => response.json() )
-        .then(shoppingCart => setCart(shoppingCart))
+        // .then(shoppingCart => setCart(shoppingCart))
+        .then(shoppingCart => setCart(shoppingCart.basket))
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
@@ -94,7 +94,6 @@ export function Products() {
         </div>
     );
 }
-
 
 //// Not working. not doing anything
 export function ProductsFilterBar() {
