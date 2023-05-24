@@ -115,9 +115,9 @@ export function Header() {
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/cart">
                                     Cart
                                 </Nav.Link>
-                                <Nav.Link style={{textDecoration: 'none'}}>
+                                <Navbar.Text style={{textDecoration: 'none'}}>
                                     Logged in as {displayName}
-                                </Nav.Link>
+                                </Navbar.Text>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
