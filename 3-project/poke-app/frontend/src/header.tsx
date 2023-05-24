@@ -79,6 +79,13 @@ export function Header() {
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 
+    let displayName: string
+    if (id === 0) {
+        displayName = 'Guest'
+    } else {
+        displayName = user
+    }
+
     return (
         <BrowserRouter>
         {/* Set Usercontext for LoginForm overriding default values  */}
@@ -108,7 +115,7 @@ export function Header() {
                                     Cart
                                 </Nav.Link>
                                 <Nav.Link style={{textDecoration: 'none'}}>
-                                    {user} with id {id}
+                                    Logged in as {displayName}
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
