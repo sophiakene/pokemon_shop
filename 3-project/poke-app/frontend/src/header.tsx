@@ -1,6 +1,6 @@
 import React from "react"
-import { useState, useEffect, createContext, useContext } from "react"
-import { Navbar, Container, Nav } from "react-bootstrap"
+import { useState, useEffect, createContext } from "react"
+import { Navbar, Container, Nav, Badge } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
 import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
@@ -8,8 +8,9 @@ import { Products } from './products'
 import { Home } from "./home";
 import { DetailedProductPage } from "./detailed-product";
 import { ShoppingCart } from "./shoppingCart"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import './css/logo.css'
-// import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
 // User context with default values for setting User data
@@ -79,13 +80,8 @@ export function Header() {
     useEffect(() => setDefaultUser(setLoggedInUserId, setLoggedInUser), [])
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
-
-    let displayName: string
-    if (id === 0) {
-        displayName = 'Guest'
-    } else {
-        displayName = user
-    }
+    function getTotalAmountOfProducts() { return cart.reduce((acc, cartElement) => cartElement.amount + acc, 0) }
+    let displayName = (id === 0) ? 'Guest' : user
 
     return (
         <BrowserRouter>
@@ -113,11 +109,12 @@ export function Header() {
                                     Login 
                                 </Nav.Link>
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/cart">
-                                    Cart
+                                    <FontAwesomeIcon icon={faShoppingCart}/>
+                                    <div style={{fontSize: '10px'}}><Badge pill bg="danger" className='amountCounter' style={{position: 'relative', left: '11px', top: '-31px' }}>{getTotalAmountOfProducts()}</Badge></div>
                                 </Nav.Link>
-                                <Nav.Link style={{textDecoration: 'none'}}>
+                                <Navbar.Text style={{textDecoration: 'none'}}>
                                     Logged in as {displayName}
-                                </Nav.Link>
+                                </Navbar.Text>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -163,24 +160,3 @@ export function Header() {
         </BrowserRouter>
     )
 }
-
-// function ShoppingCart() {
-//     const { user, id } = useContext(UserContext)
-//     return (
-//         <div>
-//             <h2>Cart</h2>
-//             <h2>Welcome, {user} with id {id}</h2>
-//         </div>
-//     ) 
-// }
-
-// should be deleted when real detail component in place
-function DetailDummy() {
-    const { name } = useParams()
-    return (
-        <div>
-            <h2>Detailed product page dummy</h2>
-            <h2> {name} </h2>
-        </div>
-    ) 
-  }
