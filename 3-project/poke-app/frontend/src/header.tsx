@@ -6,7 +6,7 @@ import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
 import { Home } from "./home";
-import { DetailedProductPage } from "./DetailedProduct";
+import { DetailedProductPage } from "./detailed-product";
 import { ShoppingCart } from "./shoppingCart"
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -79,11 +79,21 @@ export function Header() {
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 
+    let displayName: string
+    if (id === 0) {
+        displayName = 'Guest'
+    } else {
+        displayName = user
+    }
+
     return (
         <BrowserRouter>
         {/* Set Usercontext for LoginForm overriding default values  */}
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
+                        <NavLink style={{textDecoration: 'none'}} to= "/">
+                            <img src="data/pokeball-logo.png" width='30vw'/>
+                        </NavLink>
                         <NavLink style={{textDecoration: 'none'}} to= "/">
                             <Navbar.Brand>PokéShop</Navbar.Brand>
                         </NavLink>
@@ -105,7 +115,7 @@ export function Header() {
                                     Cart
                                 </Nav.Link>
                                 <Nav.Link style={{textDecoration: 'none'}}>
-                                    {user} with id {id}
+                                    Logged in as {displayName}
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>

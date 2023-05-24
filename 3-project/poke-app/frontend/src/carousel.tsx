@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import './carousel.css';
+import './css/carousel.css';
 
 export function CarouselBanner() {
     return (
