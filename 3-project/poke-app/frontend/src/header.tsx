@@ -8,6 +8,7 @@ import { Products } from './products'
 import { Home } from "./home";
 import { DetailedProductPage } from "./detailed-product";
 import { ShoppingCart } from "./shoppingCart"
+import './css/logo.css'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 //// login context stuff
@@ -79,16 +80,23 @@ export function Header() {
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     const pokemonContext = { pokemon }
 
+    let displayName: string
+    if (id === 0) {
+        displayName = 'Guest'
+    } else {
+        displayName = user
+    }
+
     return (
         <BrowserRouter>
         {/* Set Usercontext for LoginForm overriding default values  */}
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
                         <NavLink style={{textDecoration: 'none'}} to= "/">
-                            <img src="data/pokeball-logo.png" width='30vw'/>
+                            <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
                         </NavLink>
                         <NavLink style={{textDecoration: 'none'}} to= "/">
-                            <Navbar.Brand>PokéShop</Navbar.Brand>
+                            <Navbar.Brand>Pokéshop</Navbar.Brand>
                         </NavLink>
                         <Navbar.Toggle className="ms-auto"/>
                         <Navbar.Collapse> 
@@ -108,7 +116,7 @@ export function Header() {
                                     Cart
                                 </Nav.Link>
                                 <Nav.Link style={{textDecoration: 'none'}}>
-                                    {user} with id {id}
+                                    Logged in as {displayName}
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>

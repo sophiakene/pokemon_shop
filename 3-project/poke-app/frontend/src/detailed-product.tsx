@@ -6,7 +6,7 @@ import "./css/detailed-product.css"
 import { Container, Form, Row, Col, Card } from "react-bootstrap"
 import { PokemonContext, CartContext, UserContext } from "./header"
 import { useParams } from 'react-router-dom'
-import { pokeColours } from './pokemon'
+import { pokeColours } from './consts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 

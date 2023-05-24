@@ -1,10 +1,3 @@
-// import { Pokemon } from "./types";
-// import { Cart } from "./types"
-
-// export function addToShoppingCart(pokemon : Pokemon) {
-    
-// }
-
 import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -98,7 +91,7 @@ function CartCard({index} : {index: number}) {
     const detailedProduct = `/detailed_product/${detailedProductIndex}`
     const pokeName = product.name
     const image = `/data/poke_images/${pokeName.toLowerCase()}.avif`
-    const info = product.info
+    // const info = product.info
     const price = product.price
 
     function handleRemoveFromBasket() {
@@ -128,9 +121,9 @@ function CartCard({index} : {index: number}) {
                                     {pokeName}
                                 </Card.Title>
                             </h5>
-                            <Card.Text>
+                            {/* <Card.Text>
                                     {info}
-                            </Card.Text>
+                            </Card.Text> */}
                             <Card.Text>
                                     Price: {price}
                             </Card.Text>
