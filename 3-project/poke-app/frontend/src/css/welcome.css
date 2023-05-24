@@ -1,5 +1,5 @@
 .background {
-    background-image: url('../public/data/frontpage-pika-hello.jpg');
+    background-image: url('../../public/data/frontpage-pika-hello.jpg');
     background-size: cover;
     background-position: right;
     height: 75vh;
