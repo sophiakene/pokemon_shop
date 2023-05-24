@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge } from "react-bootstrap"
+import  { createContext } from "react"
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
@@ -73,24 +74,64 @@ function PokeCard({ index } : { index: number }) {
     } else { return (<div></div>) }
 }
 
+const TypeContext = createContext({
+    typeCheckedState: [] as boolean[],
+    setTypeCheckedState: (typeCheckedState: boolean[]) => {}
+})
+
+const SizeContext = createContext({
+    sizeCheckedState: [] as boolean[],
+    setSizeCheckedState: (sizeCheckedState: boolean[]) => {}
+})
+
 export function Products() {
     const { pokemon } = useContext(PokemonContext)
 
-    // maybe this is the way forward?
     const [typeCheckedState, setTypeCheckedState] = useState(new Array(pokeTypes.length).fill(false))
     const [sizeCheckedState, setSizeCheckedState] = useState(new Array(pokeSizes.length).fill(false))
-
+    
+    const typeContext = { typeCheckedState, setTypeCheckedState }
+    const sizeContext = { sizeCheckedState, setSizeCheckedState }
+    
     const pokemonCards = 
-        pokemon.map((pokemon, index) => { return (
-            <div key={pokemon.name}>
-                <PokeCard index={index}/>
-            </div>
-        )})
+        pokemon.map((pokemon, index) => { 
+            
+            // 
+            const checkedTypes = pokeTypes.filter((t, index) => {
+                if (typeCheckedState[index]) {
+                    return t
+                }
+            })
+            const checkedSizes = pokeSizes.filter((s, index) => {
+                if (sizeCheckedState[index]) {
+                    return s
+                }
+            })
+            const typeFound = checkedTypes.some(r => pokemon.type.indexOf(r) >= 0)
+            const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+
+            const noTypesChecked = typeCheckedState.every(elm => elm === false)
+            const noSizesChecked = sizeCheckedState.every(elm => elm === false)
+            
+            
+            if (typeFound || noTypesChecked){
+                if ( sizeFound || noSizesChecked) {
+                    return (
+                        <div key={pokemon.name}>
+                            <PokeCard index={index}/>
+                        </div>)
+                }
+            } 
+        })
     return (
         <Container fluid>
         <Row>
             <Col className="" sm={3}>
-                <ProductsFilterBar/>
+                <TypeContext.Provider value={typeContext}>
+                    <SizeContext.Provider value={sizeContext}>
+                        <ProductsFilterBar />
+                    </SizeContext.Provider>
+                </TypeContext.Provider>
             </Col>
             <Col sm={1}></Col>
             <Col sm={5} className="mt-5" style={{ padding: 0 }} id="card-box">
@@ -105,12 +146,57 @@ export function Products() {
 }
 
 
-function FilterCheckBox({name, id, color} : {name: string, id: string, color:string}) {
+function TypeCheckBox({name, id, color, index} : {name: string, id: string, color:string, index:number}) {
+    const { typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
+
+    function handleOnChange(pos: number) {
+        const updatedTypeCheckedState = typeCheckedState.map((item, i) => {
+            if (i === pos) {
+                return !item
+            } else {
+                return item
+            }
+        })
+
+        console.log({before: typeCheckedState})  
+        setTypeCheckedState(updatedTypeCheckedState)   
+        console.log({after: typeCheckedState})    
+    }
     return (
         <Form.Check
             name={name}
             id={id} 
             label={<Badge color={color}>{id}</Badge>}
+            checked={typeCheckedState[index]}
+            onChange={(() => handleOnChange(index))}
+        >    
+        </Form.Check>
+    )
+}
+
+function SizeCheckBox({name, id, color, index} : {name: string, id: string, color:string, index:number}) {
+    const { sizeCheckedState, setSizeCheckedState} = useContext(SizeContext)
+
+    function handleOnChange(pos: number) {
+        const updatedSizeCheckedState = sizeCheckedState.map((item, i) => {
+            if (i === pos) {
+                return !item
+            } else {
+                return item
+            }
+        })
+
+        console.log({before: sizeCheckedState})  
+        setSizeCheckedState(updatedSizeCheckedState)   
+        console.log({after: sizeCheckedState})    
+    }
+    return (
+        <Form.Check
+            name={name}
+            id={id} 
+            label={<Badge color={color}>{id}</Badge>}
+            checked={sizeCheckedState[index]}
+            onChange={(() => handleOnChange(index))}
         >    
         </Form.Check>
     )
@@ -118,12 +204,12 @@ function FilterCheckBox({name, id, color} : {name: string, id: string, color:str
 
 function AllTypeCheckBoxes() {
     const allTypeCheckBoxes = 
-        pokeTypes.map((pokeType) => {
+        pokeTypes.map((pokeType, index) => {
             // can't get this to work
             // const color = pokeColors[{pokeType}]
             const color = "blue" //temporary 
             return (
-                <FilterCheckBox name={"type"} id={pokeType} color={color}/>
+                <TypeCheckBox name={"type"} id={pokeType} color={color} index={index}/>
             )
         })
     return (
@@ -135,10 +221,10 @@ function AllTypeCheckBoxes() {
 
 function AllSizeCheckBoxes() {
     const allSizeCheckBoxes = 
-        pokeSizes.map((pokeSize) => {
+        pokeSizes.map((pokeSize, index) => {
             const color = "blue"
             return (
-                <FilterCheckBox name={"type"} id={pokeSize} color={color}/>
+                <SizeCheckBox name={"type"} id={pokeSize} color={color} index={index} />
             )
         })
     return (
@@ -151,6 +237,10 @@ function AllSizeCheckBoxes() {
 export function ProductsFilterBar() {
     const [openTypeFilter, setOpenTypeFilter] = useState(false)
     const [openSizeFilter, setOpenSizeFilter] = useState(false)
+    const {typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
+    console.log({typeCheckedState: typeCheckedState})
+
+
 
     return (
         <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="">
