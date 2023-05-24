@@ -112,9 +112,9 @@ export function Header() {
                                     <FontAwesomeIcon icon={faShoppingCart}/>
                                     <div style={{fontSize: '10px'}}><Badge pill bg="danger" className='amountCounter' style={{position: 'relative', left: '11px', top: '-31px' }}>{getTotalAmountOfProducts()}</Badge></div>
                                 </Nav.Link>
-                                <Nav.Link style={{textDecoration: 'none'}}>
+                                <Navbar.Text style={{textDecoration: 'none'}}>
                                     Logged in as {displayName}
-                                </Nav.Link>
+                                </Navbar.Text>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
