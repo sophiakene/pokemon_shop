@@ -85,6 +85,9 @@ export function Header() {
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
                         <NavLink style={{textDecoration: 'none'}} to= "/">
+                            <img src="data/pokeball-logo.png" width='30vw'/>
+                        </NavLink>
+                        <NavLink style={{textDecoration: 'none'}} to= "/">
                             <Navbar.Brand>PokéShop</Navbar.Brand>
                         </NavLink>
                         <Navbar.Toggle className="ms-auto"/>
