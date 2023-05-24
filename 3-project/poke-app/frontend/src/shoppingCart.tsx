@@ -143,8 +143,6 @@ function CartCard({index} : {index: number}) {
     )
 }
 
-
-
 function AllCartCards() {
     const { cart, setCart } = useContext(CartContext)
 
