@@ -35,7 +35,6 @@ function PokeCard({ index } : { index: number }) {
     }
 
     if( pokemon.length !== 0 ) {
-        // const detailedProduct = `/detailed_product.html?name=/${pokemon[index].name}`
         // changed the url as react-router-dom uses very specific path structure for placeholders
         const detailedProduct = `/detailed_product/${index}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
@@ -96,31 +95,44 @@ export function Products() {
     const pokemonCards = 
         pokemon.map((pokemon, index) => { 
             
-            const checkedTypes = pokeTypes.filter((t, index) => {
+            const checkedTypes = pokeTypes.filter((pokemonType, index) => {
                 if (typeCheckedState[index]) {
-                    return t
+                    return pokemonType
                 }
             })
-            const checkedSizes = pokeSizes.filter((s, index) => {
+            const checkedSizes = pokeSizes.filter((size, index) => {
                 if (sizeCheckedState[index]) {
-                    return s
+                    return size
                 }
             })
-            const typeFound = checkedTypes.some(r => pokemon.type.indexOf(r) >= 0)
-            const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+            function getPokeCard() {
+                return (
+                    <div key={pokemon.name}>
+                        <PokeCard index={index}/>
+                    </div>
+                )
+            }
 
-            const noTypesChecked = typeCheckedState.every(elm => elm === false)
-            const noSizesChecked = sizeCheckedState.every(elm => elm === false)
+            const noTypesAreChecked = typeCheckedState.every(typeIsChecked => !typeIsChecked)
+            const noSizesAreChecked = sizeCheckedState.every(sizeIsChecked => !sizeIsChecked)
             
-            
-            if (typeFound || noTypesChecked){
-                if ( sizeFound || noSizesChecked) {
+            if (noTypesAreChecked && noSizesAreChecked) {
+                return getPokeCard()
+            } else {
+                const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
+                const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+                if (typeFound || sizeFound) { return getPokeCard() }
+            }
+            /*
+            if (typeFound || noTypesAreChecked ){
+                if (sizeFound || noSizesAreChecked) {
                     return (
                         <div key={pokemon.name}>
                             <PokeCard index={index}/>
-                        </div>)
+                        </div>
+                    )
                 }
-            } 
+            } */
         })
     return (
         <Container fluid>
