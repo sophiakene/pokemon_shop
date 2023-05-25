@@ -34,7 +34,7 @@ export function LoginForm() {
                     setLoginError({ Email: `User with email ${loginMail} does not exist`})
                 } else {
                     setLoggedInUserId(userResult.id)
-                    setLoggedInUser(userResult.firstName + userResult.lastName)
+                    setLoggedInUser(userResult.firstName + ' ' + userResult.lastName)
                 }
             })
             .catch(error => setLoginError({ Email: `User with email ${loginMail} does not exist`}))
