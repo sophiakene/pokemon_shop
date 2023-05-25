@@ -243,10 +243,10 @@ export function ShoppingCart() {
                 </Col>
             </Row>
             <Row style={{justifyContent: 'center'}}>
-                <Col sm={6} className="mt-3">
+                <Col md={{span:6, order:1}} sm={{order:2}} xs={{order:2}} className="mt-3">
                     <AllCartCards/>
                 </Col>
-                <Col sm={2} className="mt-3">
+                <Col md={{span:2, order:2}} sm={{order:1}} xs={{order:1}} className="mt-3" align="center">
                     <CheckoutCard/>
                 </Col>
             </Row>
