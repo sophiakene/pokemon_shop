@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge } from "react-bootstrap"
+import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge, Accordion, AccordionButton } from "react-bootstrap"
 import  { createContext } from "react"
 import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
 import { pokeTypes, pokeSizes, pokeColours } from "./consts"
+import AccordionHeader from "react-bootstrap/esm/AccordionHeader"
+import AccordionBody from "react-bootstrap/esm/AccordionBody"
 //import { library } from '@fortawesome/fontawesome-svg-core'; 
 //library.add(faShoppingCart)
 
@@ -115,14 +117,27 @@ export function Products() {
 
             const noTypesAreChecked = typeCheckedState.every(typeIsChecked => !typeIsChecked)
             const noSizesAreChecked = sizeCheckedState.every(sizeIsChecked => !sizeIsChecked)
-            
-            if (noTypesAreChecked && noSizesAreChecked) {
-                return getPokeCard()
-            } else {
-                const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
-                const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
-                if (typeFound || sizeFound) { return getPokeCard() }
+
+            const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
+            const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+
+            //3rd version:
+            if (typeFound || noTypesAreChecked ){
+                if (sizeFound || noSizesAreChecked) {
+                    return getPokeCard()
+                }
             }
+
+            //2nd version:
+            // if (noTypesAreChecked && noSizesAreChecked) {
+            //     return getPokeCard()
+            // } else {
+            //     const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
+            //     const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+            //     if (typeFound && sizeFound) { return getPokeCard() }
+            // }
+
+            //1st version:
             /*
             if (typeFound || noTypesAreChecked ){
                 if (sizeFound || noSizesAreChecked) {
@@ -244,21 +259,78 @@ function AllSizeCheckBoxes() {
     )
 }
 
+function RemoveFilterButton() {
+    const { typeCheckedState, setTypeCheckedState } = useContext(TypeContext)
+    const { sizeCheckedState, setSizeCheckedState} = useContext(SizeContext)
+
+    function resetFilters() {
+        setTypeCheckedState(new Array(typeCheckedState.length).fill(false))
+        setSizeCheckedState(new Array(sizeCheckedState.length).fill(false))
+    }    
+    return (
+        <Button
+            type="button"
+            className="btn btn-danger"
+            size="sm"
+            style={{justifyContent: 'end'}}
+            onClick={resetFilters}>
+            Clear all
+        </Button>
+    )
+}
+
+
+function FilterAccordion() {
+    return (
+        <Accordion alwaysOpen style={{paddingBottom:"20px"}}>
+            <Accordion.Item eventKey="0">
+                <AccordionHeader>
+                    <h5>
+                        Type
+                    </h5>
+                </AccordionHeader>
+                <AccordionBody>
+                    <AllTypeCheckBoxes/>
+                </AccordionBody>
+            </Accordion.Item>
+            <Accordion.Item eventKey="1">
+                <AccordionHeader>
+                    <h5>
+                        Size
+                    </h5>
+                </AccordionHeader>
+                <AccordionBody>
+                    <AllSizeCheckBoxes/>
+                </AccordionBody>
+            </Accordion.Item>
+        </Accordion>
+    )
+
+}
+
 export function ProductsFilterBar() {
-    const [openTypeFilter, setOpenTypeFilter] = useState(false)
-    const [openSizeFilter, setOpenSizeFilter] = useState(false)
+    // const [openTypeFilter, setOpenTypeFilter] = useState(false)
+    // const [openSizeFilter, setOpenSizeFilter] = useState(false)
     // const {typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
     // console.log({typeCheckedState: typeCheckedState})
 
     return (
-        <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="">
+        <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="border">
             <SidebarMenu.Body>
                 <br></br>
                 <br></br>
-                <h3 className="borderBottomWidth">
-                    Filters 
-                </h3>
-                <br></br>
+                <div style={{paddingLeft:"20px", paddingRight:"20px"}}>
+                    <h3 >
+                        Filters <RemoveFilterButton/>
+                    </h3>
+                    <FilterAccordion/>
+                </div>
+                
+                {/* <div style={{paddingLeft:"20px", }}>
+                    
+                </div>
+                 */}
+                {/* <br></br>
                 <h5
                 onClick={() => {
                     console.log({poketypes: pokeTypes})
@@ -282,244 +354,9 @@ export function ProductsFilterBar() {
                     <div>
                         <AllSizeCheckBoxes/>
                     </div>
-                </Collapse>
+                </Collapse> */}
             </SidebarMenu.Body>
         </SidebarMenu>
     );
 }
 
-// // Not working. not doing anything
-export function ProductsFilterBar1() {
-    return (
-    <Container fluid className="h-100 px-0">
-  <Row className="no-gutters h-100">
-    <Col sm={4}>
-      <div className="wrapper">
-        <Nav className="bg-light" id="sidebar">
-          <div className="sidebar-header">
-            <h3>Browse</h3>
-          </div>
-          <Row className="justify-content-center">
-            <div className="col-10">
-              <h5>Type</h5>
-            </div>
-          </Row>
-          <Row className="justify-content-end">
-            <div className="col-10">
-              <div className="type-buttons">
-                <div
-                  className="type-buttons btn-group-vertical"
-                  id="type-buttons"
-                />
-              </div>
-            </div>
-          </Row>
-          <Row className="justify-content-center">
-            <div className="col-10">
-              <h5>Size</h5>
-            </div>
-          </Row>
-          <Row className="justify-content-end">
-            <div className="col-10">
-              <div className="size-buttons">
-                <div className="size-buttons btn-group-vertical">
-                  <button
-                    type="button"
-                    id="s"
-                    className="btn btn-secondary btn-outline"
-                    value="s"
-                  >
-                    S
-                  </button>
-                  <button
-                    type="button"
-                    id="m"
-                    className="btn btn-light"
-                    value="m"
-                  >
-                    M
-                  </button>
-                  <button
-                    type="button"
-                    id="l"
-                    className="btn btn-secondary"
-                    value="l"
-                  >
-                    L
-                  </button>
-                  <button
-                    type="button"
-                    id="xl"
-                    className="btn btn-light"
-                    value="xl"
-                  >
-                    XL
-                  </button>
-                  <button
-                    type="button"
-                    id="xxl"
-                    className="btn btn-secondary"
-                    value="xxl"
-                  >
-                    XXL
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Row>
-          <Row className="justify-content-start">
-            <div className="col-10">
-              <h4>Sort by</h4>
-            </div>
-          </Row>
-          <Row className="justify-content-center">
-            <div className="col-10">
-              <h5>Price</h5>
-            </div>
-          </Row>
-          <Row className="justify-content-end">
-            <div className="col-10">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault1"
-                  defaultValue=""
-                />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  Ascending
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault2"
-                  defaultValue=""
-                />
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                  Descending
-                </label>
-              </div>
-            </div>
-            <Row className="row justify-content-end">
-              <div className="col-10"></div>
-            </Row>
-          </Row>
-        </Nav>
-        <button type="button" id="sidebarCollapse" className="btn bg-dark">
-          <i className="fa fa-angle-double-left fa-3x fa-inverse" />
-        </button>
-      </div>
-    </Col>
-    <div className="col-8 mt-5" style={{ padding: 0 }} id="card-box">
-      <h2>Pokémon</h2> <div id="cards" />
-    </div>
-  </Row>
-</Container>
-    );
-}
-
-// Not working. not doing anything
-export function ProductsFilterBar2() {
-    return (
-        <nav className="bg-light" id="sidebar">
-            <div className="sidebar-header">
-                <h3>Browse</h3>
-            </div>
-            <div className="row justify-content-center">
-                <div className="col-10">
-                    <h5>Type</h5>
-                </div>
-            </div>
-            <div className="row justify-content-end">
-                <div className="col-10">
-                    <div className="type-buttons">
-                        <div className="type-buttons btn-group-vertical" id="type-buttons" />
-                    </div>
-                </div>
-            </div>
-            <div className="row justify-content-center">
-                <div className="col-10">
-                    <h5>Size</h5>
-                </div>
-            </div>
-            <div className="row justify-content-end">
-                <div className="col-10">
-                    <div className="size-buttons">
-                        <div className="size-buttons btn-group-vertical">
-                        <button
-                            type="button"
-                            id="s"
-                            className="btn btn-secondary btn-outline"
-                            value="s"
-                        >
-                            S
-                        </button>
-                        <button type="button" id="m" className="btn btn-light" value="m">
-                            M
-                        </button>
-                        <button type="button" id="l" className="btn btn-secondary" value="l">
-                            L
-                        </button>
-                        <button type="button" id="xl" className="btn btn-light" value="xl">
-                            XL
-                        </button>
-                        <button
-                            type="button"
-                            id="xxl"
-                            className="btn btn-secondary"
-                            value="xxl"
-                        >
-                            XXL
-                        </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row justify-content-start">
-                <div className="col-10">
-                <h4>Sort by</h4>
-                </div>
-            </div>
-            <div className="row justify-content-center">
-                <div className="col-10">
-                <h5>Price</h5>
-                </div>
-            </div>
-            <div className="row justify-content-end">
-                <div className="col-10">
-                <div className="form-check">
-                    <input
-                    className="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="flexRadioDefault1"
-                    defaultValue=""
-                    />
-                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Ascending
-                    </label>
-                </div>
-                <div className="form-check">
-                    <input
-                    className="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="flexRadioDefault2"
-                    defaultValue=""
-                    />
-                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                    Descending
-                    </label>
-                </div>
-                </div>
-                <div className="row justify-content-end">
-                <div className="col-10"></div>
-                </div>
-            </div>
-        </nav>
-    );
-}
