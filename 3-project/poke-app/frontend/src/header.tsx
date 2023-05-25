@@ -88,17 +88,20 @@ export function Header() {
         {/* Set Usercontext for LoginForm overriding default values  */}
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
-                        <NavLink style={{textDecoration: 'none'}} to= "/">
+                        {/* <NavLink style={{textDecoration: 'none'}} to= "/">
                             <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
-                        </NavLink>
+                        </NavLink> */}
                         <NavLink style={{textDecoration: 'none'}} to= "/">
-                            <Navbar.Brand>Pokéshop</Navbar.Brand>
+                            <Navbar.Brand>
+                                <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
+                                Pokéshop
+                            </Navbar.Brand>
                         </NavLink>
                         <Navbar.Toggle className="ms-auto"/>
                         <Navbar.Collapse> 
                             <Nav className="me-auto">
                                 {/* Using Nav.Link instead of NavLink for the bootstrap styling. Using as={Link} 
-                                to ensure internal linking/not reloading the entire page (SPA) (basically to ensure
+                                to ensure internal linking/not reloading the entire page (basically to ensure
                                 it acts as if I used NavLink) */}
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/products">
                                     Products
@@ -109,8 +112,12 @@ export function Header() {
                                     Login 
                                 </Nav.Link>
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/cart">
-                                    <FontAwesomeIcon icon={faShoppingCart}/>
-                                    <div style={{fontSize: '10px'}}><Badge pill bg="danger" className='amountCounter' style={{position: 'relative', left: '11px', top: '-31px' }}>{getTotalAmountOfProducts()}</Badge></div>
+                                    <FontAwesomeIcon icon={faShoppingCart} size="xl"/>
+                                        <span style={{fontSize: '14px'}}>
+                                            <Badge pill bg="danger" className='amountCounter' style={{position: 'relative', left: '-8px', top: '-15px' }}>
+                                                {getTotalAmountOfProducts()}
+                                            </Badge>
+                                        </span>
                                 </Nav.Link>
                                 <Navbar.Text style={{textDecoration: 'none'}}>
                                     Logged in as {displayName}
