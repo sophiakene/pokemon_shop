@@ -44,25 +44,29 @@ function PokeCard({ index } : { index: number }) {
             <Card bg='light' className='mb-3' // margin bottom sizing of 3
                 key={'Light'}>
                 <Row className='no-gutters'>
-                    <Col sm={3}>
+                    <Col md={3}>
+                        <Card.Body>
                         <Link to={detailedProduct}>
-                            <Card.Img src={image} alt="Pokemon" />
+                            <Card.Img style={{width:"90%"}} src={image} alt="Pokemon" />
                         </Link>
+                        </Card.Body>
                     </Col>
-                    <Col sm={6}>
-                        <Link to={detailedProduct}>
-                            <Card.Title>{pokemon[index].name}</Card.Title>
-                        </Link>
-                        {/* <Card.Text>{pokemon[index].info}</Card.Text> */}
-                        <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
+                    <Col md={5}>
+                        <Card.Body>
+                            <Link to={detailedProduct}>
+                                <Card.Title>{pokemon[index].name}</Card.Title>
+                            </Link>
+                            <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
+                        </Card.Body>
                     </Col>
-                    <Col sm={3}>
+                    <Col md={4} className="mt-auto">
                         <Card.Body>
                             <Button 
                                 type='submit' 
                                 variant='danger'
                                 onClick={handleAddToBacket}
                                 id="{pokemon[index].name.toLowerCase()}"
+                                style={{maxWidth:"100%"}} // so button does not overflow card borders when shrinking
                             >
                                 <FontAwesomeIcon icon={faShoppingCart}/> 
                                 Add to shopping cart
@@ -151,22 +155,22 @@ export function Products() {
         })
     return (
         <Container fluid>
-        <Row>
-            <Col className="" sm={3}>
-                <TypeContext.Provider value={typeContext}>
-                    <SizeContext.Provider value={sizeContext}>
-                        <ProductsFilterBar />
-                    </SizeContext.Provider>
-                </TypeContext.Provider>
-            </Col>
-            <Col sm={1}></Col>
-            <Col sm={5} className="mt-5" style={{ padding: 0 }} id="card-box">
-                <h2>Pokémon</h2>
-                {pokemonCards}
-            </Col>
-            <Col sm={3}>
-            </Col>
-        </Row>
+            <Row>
+                <Col className="" sm={3}>
+                    <TypeContext.Provider value={typeContext}>
+                        <SizeContext.Provider value={sizeContext}>
+                            <ProductsFilterBar />
+                        </SizeContext.Provider>
+                    </TypeContext.Provider>
+                </Col>
+                <Col sm={1}></Col>
+                <Col sm={5} className="mt-5" style={{ padding: 0 }} id="card-box">
+                    <h2>Pokémon</h2>
+                    {pokemonCards}
+                </Col>
+                <Col sm={3}>
+                </Col>
+            </Row>
         </Container>
     );
 }
@@ -305,56 +309,19 @@ function FilterAccordion() {
             </Accordion.Item>
         </Accordion>
     )
-
 }
 
 export function ProductsFilterBar() {
-    // const [openTypeFilter, setOpenTypeFilter] = useState(false)
-    // const [openSizeFilter, setOpenSizeFilter] = useState(false)
-    // const {typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
-    // console.log({typeCheckedState: typeCheckedState})
 
     return (
         <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="border">
             <SidebarMenu.Body>
-                <br></br>
-                <br></br>
-                <div style={{paddingLeft:"20px", paddingRight:"20px"}}>
+                <div style={{paddingLeft:"20px", paddingRight:"20px", paddingTop:"50px"}}>
                     <h3 >
                         Filters <RemoveFilterButton/>
                     </h3>
                     <FilterAccordion/>
                 </div>
-                
-                {/* <div style={{paddingLeft:"20px", }}>
-                    
-                </div>
-                 */}
-                {/* <br></br>
-                <h5
-                onClick={() => {
-                    console.log({poketypes: pokeTypes})
-                    setOpenTypeFilter(!openTypeFilter)}}>
-                        <Button variant="text" size="lg">
-                            Type
-                        </Button>
-                </h5>
-                <Collapse in={openTypeFilter}>
-                    <div>
-                        <AllTypeCheckBoxes/>
-                    </div>
-                </Collapse>
-                <h5 
-                    onClick={() => setOpenSizeFilter(!openSizeFilter)}>
-                        <Button variant="text" size="lg">
-                            Size
-                        </Button>
-                </h5>
-                <Collapse in={openSizeFilter}>
-                    <div>
-                        <AllSizeCheckBoxes/>
-                    </div>
-                </Collapse> */}
             </SidebarMenu.Body>
         </SidebarMenu>
     );
