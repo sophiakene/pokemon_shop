@@ -1,12 +1,11 @@
-import { Container, Row, Col, Button, Nav, Card } from "react-bootstrap"
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom"
+import { Container, Row, Col, Button, Card, InputGroup, } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { useContext, useEffect } from "react"
 import { PokemonContext, UserContext, CartContext } from "./header"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBoltLightning, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import {faXmark, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
 import { Cart, CartElement } from "./types"
@@ -35,6 +34,7 @@ function DecButton({ handleClick } : { handleClick: React.MouseEventHandler<HTML
             className = "btn btn-danger"
             size="sm"
             onClick={handleClick}
+            // style={{paddingRight:"20 rem"}}
         >
             <FontAwesomeIcon icon={faMinus}/>
         </Button>
@@ -140,13 +140,15 @@ function CartCard({index} : {index: number}) {
                                 </Card.Title>
                             </h5>
                             <Card.Text>
-                                    Price: {price}
+                                Price: {price}
+                            </Card.Text>
+                            <Card.Text className="mt-4">
+                                Quantity: 
                             </Card.Text>
                             <Card.Text>
-                                    Quantity: 
-                            </Card.Text>
-                            <Card.Text>
-                            <DecButton handleClick={event => handleRemoveFromBasket(1)}/> {amount} <IncButton handleClick={handleAddToBasket}/>
+                                <DecButton handleClick={event => handleRemoveFromBasket(1)}/> 
+                                {" "} {amount} {" "}
+                                <IncButton handleClick={handleAddToBasket}/>
                             </Card.Text>
                         </Card.Body>
                     </Col>
@@ -166,7 +168,7 @@ function CartCard({index} : {index: number}) {
 function AllCartCards() {
     const { cart, setCart } = useContext(CartContext)
 
-    if (cart.length != 0) {
+    if (cart.length !== 0) {
         const allCartCards = 
             cart.map((cartElement, index) => { return (
                 <div key={cartElement.product.name}>
@@ -205,12 +207,12 @@ function UserCartGreeting( { userName } : { userName: string }) {
 
 function CartGreeting( { userName, cart } : { userName: string, cart: Cart}) {
     if (cart.length !== 0) {
-        if (userName != "DEFAULT") {
+        if (userName !== "DEFAULT") {
             return <UserCartGreeting userName={userName}/>
         } else {
             return <GuestCartGreeting/>
         }
-    } else if (userName != "DEFAULT") {
+    } else if (userName !== "DEFAULT") {
         return <UserEmptyCartGreeting userName={userName}/>
     } else {
         return <GuestEmptyCartGreeting/>
