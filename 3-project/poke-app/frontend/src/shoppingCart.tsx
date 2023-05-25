@@ -13,26 +13,43 @@ import { Cart, CartElement } from "./types"
 
 
 
-function IncButton() {
+function IncButton( { handleClick } : { handleClick: React.MouseEventHandler<HTMLButtonElement>}) {
     return (
         <Button
             type="button"
             id="incButton"
             className = "btn btn-danger"
+            size="sm"
+            onClick={handleClick}
         >
             <FontAwesomeIcon icon={faPlus}/>
         </Button>
     )
 }
 
-function DecButton() {
+function DecButton({ handleClick } : { handleClick: React.MouseEventHandler<HTMLButtonElement>}) {
     return (
         <Button
             type="button"
             id="incButton"
             className = "btn btn-danger"
+            size="sm"
+            onClick={handleClick}
         >
             <FontAwesomeIcon icon={faMinus}/>
+        </Button>
+    )
+}
+
+function RemoveButton({ handleClick } : { handleClick: React.MouseEventHandler<HTMLButtonElement>}) {
+    return (
+        <Button
+            type="button"
+            id="removeButton"
+            className = "btn btn-dark"
+            onClick={handleClick}
+        >
+            <FontAwesomeIcon icon={faXmark}/>
         </Button>
     )
 }
@@ -66,18 +83,7 @@ function CheckoutCard() {
     )
 }
 
-function RemoveButton({ handleRemoveFromBasket } : { handleRemoveFromBasket: () => void}) {
-    return (
-        <Button
-            type="button"
-            id="removeButton"
-            className = "btn btn-dark"
-            onClick={()=>handleRemoveFromBasket()}
-        >
-            <FontAwesomeIcon icon={faXmark}/>
-        </Button>
-    )
-}
+
 
 function CartCard({index} : {index: number}) {
     const { cart, setCart } = useContext(CartContext)
@@ -91,18 +97,30 @@ function CartCard({index} : {index: number}) {
     const detailedProduct = `/detailed_product/${detailedProductIndex}`
     const pokeName = product.name
     const image = `/data/poke_images/${pokeName.toLowerCase()}.avif`
-    // const info = product.info
     const price = product.price
 
-    function handleRemoveFromBasket() {
+    function handleRemoveFromBasket(amountToRemove:number) {
+        // call backend to remove the specified amount of a product
         fetch(`http://localhost:3005/customers/${id}/baskets/products/${product.id}`, {
             method: 'DELETE',
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
-            body: JSON.stringify({amount})
+            body: JSON.stringify({amount: amountToRemove})
         })
         .then(response => response.json())
-        .then(response => setCart(response.basket))
+        .then(response => {setCart(response.basket); console.log({cart: cart, resp: response.basket})})
         .catch(error => console.log({ errorRemovingProductFromBasketForUser: error }))
+    }
+
+    function handleAddToBasket() {
+        // Call backend to add product
+        fetch(`http://localhost:3005/customers/${id}/baskets/products/${product.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({ amount: 1})
+        })
+        .then(response => response.json() )
+        .then(shoppingCart => setCart(shoppingCart.basket))
+        .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
     return (
@@ -121,20 +139,20 @@ function CartCard({index} : {index: number}) {
                                     {pokeName}
                                 </Card.Title>
                             </h5>
-                            {/* <Card.Text>
-                                    {info}
-                            </Card.Text> */}
                             <Card.Text>
                                     Price: {price}
                             </Card.Text>
                             <Card.Text>
-                                    Quantity: {amount}
+                                    Quantity: 
+                            </Card.Text>
+                            <Card.Text>
+                            <DecButton handleClick={event => handleRemoveFromBasket(1)}/> {amount} <IncButton handleClick={handleAddToBasket}/>
                             </Card.Text>
                         </Card.Body>
                     </Col>
                     <Col md={3} className="mb-auto">
                         <Card.Body style={{textAlign: "right"}}>
-                            <RemoveButton handleRemoveFromBasket={handleRemoveFromBasket}/>
+                            <RemoveButton handleClick={event => handleRemoveFromBasket(amount)}/>
                         </Card.Body>
                     </Col>
                 </Row>
@@ -142,6 +160,8 @@ function CartCard({index} : {index: number}) {
         </div>  
     )
 }
+
+
 
 function AllCartCards() {
     const { cart, setCart } = useContext(CartContext)
@@ -167,6 +187,36 @@ function AllCartCards() {
     
 }
 
+function GuestEmptyCartGreeting() {
+    return <h1> Shopping cart is empty.</h1>
+}
+
+function UserEmptyCartGreeting({ userName } : {userName: string}) {
+    return <h1> Shopping cart for {userName} is empty. </h1>
+}
+
+function GuestCartGreeting() {
+    return <h1> Shopping cart contents:</h1>
+}
+
+function UserCartGreeting( { userName } : { userName: string }) {
+    return <h1> Shopping cart contents for {userName}: </h1>
+}
+
+function CartGreeting( { userName, cart } : { userName: string, cart: Cart}) {
+    if (cart.length !== 0) {
+        if (userName != "DEFAULT") {
+            return <UserCartGreeting userName={userName}/>
+        } else {
+            return <GuestCartGreeting/>
+        }
+    } else if (userName != "DEFAULT") {
+        return <UserEmptyCartGreeting userName={userName}/>
+    } else {
+        return <GuestEmptyCartGreeting/>
+    }
+}
+
 export function ShoppingCart() {
 
     const { user, id } = useContext(UserContext)
@@ -183,27 +233,11 @@ export function ShoppingCart() {
         .catch(error => console.log({ errorFetchingBasketForUser: error }))
     }, [])
     
-    let shoppingCartTitle = "Shopping cart is empty."
-
-    if (cart.length != 0) {
-        if (user != "DEFAULT") {
-            shoppingCartTitle = `Shopping cart content for ${user}:`
-        } else {
-            shoppingCartTitle = "Shopping cart contents:"
-        }
-    } else {
-        if (user != "DEFAULT") {
-            shoppingCartTitle = `Shopping cart for ${user} is empty`
-        }
-    }
-
     return (
         <Container fluid>
             <Row style={{justifyContent: 'center'}}>
                 <Col sm={8} className="mt-5">
-                    <h1>
-                        {shoppingCartTitle}
-                    </h1>
+                    <CartGreeting userName={user} cart={cart}/>
                 </Col>
             </Row>
             <Row style={{justifyContent: 'center'}}>
