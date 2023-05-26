@@ -35,57 +35,60 @@ export function DetailedProductPage() {
     }
 
     return (
-        
-            <Container className="detailed-container">
-            <Card className="bg-light" style={{margin:"10px"}}>
-            <Card.Body>
-            <h1>{pokemon[Number(index)].name}</h1>
-            <Card.Img src={productImage} alt="Pokemon" variant="top" style={{width: "30vw", height: "auto"}}/>
-            
-            
-            <Card.Text className='align-self-center'>
-            <Button 
-                className = "btn-lg"
-                style={{margin:"5px"}}
-                type='submit' 
-                variant='danger'
-                onClick={handleAddToBasket}
-                id="{pokemon[index].name.toLowerCase()}">
-                <FontAwesomeIcon icon={faShoppingCart}/> 
-                Add to shopping cart
-            </Button>  
-            <Card className="align-self-center" style={{width:"97.5%"}}>
-                    <div className="detailed-text">
-                        <h6>Information:</h6>
-                        <h4>{pokemon[Number(index)].info}</h4>
-                    </div>
-                    <div className="detailed-text">
-                        <h6>Price:</h6>
-                        <h4 id="price">{pokemon[Number(index)].price} DKK</h4>
-                    </div>
-
-                    <div className="detailed-text">
-                        <h6>Type:</h6>
-                            <ol style={{ listStyle: 'none', margin:0, padding:0 }}>
-                            {pokemon[Number(index)].type.map((item,index) => 
-                                <>
-                                <div className="badge" style={{background:pokeColours[item as keyof typeof pokeColours], margin:"2px"}}>
-                                <li style={{margin:"2px"}} key={index}>{item}</li>
-                                </div>
-                                </>
-                            )}
-                            </ol>
+        <Container className="detailed-container">
+                <Row>
+                    <Col xs={12} md={8}>
+                        <Card className='bg-light mb-2'>
+                            <Card.Body>
+                                <h1>{pokemon[Number(index)].name}</h1>
+                                <Card.Img className='detailed-img' src={productImage} alt="Pokemon"/>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>  
+                        <Card.Text className='align-self-center'>
+                <Card>
+                        <div className="detailed-text">
+                            <h6>Information:</h6>
+                            <h4>{pokemon[Number(index)].info}</h4>
                         </div>
-                    
-                <div className="detailed-text">
-                    <h6>Size:</h6>
-                    <h4>{pokemon[Number(index)].size}m</h4>
-                </div>         
+                        <div className="detailed-text">
+                            <h6>Price:</h6>
+                            <h4 id="price">{pokemon[Number(index)].price} DKK</h4>
+                        </div>
 
-            </Card>                  
-            </Card.Text>
-            </Card.Body>
-            </Card>
+                        <div className="detailed-text">
+                            <h6>Type:</h6>
+                                <ol style={{ listStyle: 'none', margin:0, padding:0 }}>
+                                {pokemon[Number(index)].type.map((item,index) => 
+                                    <>
+                                    <div className="badge" style={{background:pokeColours[item as keyof typeof pokeColours], margin:"2px"}}>
+                                    <li style={{margin:"2px"}} key={index}>{item}</li>
+                                    </div>
+                                    </>
+                                )}
+                                </ol>
+                            </div>
+                        
+                    <div className="detailed-text">
+                        <h6>Size:</h6>
+                        <h4>{pokemon[Number(index)].size}m</h4>
+                    </div>         
+
+                </Card>                  
+                </Card.Text>
+                <Button 
+                            className = "btn-lg"
+                            style={{margin:"5px"}}
+                            type='submit' 
+                            variant='danger'
+                            onClick={handleAddToBasket}
+                            id="{pokemon[index].name.toLowerCase()}">
+                            <FontAwesomeIcon icon={faShoppingCart}/> 
+                            Add to shopping cart
+                        </Button>
+                    </Col>
+                </Row>
             </Container>
 
     )

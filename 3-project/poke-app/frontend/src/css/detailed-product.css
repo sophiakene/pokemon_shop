@@ -13,3 +13,10 @@
         width: 90vh;
     }
   }
+
+@media screen and (max-width: 770px) {
+    .detailed-img {
+        width: 50vw;
+        height: auto;
+    }
+}
