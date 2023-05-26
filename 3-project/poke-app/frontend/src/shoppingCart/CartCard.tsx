@@ -1,10 +1,8 @@
 import { Row, Col, Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 import { useContext} from "react"
 import { UserContext, CartContext } from "../Header"
-
 import 'font-awesome/css/font-awesome.min.css'
 import { IncButton } from "./IncButton"
 import { DecButton } from "./DecButton"
@@ -12,18 +10,17 @@ import { RemoveButton } from "./RemoveButton"
 import { getSalePrice } from "./ShoppingCart"
 
 export function CartCard({index} : {index: number}) {
-    const { cart, setCart } = useContext(CartContext) // eslint-disable-next-line
-    const { user, id } = useContext(UserContext)
+    const { cart, setCart } = useContext(CartContext)
+    const { user, id } = useContext(UserContext) // eslint-disable-line
 
     const product = cart[index].product
     const amount = cart[index].amount
+    const pokeName = product.name
+    const price = product.price
     //discrepancy between product id and index used for pokemon context list used in detailed products page, below is a hacky fix:
     const detailedProductIndex = product.id - 1 
-
     const detailedProduct = `/detailed_product/${detailedProductIndex}`
-    const pokeName = product.name
     const image = `/data/poke_images/${pokeName.toLowerCase()}.avif`
-    const price = product.price
 
     function handleRemoveFromBasket(amountToRemove:number) {
         // call backend to remove the specified amount of a product
@@ -33,7 +30,7 @@ export function CartCard({index} : {index: number}) {
             body: JSON.stringify({amount: amountToRemove})
         })
         .then(response => response.json())
-        .then(response => {setCart(response.basket); console.log({cart: cart, resp: response.basket})})
+        .then(response => setCart(response.basket))
         .catch(error => console.log({ errorRemovingProductFromBasketForUser: error }))
     }
 

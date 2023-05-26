@@ -10,9 +10,9 @@ import 'font-awesome/css/font-awesome.min.css'
 import { getSalePrice } from "../shoppingCart/ShoppingCart"
 
 export function PokeCard({ index } : { index: number }) {
-    const { pokemon } = useContext(PokemonContext) // eslint-disable-next-line
-    const { user, id } = useContext(UserContext) // eslint-disable-next-line
-    const { cart, setCart } = useContext(CartContext)
+    const { pokemon } = useContext(PokemonContext) 
+    const { user, id } = useContext(UserContext) // eslint-disable-line
+    const { cart, setCart } = useContext(CartContext) // eslint-disable-line
 
     function handleAddToBacket() {
         // Call backend to add product
