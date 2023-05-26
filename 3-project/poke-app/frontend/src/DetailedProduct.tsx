@@ -1,7 +1,5 @@
-import * as React from 'react'
 import { useContext } from "react"
 import Button from "react-bootstrap/Button"
-//import Badge from 'react-bootstrap/Badge'
 import "./css/detailed-product.css"
 import { Container, Row, Col, Card } from "react-bootstrap"
 import { PokemonContext, CartContext, UserContext } from "./Header"

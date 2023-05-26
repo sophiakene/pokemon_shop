@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { Container, Row, Col} from "react-bootstrap"
 import  { createContext } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -30,7 +29,31 @@ export function Products() {
     const typeContext = { typeCheckedState, setTypeCheckedState }
     const sizeContext = { sizeCheckedState, setSizeCheckedState }
     
-    const pokemonCards = 
+    function getPokemonCards() {
+        const checkedTypes = pokeTypes.filter((type, index) => typeCheckedState[index])
+        const checkedSizes = pokeSizes.filter((size, index) => sizeCheckedState[index])
+        const noTypesAreChecked = typeCheckedState.every(typeIsChecked => !typeIsChecked)
+        const noSizesAreChecked = sizeCheckedState.every(sizeIsChecked => !sizeIsChecked)
+
+        const pokemonCards =
+            pokemon.map((pokemon, index) => { 
+                const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
+                const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
+
+                if ((typeFound || noTypesAreChecked) && (sizeFound || noSizesAreChecked)) {
+                    return (
+                        <div key={pokemon.name}>
+                            <PokeCard index={index}/>
+                        </div>
+                    )
+                } else {
+                    return <></>
+                }
+            })
+        return pokemonCards
+    }
+
+    /*const pokemonCards = 
         pokemon.map((pokemon, index) => { 
 
             const checkedTypes = pokeTypes.filter((pokemonType, index) => {
@@ -41,38 +64,22 @@ export function Products() {
                 return sizeCheckedState[index]
             })
 
-            function getPokeCard() {
-                return (
-                    <div key={pokemon.name}>
-                        <PokeCard index={index}/>
-                    </div>
-                )
-            }
-
             const noTypesAreChecked = typeCheckedState.every(typeIsChecked => !typeIsChecked)
             const noSizesAreChecked = sizeCheckedState.every(sizeIsChecked => !sizeIsChecked)
 
             const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
             const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
 
-            //changed back to the first version of the logic, the other one 
-            // (ie 2nd version below) did not filter the right way 
             if ( (typeFound || noTypesAreChecked) && (sizeFound || noSizesAreChecked) ){
-                    return getPokeCard()
+                    return (
+                        <div key={pokemon.name}>
+                            <PokeCard index={index}/>
+                        </div>
+                    )
             } else {
                 return <></>
             }
-
-            //2nd version:
-            // if (noTypesAreChecked && noSizesAreChecked) {
-            //     return getPokeCard()
-            // } else {
-            //     const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
-            //     const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
-            //     if (typeFound && sizeFound) { return getPokeCard() }
-            // }
-
-        })
+        }) */
     return (
         <Container fluid>
             <Row>
@@ -86,7 +93,7 @@ export function Products() {
                 <Col sm={1}></Col>
                 <Col sm={5} className="mt-5" style={{ padding: 0 }} id="card-box">
                     <h2>Pokémon</h2>
-                    {pokemonCards}
+                    {getPokemonCards()}
                 </Col>
                 <Col sm={3}>
                 </Col>

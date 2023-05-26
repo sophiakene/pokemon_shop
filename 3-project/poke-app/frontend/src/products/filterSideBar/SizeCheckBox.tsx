@@ -8,16 +8,11 @@ import { SizeContext } from "../Products"
 export function SizeCheckBox({name, id, color, index} : {name: string, id: string, color:string, index:number}) {
     const { sizeCheckedState, setSizeCheckedState} = useContext(SizeContext)
 
-    function handleOnChange(pos: number) {
-        const updatedSizeCheckedState = sizeCheckedState.map((item, i) => {
-            if (i === pos) {
-                return !item
-            } else {
-                return item
-            }
+    function handleOnChange(flipIndex: number) {
+        const updatedSizeCheckedState = sizeCheckedState.map((value, currentIndex) => {
+            return currentIndex === flipIndex ? !value : value
         })
-
-        setSizeCheckedState(updatedSizeCheckedState) 
+        setSizeCheckedState(updatedSizeCheckedState)
     }
     return (
         <Form.Check
