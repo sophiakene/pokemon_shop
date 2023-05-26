@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { Container, Row, Col, Button, Card, Form, Badge, Accordion } from "react-bootstrap"
+import { Container, Row, Col, Button, Card, Form, Accordion } from "react-bootstrap"
 import  { createContext } from "react"
 import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -40,14 +40,14 @@ function PokeCard({ index } : { index: number }) {
             <Card bg='light' className='mb-3' // margin bottom sizing of 3
                 key={'Light'}>
                 <Row className='no-gutters'>
-                    <Col md={3}>
+                    <Col lg={3}>
                         <Card.Body>
                             <Link to={detailedProduct}>
                                 <Card.Img style={{width:"90%"}} src={image} alt="Pokemon" />
                             </Link>
                         </Card.Body>
                     </Col>
-                    <Col md={5}>
+                    <Col lg={5}>
                         <Card.Body>
                             <Link to={detailedProduct}>
                                 <Card.Title>{pokemon[index].name}</Card.Title>
@@ -55,7 +55,7 @@ function PokeCard({ index } : { index: number }) {
                             <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
                         </Card.Body>
                     </Col>
-                    <Col md={4} className="mt-auto">
+                    <Col lg={4} className="mt-auto">
                         <Card.Body>
                             <Button 
                                 type='submit' 
@@ -206,7 +206,9 @@ function SizeCheckBox({name, id, color, index} : {name: string, id: string, colo
         <Form.Check
             name={name}
             id={id} 
-            label={<Badge>{id}</Badge>}
+            label={<div className="badge bg-secondary">
+                    {id}
+                </div>}
             checked={sizeCheckedState[index]}
             onChange={(() => handleOnChange(index))}
         >    
@@ -259,11 +261,53 @@ function RemoveFilterButton() {
     return (
         <Button
             type="button"
-            className="btn btn-dark"
+            className="btn btn-danger"
             size="sm"
             style={{justifyContent: 'end'}}
             onClick={resetFilters}>
             Clear all
+        </Button>
+    )
+}
+
+function PriceRadio({label} : {label:string}) {
+    return (
+        <Form.Check
+            name="priceRadio"
+            type="radio"
+            label=
+                {<div className="badge bg-dark">
+                    {label}
+                </div>}
+        >    
+        </Form.Check>
+    )
+}
+
+function PriceRadios() {
+    const priceRadios = 
+        ["Low to High", "High to Low"].map((label) => {
+            return (
+                <div key={label}>
+                    <PriceRadio label={label}/>
+                </div>
+        )
+    })
+    return (
+        <div>
+            {priceRadios}
+        </div>
+    )
+}
+
+function SetDefaultButton() {
+    return (
+        <Button
+            type="button"
+            className="btn btn-danger"
+            size="sm"
+            style={{justifyContent: 'end'}}>
+            Default
         </Button>
     )
 }
@@ -295,16 +339,43 @@ function FilterAccordion() {
     )
 }
 
+function SortAccordion() {
+    return (
+        <Accordion alwaysOpen style={{paddingBottom:"20px"}}>
+            <Accordion.Item eventKey="2">
+                <AccordionHeader>
+                    <h5>
+                        Price
+                    </h5>
+                </AccordionHeader>
+                <AccordionBody>
+                    <PriceRadios/>
+                </AccordionBody>
+            </Accordion.Item>
+        </Accordion>
+    )
+}
+
 export function ProductsFilterBar() {
 
     return (
         <SidebarMenu style={{height:"100%", textAlign:"left"}} bg="light" variant="dark" className="border">
             <SidebarMenu.Body>
                 <div style={{paddingLeft:"20px", paddingRight:"20px", paddingTop:"50px"}}>
-                    <h3 >
-                        Filters <RemoveFilterButton/>
-                    </h3>
-                    <FilterAccordion/>
+                    <Row>
+                        <Col xl={12} lg={12} md={12} sm={12} xs={6}>
+                            <h3 >
+                                Filters <RemoveFilterButton/>
+                            </h3>
+                            <FilterAccordion/>
+                        </Col>
+                        <Col xl={12} lg={12} md={12} sm={12} xs={6}>
+                            <h3>
+                                Sort <SetDefaultButton/>
+                            </h3>
+                            <SortAccordion/>
+                        </Col>
+                    </Row>
                 </div>
             </SidebarMenu.Body>
         </SidebarMenu>

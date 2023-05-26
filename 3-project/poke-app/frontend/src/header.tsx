@@ -80,6 +80,39 @@ function getBasketContent(id: number, setCart:React.Dispatch<React.SetStateActio
     .catch(error => console.log({ errorFetchingBasketForUser: error }))
 }
 
+function LoginComponent() {
+    return (
+        <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/signup">
+                Login 
+        </Nav.Link>
+    )
+}
+
+function LogoutComponent({ handleClick } : { handleClick: React.MouseEventHandler<HTMLButtonElement>}) {
+    return (
+        <Nav.Link 
+            as={Link} 
+            style={{textDecoration: 'none'}} 
+            to="/signup"
+            onClick={handleClick}
+            >
+            Logout
+        </Nav.Link>
+    )
+}
+
+function LoginLogout(
+        {id, setLoggedInUser, setLoggedInUserId} : 
+        {id:number, setLoggedInUserId: React.Dispatch<React.SetStateAction<number>>,
+            setLoggedInUser: React.Dispatch<React.SetStateAction<string>>}
+    ) {
+    if (id === 0) {
+        return <LoginComponent/>
+    } else {
+        return <LogoutComponent handleClick={event => setDefaultUser(setLoggedInUserId, setLoggedInUser)}/>
+    }
+}
+
 export function Header() {
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
@@ -124,9 +157,14 @@ export function Header() {
                                 </Nav.Link>
                             </Nav>
                             <Nav>
-                                <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/signup">
-                                    Login 
-                                </Nav.Link>
+                                {/* <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/signup">
+                                    Login
+                                </Nav.Link> */}
+                                <LoginLogout 
+                                    id={id}
+                                    setLoggedInUser={setLoggedInUser}
+                                    setLoggedInUserId={setLoggedInUserId}
+                                />
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/cart">
                                     <FontAwesomeIcon icon={faShoppingCart} size="xl"/>
                                         <span style={{fontSize: '14px'}}>
