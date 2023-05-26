@@ -4,10 +4,10 @@ import { Navbar, Container, Nav, Badge } from "react-bootstrap"
 import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
 import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
-import { Products } from './products'
+import { Products } from './products/Products'
 import { Home } from "./home";
 import { DetailedProductPage } from "./detailed-product";
-import { ShoppingCart } from "./shoppingCart"
+import { ShoppingCart } from "./shoppingCart/ShoppingCart"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import './css/logo.css'

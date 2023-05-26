@@ -1,25 +1,34 @@
 import * as React from 'react'
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import Button from "react-bootstrap/Button"
 //import Badge from 'react-bootstrap/Badge'
 import "./css/detailed-product.css"
-import { Container, Form, Row, Col, Card } from "react-bootstrap"
+import { Container, Row, Col, Card } from "react-bootstrap"
 import { PokemonContext, CartContext, UserContext } from "./header"
 import { useParams } from 'react-router-dom'
 import { pokeColours } from './consts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
-
-//const { index } = useParams() as { index: number }
+function getSalePrice(pokeName: string, price: number) {
+    switch(pokeName) {
+        case "Pikachu": 
+        case "Bulbasaur":
+        case "Diglett": {
+            return String(price / 2) + " (reduced 50%!)"
+        } default: {
+            return price
+        }
+    }
+}
 
 export function DetailedProductPage() {
 
     const { pokemon } = useContext(PokemonContext)
     const { index } = useParams() as { index: string }  
     const productImage = `/data/poke_images/${pokemon[Number(index)].name.toLowerCase()}.avif` 
-    const { cart, setCart } = useContext(CartContext)
-    const { user, id } = useContext(UserContext)
+    const { cart, setCart } = useContext(CartContext) // eslint-disable-line
+    const { user, id } = useContext(UserContext) // eslint-disable-line
 
     function handleAddToBasket() {
         // Call backend to add product
@@ -29,23 +38,22 @@ export function DetailedProductPage() {
             body: JSON.stringify({ amount: 1})
         })
         .then(response => response.json() )
-        // .then(shoppingCart => setCart(shoppingCart))
         .then(shoppingCart => setCart(shoppingCart.basket))
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
-    let salePrice
-    switch(pokemon[Number(index)].name) {
-        case "Pikachu": 
-        case "Bulbasaur":
-        case "Diglett": {
-            salePrice = String(pokemon[Number(index)].price / 2) + " (reduced 50%!)"
-            break
-        }
-        default: {
-            salePrice = pokemon[Number(index)].price
-        }
-    }
+    // let salePrice
+    // switch(pokemon[Number(index)].name) {
+    //     case "Pikachu": 
+    //     case "Bulbasaur":
+    //     case "Diglett": {
+    //         salePrice = String(pokemon[Number(index)].price / 2) + " (reduced 50%!)"
+    //         break
+    //     }
+    //     default: {
+    //         salePrice = pokemon[Number(index)].price
+    //     }
+    // }
 
     return (
         <Container className="detailed-container">
@@ -67,7 +75,7 @@ export function DetailedProductPage() {
                         </div>
                         <div className="detailed-text">
                             <h6>Price:</h6>
-                            <h4 id="price">{salePrice} DKK</h4>
+                            <h4 id="price">{getSalePrice(pokemon[Number(index)].name, pokemon[Number(index)].price)} DKK</h4>
                         </div>
 
                         <div className="detailed-text">
