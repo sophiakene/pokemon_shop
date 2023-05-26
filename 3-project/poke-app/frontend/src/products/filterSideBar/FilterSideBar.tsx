@@ -25,7 +25,8 @@ function RemoveFilterButton() {
             className="btn btn-danger"
             size="sm"
             style={{justifyContent: 'end'}}
-            onClick={resetFilters}>
+            onClick={resetFilters}
+        >
             Clear all
         </Button>
     )
@@ -37,7 +38,8 @@ function SetDefaultButton() {
             type="button"
             className="btn btn-danger"
             size="sm"
-            style={{justifyContent: 'end'}}>
+            style={{justifyContent: 'end'}}
+        >
             Default
         </Button>
     )
@@ -65,8 +67,8 @@ function PriceRadios() {
                 <div key={label}>
                     <PriceRadio label={label}/>
                 </div>
-        )
-    })
+            )
+        })
     return (
         <div>
             {priceRadios}
@@ -174,5 +176,5 @@ export function FilterSideBar() {
                 </div>
             </SidebarMenu.Body>
         </SidebarMenu>
-    );
+    )
 }

@@ -26,13 +26,16 @@ export function PokeCard({ index } : { index: number }) {
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
-    if( pokemon.length !== 0 ) {
+    if(pokemon.length !== 0) {
         // changed the url as react-router-dom uses very specific path structure for placeholders
         const detailedProduct = `/detailed_product/${index}`
         const image = `/data/poke_images/${pokemon[index].name.toLowerCase()}.avif`
         return (
-            <Card bg='light' className='mb-3' // margin bottom sizing of 3
-                key={'Light'}>
+            <Card 
+                bg='light' 
+                className='mb-3' // margin bottom sizing of 3
+                key={'Light'}
+            >
                 <Row className='no-gutters'>
                     <Col lg={3}>
                         <Card.Body>

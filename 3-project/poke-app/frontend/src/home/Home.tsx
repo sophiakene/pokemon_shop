@@ -3,9 +3,9 @@ import { PikaWelcome } from "./Welcome";
 
 export function Home() {
     return (
-    <>
-    <CarouselBanner />
-    <PikaWelcome />
-    </>
+        <>
+        <CarouselBanner />
+        <PikaWelcome />
+        </>
     )
 }

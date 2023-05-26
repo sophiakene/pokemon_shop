@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import './css/logo.css'
 
-//// login context stuff
 // User context with default values for setting User data
 export const SetUserContext = createContext({
     setLoggedInUser: (user: string) => {},
@@ -24,10 +23,9 @@ export const UserContext = createContext({ user: "", id: -1 })
 
 export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart) => {} })
 
-//// products context stuff
+// products context
 export const PokemonContext = createContext({
     pokemon: [] as Pokemon[],
-    //setPokemon: (pokemon: Pokemon[]) => {}, // remove if decide to load on front page
 })
 
 function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
@@ -101,10 +99,10 @@ function LogoutComponent({ handleClick } : { handleClick: React.MouseEventHandle
     )
 }
 
-function LoginLogout(
-        {id, setLoggedInUser, setLoggedInUserId} : 
-        {id:number, setLoggedInUserId: React.Dispatch<React.SetStateAction<number>>,
-            setLoggedInUser: React.Dispatch<React.SetStateAction<string>>}
+function LoginLogout({ id, setLoggedInUser, setLoggedInUserId } :
+        { id: number, 
+          setLoggedInUserId: React.Dispatch<React.SetStateAction<number>>,
+          setLoggedInUser: React.Dispatch<React.SetStateAction<string>> }
     ) {
     if (id === 0) {
         return <LoginComponent/>
@@ -124,19 +122,13 @@ export function Header() {
     useEffect(() => setDefaultUser(setLoggedInUserId, setLoggedInUser), [])
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
     // if user id changes, cart state must be updated in order to show correct item counter on cart logo
-    useEffect(() => getBasketContent(id, setCart), [id])   //eslint-disable-line
+    useEffect(() => getBasketContent(id, setCart), [id]) 
     const pokemonContext = { pokemon }
-    function getTotalAmountOfProducts() { 
-        if (cart) {
-            return cart.reduce((acc, cartElement) => cartElement.amount + acc, 0) 
-        } else {
-            return 0
-        }}
+    const totalAmountOfProducts = cart ? cart.reduce((acc, cartElement) => cartElement.amount + acc, 0) : 0
     const displayName = (id === 0) ? 'Guest' : user
 
     return (
         <BrowserRouter>
-        {/* Set Usercontext for LoginForm overriding default values  */}
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
                         {/* textDecoration none to remove link underline */}
@@ -149,17 +141,14 @@ export function Header() {
                         <Navbar.Toggle className="ms-auto"/>
                         <Navbar.Collapse> 
                             <Nav className="me-auto">
-                                {/* Using Nav.Link instead of NavLink for the bootstrap styling. Using as={Link} 
-                                to ensure internal linking/not reloading the entire page (SPA) (basically to ensure
-                                it acts as if I used NavLink) */}
+                                {/* Using Nav.Link instead of NavLink for bootstrap styling. Using as={Link} 
+                                 to ensure internal linking/not reloading the entire page (SPA) (basically to ensure
+                                 it acts as if we used NavLink) */}
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/products">
                                     Products
                                 </Nav.Link>
                             </Nav>
                             <Nav>
-                                {/* <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/signup">
-                                    Login
-                                </Nav.Link> */}
                                 <LoginLogout 
                                     id={id}
                                     setLoggedInUser={setLoggedInUser}
@@ -169,7 +158,7 @@ export function Header() {
                                     <FontAwesomeIcon icon={faShoppingCart} size="xl"/>
                                         <span style={{fontSize: '14px'}}>
                                             <Badge pill bg="danger" className='amountCounter' style={{position: 'relative', left: '-8px', top: '-15px' }}>
-                                                {getTotalAmountOfProducts()} 
+                                                {totalAmountOfProducts} 
                                             </Badge>
                                         </span>
                                 </Nav.Link>

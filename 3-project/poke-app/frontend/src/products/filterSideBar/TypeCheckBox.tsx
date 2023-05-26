@@ -8,13 +8,9 @@ import { TypeContext } from "../Products"
 export function TypeCheckBox({name, id, color, index} : {name: string, id: string, color:string, index:number}) {
     const { typeCheckedState, setTypeCheckedState} = useContext(TypeContext)
 
-    function handleOnChange(pos: number) {
-        const updatedTypeCheckedState = typeCheckedState.map((item, i) => {
-            if (i === pos) {
-                return !item
-            } else {
-                return item
-            }
+    function handleOnChange(flipIndex: number) {
+        const updatedTypeCheckedState = typeCheckedState.map((value, currentIndex) => {
+            return currentIndex === flipIndex ? !value : value
         })
         setTypeCheckedState(updatedTypeCheckedState)
     }

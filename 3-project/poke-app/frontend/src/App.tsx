@@ -1,4 +1,4 @@
-import './App.css'
+import './css/App.css'
 import { Footer } from './Footer'
 import { Header } from "./Header"
 

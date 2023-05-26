@@ -11,7 +11,6 @@ export function LoginForm() {
 
     function validateLoginMail() {
         let validationError : LoginError = {}
-        console.log({loginMail:loginMail})
         if ((!loginMail) || loginMail === "") { validationError.Email = "Email is required" }
         else if (! /@/.test(loginMail)) { validationError.Email = "Email must contain '@'" }
         setLoginError(validationError)
@@ -37,7 +36,7 @@ export function LoginForm() {
                     setLoggedInUser(userResult.firstName + ' ' + userResult.lastName)
                 }
             })
-            .catch(error => setLoginError({ Email: `User with email ${loginMail} does not exist`}))
+            .catch(() => setLoginError({ Email: `User with email ${loginMail} does not exist`}))
         }
     }
     return (
