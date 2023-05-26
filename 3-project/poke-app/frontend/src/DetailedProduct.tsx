@@ -4,23 +4,12 @@ import Button from "react-bootstrap/Button"
 //import Badge from 'react-bootstrap/Badge'
 import "./css/detailed-product.css"
 import { Container, Row, Col, Card } from "react-bootstrap"
-import { PokemonContext, CartContext, UserContext } from "./header"
+import { PokemonContext, CartContext, UserContext } from "./Header"
 import { useParams } from 'react-router-dom'
 import { pokeColours } from './consts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-
-function getSalePrice(pokeName: string, price: number) {
-    switch(pokeName) {
-        case "Pikachu": 
-        case "Bulbasaur":
-        case "Diglett": {
-            return String(price / 2) + " (reduced 50%!)"
-        } default: {
-            return price
-        }
-    }
-}
+import { getSalePrice } from './shoppingCart/ShoppingCart'
 
 export function DetailedProductPage() {
 
@@ -41,19 +30,6 @@ export function DetailedProductPage() {
         .then(shoppingCart => setCart(shoppingCart.basket))
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
-
-    // let salePrice
-    // switch(pokemon[Number(index)].name) {
-    //     case "Pikachu": 
-    //     case "Bulbasaur":
-    //     case "Diglett": {
-    //         salePrice = String(pokemon[Number(index)].price / 2) + " (reduced 50%!)"
-    //         break
-    //     }
-    //     default: {
-    //         salePrice = pokemon[Number(index)].price
-    //     }
-    // }
 
     return (
         <Container className="detailed-container">

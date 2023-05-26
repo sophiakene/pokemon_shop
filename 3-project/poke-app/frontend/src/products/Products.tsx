@@ -4,7 +4,7 @@ import  { createContext } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import { useContext, useState } from "react"
-import { PokemonContext} from "../header"
+import { PokemonContext} from "../Header"
 import 'font-awesome/css/font-awesome.min.css'
 import { pokeTypes, pokeSizes} from "../consts"
 import { PokeCard } from "./PokeCard"

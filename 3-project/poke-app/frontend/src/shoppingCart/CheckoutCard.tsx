@@ -1,7 +1,7 @@
 import { Button, Card } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useContext} from "react"
-import { CartContext } from "../header"
+import { CartContext } from "../Header"
 import 'font-awesome/css/font-awesome.min.css'
 
 

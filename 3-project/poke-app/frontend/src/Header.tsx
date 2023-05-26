@@ -5,8 +5,8 @@ import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
 import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products/Products'
-import { Home } from "./home";
-import { DetailedProductPage } from "./detailed-product";
+import { Home } from "./home/Home";
+import { DetailedProductPage } from "./DetailedProduct";
 import { ShoppingCart } from "./shoppingCart/ShoppingCart"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'

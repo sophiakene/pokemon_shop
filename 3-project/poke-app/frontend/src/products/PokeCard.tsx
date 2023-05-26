@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import { useContext } from "react"
-import { PokemonContext, UserContext, CartContext } from "../header"
+import { PokemonContext, UserContext, CartContext } from "../Header"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'

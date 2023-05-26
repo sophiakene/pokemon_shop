@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { useContext} from "react"
-import { UserContext, CartContext } from "../header"
+import { UserContext, CartContext } from "../Header"
 
 import 'font-awesome/css/font-awesome.min.css'
 import { IncButton } from "./IncButton"

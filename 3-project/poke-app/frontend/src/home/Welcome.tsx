@@ -1,7 +1,7 @@
 import React from 'react'
 import { useContext } from 'react'
-import { UserContext } from './header'
-import './css/welcome.css'
+import { UserContext } from '../Header'
+import './../css/welcome.css'
 
 export function PikaWelcome() {
     const { user, id } = useContext(UserContext)

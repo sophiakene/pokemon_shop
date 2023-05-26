@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { useContext, useEffect } from "react"
-import { UserContext, CartContext } from "../header"
+import { UserContext, CartContext } from "../Header"
 
 import 'font-awesome/css/font-awesome.min.css'
 import { CheckoutCard } from "./CheckoutCard"

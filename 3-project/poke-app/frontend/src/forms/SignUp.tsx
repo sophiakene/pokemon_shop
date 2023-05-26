@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/Button"
-import { SetUserContext } from "../header"
+import { SetUserContext } from "../Header"
 import React, { useState, useContext } from "react"
 import { Container, Form, Row } from "react-bootstrap"
 

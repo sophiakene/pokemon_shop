@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { SetUserContext } from "../header"
+import { SetUserContext } from "../Header"
 import { Container, Form, Row, Button } from "react-bootstrap"
 
 type LoginError = { Email?: string }

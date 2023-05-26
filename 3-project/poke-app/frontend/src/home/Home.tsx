@@ -1,5 +1,5 @@
-import { CarouselBanner } from "./carousel";
-import { PikaWelcome } from "./welcome";
+import { CarouselBanner } from "./Carousel";
+import { PikaWelcome } from "./Welcome";
 
 export function Home() {
     return (
