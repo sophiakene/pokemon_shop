@@ -148,9 +148,6 @@ function CartCard({index} : {index: number}) {
                             <Card.Text>
                                 Price: {price}
                             </Card.Text>
-                            {/* <Card.Text>
-                                Quantity: 
-                            </Card.Text> */}
                             <Card.Text className="mt-4">
                                 <DecButton handleClick={event => handleRemoveFromBasket(1)}/> 
                                 <span className="" style={{fontSize:"20px", paddingLeft:"10px", paddingRight:"10px", paddingBottom:"6px"}}>{amount}</span>
@@ -168,8 +165,6 @@ function CartCard({index} : {index: number}) {
         </div>  
     )
 }
-
-
 
 function AllCartCards() {// eslint-disable-next-line
     const { cart, setCart } = useContext(CartContext)
@@ -230,15 +225,17 @@ export function ShoppingCart() {
     const { cart, setCart } = useContext(CartContext)
 
     // update the CartContext
+    // id as dependency: if user id changes, we want to update the cart context
     useEffect(() => {
+        console.log("hi there")
         fetch(`http://localhost:3005/customers/${id}/baskets`, {
         method: 'GET',
         headers: { 'Content-type': 'application/json; charset=UTF-8' }
         })
         .then(response => response.json())
         .then(response => setCart(response.basket))
-        .catch(error => console.log({ errorFetchingBasketForUser: error }))
-    }, [])
+        .catch(error => console.log({ errorFetchingBasketForUser: error })) //eslint-disable-next-line
+    }, [id])
     
     return (
         <Container fluid>
