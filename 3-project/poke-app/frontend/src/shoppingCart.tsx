@@ -127,24 +127,28 @@ function CartCard({index} : {index: number}) {
         <div>
             <Card bg="light" className="mb-3">
                 <Row className="no-gutters">
-                    <Col md={3}>
-                        <Link to={detailedProduct}>
-                            <Card.Img src={image} alt="Pokemon" />
-                        </Link>
+                    <Col sm={{span:4, order:1}} xs={{order:2}}>
+                        <Card.Body>
+                            <Link to={detailedProduct}>
+                                <Card.Img style={{maxWidth:"80%"}} src={image} alt="Pokemon" />
+                            </Link>
+                        </Card.Body>
                     </Col>
-                    <Col md={6}>
+                    <Col sm={{span:5, order:2}} xs={{order:3}}>
                         <Card.Body>
                             <h5>
-                                <Card.Title>
-                                    {pokeName}
-                                </Card.Title>
+                                <Link to={detailedProduct}>
+                                    <Card.Title>
+                                        {pokeName}
+                                    </Card.Title>
+                                </Link>
                             </h5>
                             <Card.Text>
                                 Price: {price}
                             </Card.Text>
-                            <Card.Text className="mt-4">
+                            {/* <Card.Text>
                                 Quantity: 
-                            </Card.Text>
+                            </Card.Text> */}
                             <Card.Text>
                                 <DecButton handleClick={event => handleRemoveFromBasket(1)}/> 
                                 {" "} {amount} {" "}
@@ -152,8 +156,8 @@ function CartCard({index} : {index: number}) {
                             </Card.Text>
                         </Card.Body>
                     </Col>
-                    <Col md={3} className="mb-auto">
-                        <Card.Body style={{textAlign: "right"}}>
+                    <Col sm={{span:3, order:3}} xs={{order:1}} className="mb-auto">
+                        <Card.Body style={{textAlign: "right", maxWidth: "100%"}}>
                             <RemoveButton handleClick={event => handleRemoveFromBasket(amount)}/>
                         </Card.Body>
                     </Col>

@@ -46,9 +46,9 @@ function PokeCard({ index } : { index: number }) {
                 <Row className='no-gutters'>
                     <Col md={3}>
                         <Card.Body>
-                        <Link to={detailedProduct}>
-                            <Card.Img style={{width:"90%"}} src={image} alt="Pokemon" />
-                        </Link>
+                            <Link to={detailedProduct}>
+                                <Card.Img style={{width:"90%"}} src={image} alt="Pokemon" />
+                            </Link>
                         </Card.Body>
                     </Col>
                     <Col md={5}>
