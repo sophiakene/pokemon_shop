@@ -22,48 +22,46 @@ export function getSalePrice(pokeName: string, price: number) {
     }
 }
 
-function AllCartCards() {// eslint-disable-next-line
-    const { cart, setCart } = useContext(CartContext)
+function AllCartCards() {
+    const { cart, setCart } = useContext(CartContext) // eslint-disable-line
 
     if (cart.length !== 0) {
         const allCartCards = 
-            cart.map((cartElement, index) => { return (
-                <div key={cartElement.product.name}>
-                    <CartCard index={index} />
-                </div>
+            cart.map((cartElement, index) => { 
+                return (
+                    <div key={cartElement.product.name}>
+                        <CartCard index={index} />
+                    </div>
                 )
             })
         return (
             <div>
                 {allCartCards}
             </div>
-        ) 
-    } else {
-        return (
-            <div></div>
         )
+    } else {
+        return <div></div>
     }
 }
 
 export function ShoppingCart() {
-
     const { user, id } = useContext(UserContext)
     const { cart, setCart } = useContext(CartContext)
 
-    // update the CartContext
+    // Update the CartContext
     // id as dependency: if user id changes, we want to update the cart context
     useEffect(() => {
         fetch(`http://localhost:3005/customers/${id}/baskets`, {
-        method: 'GET',
-        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+            method: 'GET',
+            headers: { 'Content-type': 'application/json; charset=UTF-8' }
         })
         .then(response => response.json())
         .then(response => setCart(response.basket))
-        .catch(error => console.log({ errorFetchingBasketForUser: error })) //eslint-disable-next-line
-    }, [id])
+        .catch(error => console.log({ errorFetchingBasketForUser: error }))
+    }, [id]) //eslint-disable-line
 
-    // to avoid page refresh of shopping cart immediately results in 
-    // error we need to check that cart is defined.
+    // To avoid page refresh of shopping cart immediately results in error
+    // we need to check that cart is defined.
     if (cart) {
         return (
             <Container fluid>
