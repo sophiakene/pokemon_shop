@@ -34,6 +34,19 @@ export function DetailedProductPage() {
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
+    let salePrice
+    switch(pokemon[Number(index)].name) {
+        case "Pikachu": 
+        case "Bulbasaur":
+        case "Diglett": {
+            salePrice = String(pokemon[Number(index)].price / 2) + " (reduced 50%!)"
+            break
+        }
+        default: {
+            salePrice = pokemon[Number(index)].price
+        }
+    }
+
     return (
         <Container className="detailed-container">
                 <Row>
@@ -54,7 +67,7 @@ export function DetailedProductPage() {
                         </div>
                         <div className="detailed-text">
                             <h6>Price:</h6>
-                            <h4 id="price">{pokemon[Number(index)].price} DKK</h4>
+                            <h4 id="price">{salePrice} DKK</h4>
                         </div>
 
                         <div className="detailed-text">

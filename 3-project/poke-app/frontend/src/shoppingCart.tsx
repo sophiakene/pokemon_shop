@@ -58,8 +58,20 @@ function CheckoutCard() {// eslint-disable-next-line
     const { cart, setCart } = useContext(CartContext) 
     
     const {itemsTotal, subtotal} = cart.reduce((acc, item) => {
+        let salePrice
+        switch(item.product.name) {
+            case "Pikachu": 
+            case "Bulbasaur":
+            case "Diglett": {
+                salePrice = item.product.price / 2
+                break
+            }
+            default: {
+                salePrice = item.product.price
+            }
+        }
         acc.itemsTotal += item.amount
-        acc.subtotal += item.amount * item.product.price
+        acc.subtotal += item.amount * salePrice
         return acc
     }, {itemsTotal: 0, subtotal: 0})
     
@@ -98,6 +110,18 @@ function CartCard({index} : {index: number}) {
     const pokeName = product.name
     const image = `/data/poke_images/${pokeName.toLowerCase()}.avif`
     const price = product.price
+    let salePrice
+    switch(product.name) {
+        case "Pikachu": 
+        case "Bulbasaur":
+        case "Diglett": {
+            salePrice = price / 2
+            break
+        }
+        default: {
+            salePrice = price
+        }
+    }
 
     function handleRemoveFromBasket(amountToRemove:number) {
         // call backend to remove the specified amount of a product
@@ -146,7 +170,7 @@ function CartCard({index} : {index: number}) {
                                 </Link>
                             </h5>
                             <Card.Text>
-                                Price: {price} DKK
+                                Price: {salePrice} DKK
                             </Card.Text>
                             <Card.Text className="mt-4">
                                 <DecButton handleClick={event => handleRemoveFromBasket(1)}/> 

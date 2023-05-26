@@ -32,6 +32,19 @@ function PokeCard({ index } : { index: number }) {
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
 
+    let salePrice
+    switch(pokemon[Number(index)].name) {
+        case "Pikachu": 
+        case "Bulbasaur":
+        case "Diglett": {
+            salePrice = String(pokemon[Number(index)].price / 2) + " (reduced 50%!)"
+            break
+        }
+        default: {
+            salePrice = pokemon[Number(index)].price
+        }
+    }
+
     if( pokemon.length !== 0 ) {
         // changed the url as react-router-dom uses very specific path structure for placeholders
         const detailedProduct = `/detailed_product/${index}`
@@ -52,7 +65,7 @@ function PokeCard({ index } : { index: number }) {
                             <Link to={detailedProduct}>
                                 <Card.Title>{pokemon[index].name}</Card.Title>
                             </Link>
-                            <Card.Text>Price: {pokemon[index].price} DKK</Card.Text>
+                            <Card.Text>Price: {salePrice} DKK</Card.Text>
                         </Card.Body>
                     </Col>
                     <Col md={4} className="mt-auto">
