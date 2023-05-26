@@ -1,13 +1,13 @@
 import { useContext } from "react"
 import Button from "react-bootstrap/Button"
-import "./css/detailed-product.css"
+import "./../css/detailed-product.css"
 import { Container, Row, Col, Card } from "react-bootstrap"
-import { PokemonContext, CartContext, UserContext } from "./Header"
+import { PokemonContext, CartContext, UserContext } from "../Header"
 import { useParams } from 'react-router-dom'
-import { pokeColours } from './consts'
+import { pokeColours } from '../consts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { getSalePrice } from './shoppingCart/ShoppingCart'
+import { getSalePrice } from '../prices'
 
 export function DetailedProductPage() {
 

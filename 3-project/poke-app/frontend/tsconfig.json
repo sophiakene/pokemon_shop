@@ -22,5 +22,6 @@
   },
   "include": [
     "src"
-, "public/data"  ]
+  , "public/data"
+  ]
 }

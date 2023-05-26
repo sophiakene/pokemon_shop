@@ -9,19 +9,6 @@ import { CheckoutCard } from "./CheckoutCard"
 import { CartCard } from "./CartCard"
 import { CartGreeting } from "./CartGreeting"
 
-
-export function getSalePrice(pokeName: string, price: number) {
-    switch(pokeName) {
-        case "Pikachu": 
-        case "Bulbasaur":
-        case "Diglett": {
-            return String(price / 2) + " (reduced 50%!)"
-        } default: {
-            return price
-        }
-    }
-}
-
 function AllCartCards() {
     const { cart, setCart } = useContext(CartContext) // eslint-disable-line
 
