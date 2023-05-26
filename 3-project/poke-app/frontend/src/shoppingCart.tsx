@@ -127,10 +127,12 @@ function CartCard({index} : {index: number}) {
         <div>
             <Card bg="light" className="mb-3">
                 <Row className="no-gutters">
-                    <Col sm={{span:4, order:1}} xs={{order:2}}>
+                    {/* the extra ordering effort ensures the x-button ends up on top
+                    of the card in mobile view */}
+                    <Col sm={{span:4, order:1}} xs={{order:2}}> 
                         <Card.Body>
                             <Link to={detailedProduct}>
-                                <Card.Img style={{maxWidth:"80%"}} src={image} alt="Pokemon" />
+                                <Card.Img style={{width:"80%", maxWidth:"150px"}} src={image} alt="Pokemon" />
                             </Link>
                         </Card.Body>
                     </Col>
@@ -149,9 +151,9 @@ function CartCard({index} : {index: number}) {
                             {/* <Card.Text>
                                 Quantity: 
                             </Card.Text> */}
-                            <Card.Text>
+                            <Card.Text className="mt-4">
                                 <DecButton handleClick={event => handleRemoveFromBasket(1)}/> 
-                                {" "} {amount} {" "}
+                                <span className="" style={{fontSize:"20px", paddingLeft:"10px", paddingRight:"10px", paddingBottom:"6px"}}>{amount}</span>
                                 <IncButton handleClick={handleAddToBasket}/>
                             </Card.Text>
                         </Card.Body>
@@ -190,7 +192,6 @@ function AllCartCards() {// eslint-disable-next-line
             <div></div>
         )
     }
-    
 }
 
 function GuestEmptyCartGreeting() {
