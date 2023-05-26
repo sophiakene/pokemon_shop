@@ -1,8 +1,7 @@
 import { Container, Row, Col} from "react-bootstrap"
-import  { createContext } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './pokecard.css'
-import { useContext, useState } from "react"
+import './../css/pokecard.css'
+import { useContext, useState, createContext } from "react"
 import { PokemonContext} from "../Header"
 import 'font-awesome/css/font-awesome.min.css'
 import { pokeTypes, pokeSizes} from "../consts"

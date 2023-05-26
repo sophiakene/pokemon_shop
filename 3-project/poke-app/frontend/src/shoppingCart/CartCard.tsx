@@ -7,7 +7,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import { IncButton } from "./IncButton"
 import { DecButton } from "./DecButton"
 import { RemoveButton } from "./RemoveButton"
-import { getSalePrice } from "./ShoppingCart"
+import { getSalePrice } from "./../prices"
 
 export function CartCard({index} : {index: number}) {
     const { cart, setCart } = useContext(CartContext)

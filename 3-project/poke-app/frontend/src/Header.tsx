@@ -6,7 +6,7 @@ import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products/Products'
 import { Home } from "./home/Home";
-import { DetailedProductPage } from "./DetailedProduct";
+import { DetailedProductPage } from "./products/DetailedProduct";
 import { ShoppingCart } from "./shoppingCart/ShoppingCart"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
@@ -23,7 +23,7 @@ export const UserContext = createContext({ user: "", id: -1 })
 
 export const CartContext = createContext({cart: [] as Cart, setCart: (cart:Cart) => {} })
 
-// products context
+// Products context
 export const PokemonContext = createContext({
     pokemon: [] as Pokemon[],
 })
