@@ -26,7 +26,7 @@ function RemoveFilterButton() {
             size="sm"
             style={{justifyContent: 'end'}}
             onClick={resetFilters}>
-            Clear all
+            Clear filters
         </Button>
     )
 }
@@ -38,7 +38,7 @@ function SetDefaultButton() {
             className="btn btn-danger"
             size="sm"
             style={{justifyContent: 'end'}}>
-            Default
+            Clear sort
         </Button>
     )
 }
