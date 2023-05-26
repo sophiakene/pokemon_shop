@@ -73,7 +73,7 @@ function CheckoutCard() {// eslint-disable-next-line
                     Total number of items: {itemsTotal}
                 </Card.Text>
                 <Card.Text>
-                    Subtotal: {subtotal}
+                    Subtotal: {subtotal} DKK
                 </Card.Text>
                 <Button className="btn btn-danger btn-block">
                     Proceed to checkout
