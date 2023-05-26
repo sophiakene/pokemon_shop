@@ -1,14 +1,14 @@
-import { Container, Row, Col, Button, Card, InputGroup, } from "react-bootstrap"
+import { Container, Row, Col, Button, Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { useContext, useEffect } from "react"
-import { PokemonContext, UserContext, CartContext } from "./header"
+import { UserContext, CartContext } from "./header"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faXmark, faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
-import { Cart, CartElement } from "./types"
+import { Cart } from "./types"
 
 
 
@@ -54,8 +54,8 @@ function RemoveButton({ handleClick } : { handleClick: React.MouseEventHandler<H
     )
 }
 
-function CheckoutCard() {
-    const { cart, setCart } = useContext(CartContext)
+function CheckoutCard() {// eslint-disable-next-line
+    const { cart, setCart } = useContext(CartContext) 
     
     const {itemsTotal, subtotal} = cart.reduce((acc, item) => {
         acc.itemsTotal += item.amount
@@ -86,7 +86,7 @@ function CheckoutCard() {
 
 
 function CartCard({index} : {index: number}) {
-    const { cart, setCart } = useContext(CartContext)
+    const { cart, setCart } = useContext(CartContext) // eslint-disable-next-line
     const { user, id } = useContext(UserContext)
 
     const product = cart[index].product
@@ -169,7 +169,7 @@ function CartCard({index} : {index: number}) {
 
 
 
-function AllCartCards() {
+function AllCartCards() {// eslint-disable-next-line
     const { cart, setCart } = useContext(CartContext)
 
     if (cart.length !== 0) {

@@ -1,26 +1,23 @@
 // eslint-disable-next-line
-import { Container, Row, Col, Button, Nav, Card, Collapse, Form, ListGroup, Badge, Accordion, AccordionButton } from "react-bootstrap"
+import { Container, Row, Col, Button, Card, Form, Badge, Accordion } from "react-bootstrap"
 import  { createContext } from "react"
 import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './pokecard.css'
 import SidebarMenu from 'react-bootstrap-sidebar-menu'
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { PokemonContext, UserContext, CartContext } from "./header"
-import { Pokemon } from "./types"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import 'font-awesome/css/font-awesome.min.css'
 import { pokeTypes, pokeSizes, pokeColours } from "./consts"
 import AccordionHeader from "react-bootstrap/esm/AccordionHeader"
 import AccordionBody from "react-bootstrap/esm/AccordionBody"
-//import { library } from '@fortawesome/fontawesome-svg-core'; 
-//library.add(faShoppingCart)
 
 
 function PokeCard({ index } : { index: number }) {
-    const { pokemon } = useContext(PokemonContext)
-    const { user, id } = useContext(UserContext)
+    const { pokemon } = useContext(PokemonContext) // eslint-disable-next-line
+    const { user, id } = useContext(UserContext) // eslint-disable-next-line
     const { cart, setCart } = useContext(CartContext)
 
     function handleAddToBacket() {
@@ -31,7 +28,6 @@ function PokeCard({ index } : { index: number }) {
             body: JSON.stringify({ amount: 1})
         })
         .then(response => response.json() )
-        // .then(shoppingCart => setCart(shoppingCart))
         .then(shoppingCart => setCart(shoppingCart.basket))
         .catch(error => console.log({ errorAddingProductToShoppingCart: error }))
     }
@@ -100,17 +96,15 @@ export function Products() {
     
     const pokemonCards = 
         pokemon.map((pokemon, index) => { 
-            
+
             const checkedTypes = pokeTypes.filter((pokemonType, index) => {
-                if (typeCheckedState[index]) {
-                    return pokemonType
-                }
+                return typeCheckedState[index]
             })
+
             const checkedSizes = pokeSizes.filter((size, index) => {
-                if (sizeCheckedState[index]) {
-                    return size
-                }
+                return sizeCheckedState[index]
             })
+
             function getPokeCard() {
                 return (
                     <div key={pokemon.name}>
@@ -125,11 +119,12 @@ export function Products() {
             const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
             const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
 
-            //3rd version:
-            if (typeFound || noTypesAreChecked ){
-                if (sizeFound || noSizesAreChecked) {
+            //changed back to the first version of the logic, the other one 
+            // (ie 2nd version below) did not filter the right way 
+            if ( (typeFound || noTypesAreChecked) && (sizeFound || noSizesAreChecked) ){
                     return getPokeCard()
-                }
+            } else {
+                return <></>
             }
 
             //2nd version:
@@ -141,17 +136,6 @@ export function Products() {
             //     if (typeFound && sizeFound) { return getPokeCard() }
             // }
 
-            //1st version:
-            /*
-            if (typeFound || noTypesAreChecked ){
-                if (sizeFound || noSizesAreChecked) {
-                    return (
-                        <div key={pokemon.name}>
-                            <PokeCard index={index}/>
-                        </div>
-                    )
-                }
-            } */
         })
     return (
         <Container fluid>
@@ -192,8 +176,7 @@ function TypeCheckBox({name, id, color, index} : {name: string, id: string, colo
     return (
         <Form.Check
             name={name}
-            id={id} 
-            // label={<Badge style={{backgroundColor:"red"}}>{id}</Badge>}
+            id={id}
             label={
                 <div className="badge" style={{backgroundColor:color}}>
                     {id}
@@ -217,9 +200,7 @@ function SizeCheckBox({name, id, color, index} : {name: string, id: string, colo
             }
         })
 
-        console.log({before: sizeCheckedState})  
-        setSizeCheckedState(updatedSizeCheckedState)   
-        console.log({after: sizeCheckedState})    
+        setSizeCheckedState(updatedSizeCheckedState) 
     }
     return (
         <Form.Check
@@ -238,7 +219,9 @@ function AllTypeCheckBoxes() {
         pokeTypes.map((pokeType, index) => {
             const color = pokeColours[pokeType as keyof typeof pokeColours]
             return (
-                <TypeCheckBox name={"type"} id={pokeType} color={color} index={index}/>
+                <div key={pokeType}>
+                    <TypeCheckBox name={"type"} id={pokeType} color={color} index={index}/>
+                </div>
             )
         })
     return (
@@ -253,7 +236,9 @@ function AllSizeCheckBoxes() {
         pokeSizes.map((pokeSize, index) => {
             const color = "black"
             return (
-                <SizeCheckBox name={"type"} id={pokeSize} color={color} index={index} />
+                <div key={pokeSize}>
+                    <SizeCheckBox name={"type"} id={pokeSize} color={color} index={index} />
+                </div>
             )
         })
     return (

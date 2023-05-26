@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect, createContext } from "react"
 import { Navbar, Container, Nav, Badge } from "react-bootstrap"
-import { BrowserRouter, NavLink, Route, Routes, Link, useParams } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Routes, Link } from "react-router-dom";
 import { Forms } from "./forms/forms";
 import { Pokemon, Cart } from "./types";
 import { Products } from './products'
