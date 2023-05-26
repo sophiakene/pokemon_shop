@@ -52,33 +52,6 @@ export function Products() {
         return pokemonCards
     }
 
-    /*const pokemonCards = 
-        pokemon.map((pokemon, index) => { 
-
-            const checkedTypes = pokeTypes.filter((pokemonType, index) => {
-                return typeCheckedState[index]
-            })
-
-            const checkedSizes = pokeSizes.filter((size, index) => {
-                return sizeCheckedState[index]
-            })
-
-            const noTypesAreChecked = typeCheckedState.every(typeIsChecked => !typeIsChecked)
-            const noSizesAreChecked = sizeCheckedState.every(sizeIsChecked => !sizeIsChecked)
-
-            const typeFound = checkedTypes.some(pokemonType => pokemon.type.indexOf(pokemonType) >= 0)
-            const sizeFound = checkedSizes.includes(pokemon.sizeCategory)
-
-            if ( (typeFound || noTypesAreChecked) && (sizeFound || noSizesAreChecked) ){
-                    return (
-                        <div key={pokemon.name}>
-                            <PokeCard index={index}/>
-                        </div>
-                    )
-            } else {
-                return <></>
-            }
-        }) */
     return (
         <Container fluid>
             <Row>
