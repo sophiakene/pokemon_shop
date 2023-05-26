@@ -31,6 +31,7 @@ export const PokemonContext = createContext({
 })
 
 function getAllPokemon(setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>) {
+    console.log("getAllPokemon done again")
     fetch('http://localhost:3005/products', {
         method: 'GET',
         headers: { 'Content-type': 'application/json; charset=UTF-8' }
@@ -69,6 +70,16 @@ function setDefaultUser(
     .catch(error => console.log({ errorSettingUser: error }))
 }
 
+function getBasketContent(id: number, setCart:React.Dispatch<React.SetStateAction<Cart>>) {
+    fetch(`http://localhost:3005/customers/${id}/baskets`, {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' }
+        })
+    .then(response => response.json())
+    .then(response => setCart(response.basket))
+    .catch(error => console.log({ errorFetchingBasketForUser: error }))
+}
+
 export function Header() {
     const [user, setLoggedInUser] = useState("")
     const [id, setLoggedInUserId] = useState(-1)
@@ -79,15 +90,23 @@ export function Header() {
     const cartContext = { cart, setCart }
     useEffect(() => setDefaultUser(setLoggedInUserId, setLoggedInUser), [])
     useEffect(() => getAllPokemon(setPokemon), []) // eslint-disable-line react-hooks/exhaustive-deps
+    // if user id changes, cart state must be updated in order to show correct item counter on cart logo
+    useEffect(() => getBasketContent(id, setCart), [id])   //eslint-disable-line
     const pokemonContext = { pokemon }
-    function getTotalAmountOfProducts() { return cart.reduce((acc, cartElement) => cartElement.amount + acc, 0) }
-    let displayName = (id === 0) ? 'Guest' : user
+    function getTotalAmountOfProducts() { 
+        if (cart) {
+            return cart.reduce((acc, cartElement) => cartElement.amount + acc, 0) 
+        } else {
+            return 0
+        }}
+    const displayName = (id === 0) ? 'Guest' : user
 
     return (
         <BrowserRouter>
         {/* Set Usercontext for LoginForm overriding default values  */}
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
+                        {/* textDecoration none to remove link underline */}
                         <NavLink style={{textDecoration: 'none'}} to= "/">
                             <Navbar.Brand>
                                 <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
@@ -98,7 +117,7 @@ export function Header() {
                         <Navbar.Collapse> 
                             <Nav className="me-auto">
                                 {/* Using Nav.Link instead of NavLink for the bootstrap styling. Using as={Link} 
-                                to ensure internal linking/not reloading the entire page (basically to ensure
+                                to ensure internal linking/not reloading the entire page (SPA) (basically to ensure
                                 it acts as if I used NavLink) */}
                                 <Nav.Link as={Link} style={{textDecoration: 'none'}} to="/products">
                                     Products
