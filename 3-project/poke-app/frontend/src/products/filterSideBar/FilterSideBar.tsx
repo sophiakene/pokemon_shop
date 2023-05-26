@@ -37,14 +37,8 @@ function SetDefaultButton() {
             type="button"
             className="btn btn-danger"
             size="sm"
-<<<<<<< HEAD
             style={{justifyContent: 'end'}}>
             Clear sort
-=======
-            style={{justifyContent: 'end'}}
-        >
-            Default
->>>>>>> f3bd3f0a9b3b2deeb58b1e915fcdcf2d59175666
         </Button>
     )
 }
