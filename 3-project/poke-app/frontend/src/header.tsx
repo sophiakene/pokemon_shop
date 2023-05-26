@@ -88,9 +88,6 @@ export function Header() {
         {/* Set Usercontext for LoginForm overriding default values  */}
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md">
                     <Container fluid>
-                        {/* <NavLink style={{textDecoration: 'none'}} to= "/">
-                            <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
-                        </NavLink> */}
                         <NavLink style={{textDecoration: 'none'}} to= "/">
                             <Navbar.Brand>
                                 <img src="data/pokeball-logo.png" width='30vw' alt="Pokéball logo" className="logo-img"/>
@@ -115,7 +112,7 @@ export function Header() {
                                     <FontAwesomeIcon icon={faShoppingCart} size="xl"/>
                                         <span style={{fontSize: '14px'}}>
                                             <Badge pill bg="danger" className='amountCounter' style={{position: 'relative', left: '-8px', top: '-15px' }}>
-                                                {getTotalAmountOfProducts()}
+                                                {getTotalAmountOfProducts()} 
                                             </Badge>
                                         </span>
                                 </Nav.Link>

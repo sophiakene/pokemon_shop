@@ -259,7 +259,7 @@ function RemoveFilterButton() {
     return (
         <Button
             type="button"
-            className="btn btn-danger"
+            className="btn btn-dark"
             size="sm"
             style={{justifyContent: 'end'}}
             onClick={resetFilters}>
@@ -267,7 +267,6 @@ function RemoveFilterButton() {
         </Button>
     )
 }
-
 
 function FilterAccordion() {
     return (

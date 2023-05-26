@@ -146,7 +146,7 @@ function CartCard({index} : {index: number}) {
                                 </Link>
                             </h5>
                             <Card.Text>
-                                Price: {price}
+                                Price: {price} DKK
                             </Card.Text>
                             <Card.Text className="mt-4">
                                 <DecButton handleClick={event => handleRemoveFromBasket(1)}/> 
@@ -227,7 +227,6 @@ export function ShoppingCart() {
     // update the CartContext
     // id as dependency: if user id changes, we want to update the cart context
     useEffect(() => {
-        console.log("hi there")
         fetch(`http://localhost:3005/customers/${id}/baskets`, {
         method: 'GET',
         headers: { 'Content-type': 'application/json; charset=UTF-8' }
@@ -236,22 +235,28 @@ export function ShoppingCart() {
         .then(response => setCart(response.basket))
         .catch(error => console.log({ errorFetchingBasketForUser: error })) //eslint-disable-next-line
     }, [id])
-    
-    return (
-        <Container fluid>
-            <Row style={{justifyContent: 'center'}}>
-                <Col sm={8} className="mt-5">
-                    <CartGreeting userName={user} cart={cart}/>
-                </Col>
-            </Row>
-            <Row style={{justifyContent: 'center'}}>
-                <Col md={{span:6, order:1}} sm={{order:2}} xs={{order:2}} className="mt-3">
-                    <AllCartCards/>
-                </Col>
-                <Col md={{span:2, order:2}} sm={{order:1}} xs={{order:1}} className="mt-3" align="center">
-                    <CheckoutCard/>
-                </Col>
-            </Row>
-        </Container>
-    )
+
+    // to avoid page refresh of shopping cart immediately results in 
+    // error we need to check that cart is defined.
+    if (cart) {
+        return (
+            <Container fluid>
+                <Row style={{justifyContent: 'center'}}>
+                    <Col sm={8} className="mt-5">
+                        <CartGreeting userName={user} cart={cart}/>
+                    </Col>
+                </Row>
+                <Row style={{justifyContent: 'center'}}>
+                    <Col md={{span:6, order:1}} sm={{order:2}} xs={{order:2}} className="mt-3">
+                        <AllCartCards/>
+                    </Col>
+                    <Col md={{span:2, order:2}} sm={{order:1}} xs={{order:1}} className="mt-3" align="center">
+                        <CheckoutCard/>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    } else {
+        return <></>
+    }   
 }
